@@ -14,3 +14,10 @@ npm run dev
 Then open your browser and navigate to `http://localhost:3001`.
 
 The markdown files are located in the `content/docs/` directory. You can edit these files to update the documentation.
+
+# Migration from old docs
+
+Things to consider when migrating from the old docs to the new docs:
+- Change file extensions from `.md` to `.mdx`
+- Remove first heading and put title in the frontmatter
+- Replace all callouts
