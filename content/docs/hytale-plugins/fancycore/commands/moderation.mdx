@@ -1,0 +1,134 @@
+---
+title: Moderation
+description: Moderation options for FancyCore
+---
+
+![](/common/commands.png)
+
+# Commands for the moderation system
+
+<Callout type="warn">
+    The command list is not complete and not all commands are properly documented yet.
+    Some commands might not be implemented yet.
+</Callout>
+
+## Report
+
+### report
+
+Description: Reports a player for misconduct.
+Syntax: ``/report <player> [reason]``
+- `<player>` - Player to report
+- `[reason]` - Report reason (optional)
+
+Permission: ``fancycore.commands.report``
+
+### reports
+
+Description: Manage player reports.
+Syntax: ``/reports list`` or ``/reports view <reportID>`` or ``/reports close <reportID>``
+- `list` - Lists all active reports
+- `view <reportID>` - View report details (reportID: Report identifier)
+- `close <reportID>` - Close a report (reportID: Report identifier)
+
+Permission: ``fancycore.commands.reports.list``, ``fancycore.commands.reports.view``, ``fancycore.commands.reports.close``
+
+## Warn
+
+### warn
+
+Description: Issues a warning to a player.
+Syntax: ``/warn <player> [reason]``
+- `<player>` - Target player
+- `[reason]` - Warning reason (optional)
+
+Permission: ``fancycore.commands.warn``
+
+## Mute
+
+### mute
+
+Description: Mutes a player, preventing them from sending chat messages.
+Syntax: ``/mute <player> [reason]``
+- `<player>` - Target player
+- `[reason]` - Mute reason (optional)
+
+Permission: ``fancycore.commands.mute``
+
+### tempmute
+
+Description: Temporarily mutes a player for a specified duration.
+Syntax: ``/tempmute <player> <duration> [reason]``
+- `<player>` - Target player
+- `<duration>` - Mute duration
+- `[reason]` - Mute reason (optional)
+
+Permission: ``fancycore.commands.tempmute``
+
+### unmute
+
+Description: Unmutes a player.
+Syntax: ``/unmute <player>``
+- `<player>` - Target player
+
+Permission: ``fancycore.commands.unmute``
+
+
+## Kick
+
+### kick
+
+Description: Kicks a player from the server.
+Syntax: ``/kick <player> [reason]``
+- `<player>` - Target player
+- `[reason]` - Kick reason (optional)
+
+Permission: ``fancycore.commands.kick``
+
+## Ban
+
+### ban
+
+Description: Bans a player from the server.
+Syntax: ``/ban <player> [reason]``
+- `<player>` - Target player
+- `[reason]` - Ban reason (optional)
+
+Permission: ``fancycore.commands.ban``
+
+### tempban
+
+Description: Temporarily bans a player from the server for a specified duration.
+Syntax: ``/tempban <player> <duration> [reason]``
+- `<player>` - Target player
+- `<duration>` - Ban duration
+- `[reason]` - Ban reason (optional)
+
+Permission: ``fancycore.commands.tempban``
+
+### unban
+
+Description: Unbans a player from the server.
+Syntax: ``/unban <player>``
+- `<player>` - Target player
+
+Permission: ``fancycore.commands.unban``
+
+## Logs
+
+### modlogs
+
+Description: Views the moderation logs.
+Syntax: ``/modlogs [player]``
+- `[player]` - Filter by player (optional)
+
+Permission: ``fancycore.commands.modlogs``
+
+### chatlogs
+
+Description: Views the chat logs.
+Syntax: ``/chatlogs [player] [--withCommands]``
+- `[player]` - Filter by player (optional)
+- `[--withCommands]` - Include commands (optional)
+
+Permission: ``fancycore.commands.chatlogs``

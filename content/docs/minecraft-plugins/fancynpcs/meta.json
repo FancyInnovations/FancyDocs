@@ -1,5 +1,6 @@
 {
   "title": "FancyNpcs",
   "icon": "",
-  "defaultOpen": true
+  "defaultOpen": true,
+  "pages": ["getting-started", "commands", "tutorials", "api", "changelog","inspiration", "faq"]
 }

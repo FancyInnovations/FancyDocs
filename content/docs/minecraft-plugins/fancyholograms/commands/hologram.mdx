@@ -1,0 +1,223 @@
+---
+title: /hologram
+description: Usage of /hologram
+---
+
+![](/common/commands.png)
+
+## Manage holograms
+
+### help
+
+Description: Shows a list of all subcommands
+Syntax: ``/Hologram help``
+Permission: ``FancyHolograms.admin``
+
+### list
+
+Description: Shows a list of all holograms
+Syntax: ``/Hologram list``
+Permission: ``FancyHolograms.admin``
+
+### nearby
+
+Description: Shows all holograms nearby you in a range
+Syntax: ``/Hologram nearby <range>``
+Permission: ``FancyHolograms.admin``
+
+### create
+
+Description: Creates a new hologram at your location
+Syntax: ``/Hologram create (type) (name)``
+Permission: ``FancyHolograms.admin``
+
+### remove
+
+Description: Removes a certain hologram
+Syntax: ``/Hologram remove (hologram)``
+Permission: ``FancyHolograms.admin``
+
+### copy
+
+Description: Creates a copy of a hologram
+Syntax: ``/Hologram copy (hologram) (new name)``
+Permission: ``FancyHolograms.admin``
+
+### info
+
+Description: Shows you all information about the hologram
+Syntax: ``/Hologram info (hologram)``
+Permission: ``FancyHolograms.admin``
+
+## General hologram modification
+
+These commands can be run for any hologram type (text, item and block).
+
+### moveHere
+
+Description: Teleports the hologram to you
+Syntax: ``/Hologram edit (hologram) moveHere``
+Alias: ``/Hologram edit (hologram) position``
+Permission: ``FancyHolograms.admin``
+
+### moveTo
+
+Description: Teleports the hologram to the location
+Syntax: ``/Hologram edit (hologram) moveTo (x) (y) (z) [yaw] [pitch]``
+Permission: ``FancyHolograms.admin``
+
+### rotate
+
+Description: Rotates the hologram around the y-axis
+Syntax: ``/Hologram edit (hologram) rotate (degrees)``
+Permission: ``FancyHolograms.admin``
+
+### rotatepitch
+
+Description: Rotates the hologram around the x-axis
+Syntax: ``/Hologram edit (hologram) rotatepitch (degrees)``
+Permission: ``FancyHolograms.admin``
+
+### translate
+
+Description: Translates the hologram by a certain amount in the x, y and z direction
+Syntax: ``/Hologram edit (hologram) rotatepitch (x) (y) (z)``
+Permission: ``FancyHolograms.admin``
+
+
+### visibilityDistance
+
+Description: Sets from how far away players can see the hologram (-1 for default distance)
+Syntax: ``/Hologram edit (hologram) visibilityDistance (distance)``
+Permission: ``FancyHolograms.admin``
+
+### visibility
+
+Description: Sets how the visibility should be controlled
+Syntax: ``/Hologram edit (hologram) visibility (ALL | MANUAL | PERMISSION_NEEDED)``
+Permission: ``FancyHolograms.admin``
+Permission to view a hologram: ``FancyHolograms.viewhologram.<name>``
+
+### scale
+
+Description: Sets the scale (can be floats)
+Syntax: ``/Hologram edit (hologram) scale (factor)``
+Permission: ``FancyHolograms.admin``
+
+### billboard
+
+Description: Sets the billboard
+Syntax: ``/Hologram edit (hologram) billboard (center | fixed | vertical | horizontal)``
+Permission: ``FancyHolograms.admin``
+
+### shadowStrength
+
+Description: Sets the shadow strength
+Syntax: ``/Hologram edit (hologram) shadowStrength (strength)``
+Permission: ``FancyHolograms.admin``
+
+### shadowRadius
+
+Description: Sets the shadow radius
+Syntax: ``/Hologram edit (hologram) shadowRadius (radius)``
+Permission: ``FancyHolograms.admin``
+
+### linkWithNpc
+
+Description: Links a hologram with an NPC (requires FancyNpcs)
+Syntax: ``/Hologram edit (hologram) linkWithNpc (npc)``
+Permission: ``FancyHolograms.admin``
+
+### unlinkWithNpc
+
+Description: Unlinks the hologram from the NPC
+Syntax: ``/Hologram edit (hologram) unlinkWithNpc``
+Permission: ``FancyHolograms.admin``
+
+## Text hologram modification
+
+These commands can be run for all **text** holograms.
+
+### setLine
+
+Description: Sets the content of the line
+Syntax: ``/Hologram edit (hologram) setLine (line) (text...)``
+Permission: ``FancyHolograms.admin``
+
+### addLine
+
+Description: Adds a line at the bottom
+Syntax: ``/Hologram edit (hologram) addLine (text...)``
+Permission: ``FancyHolograms.admin``
+
+### removeLine
+
+Description: Removes a line
+Syntax: ``/Hologram edit (hologram) removeLine (line)``
+Permission: ``FancyHolograms.admin``
+
+### insertBefore
+
+Description: Adds a line after another
+Syntax: ``/Hologram edit (hologram) insertBefore (line) (text...)``
+Permission: ``FancyHolograms.admin``
+
+### insertAfter
+
+Description: Adds a line before another
+Syntax: ``/Hologram edit (hologram) insertAfter (line) (text...)``
+Permission: ``FancyHolograms.admin``
+
+### updateTextInterval
+
+Description: Sets the interval for refreshing the text (useful for
+placeholders)
+Syntax: ``/Hologram edit (hologram) updateTextInterval (ticks | seconds | minutes)``
+Example ticks:``/Hologram edit (hologram) updateTextInterval 15``
+Example seconds:``/Hologram edit (hologram) updateTextInterval 5s``
+Example minutes:``/Hologram edit (hologram) updateTextInterval 5m``
+Permission: ``FancyHolograms.admin``
+
+### background
+
+Description: Sets the background color
+Syntax: ``/Hologram edit (hologram) background (color)``
+Permission: ``FancyHolograms.admin``
+
+### textShadow
+
+Description: Enables/disables the text shadow
+Syntax: ``/Hologram edit (hologram) textShadow (true|false)``
+Permission: ``FancyHolograms.admin``
+
+### brightness
+
+Description: Changes the brightness of the hologram
+Syntax: ``/hologram edit <hologram> brightness (block | sky) (0-15)``
+Permission: ``FancyHolograms.admin``
+
+### textAlignment
+
+Description: Sets the alignment of the text
+Syntax: ``/Hologram edit (hologram) textAlignment (center | left | right)``
+Permission: ``FancyHolograms.admin``
+
+## Item hologram modification
+
+These commands can be run for all **item** holograms.
+
+### item
+
+Description: Sets the hologram item you are holding in your main hand
+Syntax: ``/Hologram edit (hologram) item``
+Permission: ``FancyHolograms.admin``
+
+## Block hologram modification
+
+These commands can be run for all **block** holograms.
+
+### block
+
+Description: Sets the hologram block
+Syntax: ``/Hologram edit (hologram) block (block type)``
+Permission: ``FancyHolograms.admin``

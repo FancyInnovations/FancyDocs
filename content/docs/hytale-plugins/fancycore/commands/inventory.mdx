@@ -1,0 +1,100 @@
+---
+title: Inventory
+description: Economy options for FancyCore
+---
+
+![](/common/commands.png)
+
+# Commands for the inventory system
+
+<Callout type="warn">
+    The command list is not complete and not all commands are properly documented yet.
+    Some commands might not be implemented yet.
+</Callout>
+
+## Kits
+
+### createkit
+
+Description: Creates a new kit with the specified name. It contains all items in your inventory.
+Syntax: ``/createkit <name>``
+- `<name>` - Kit name
+
+Permission: ``fancycore.commands.createkit``
+
+### deletekit
+
+Description: Deletes the specified kit.
+Syntax: ``/deletekit <name>``
+- `<name>` - Kit name
+
+Permission: ``fancycore.commands.deletekit``
+
+### kit
+
+Description: Gives the specified kit to the targeted player(s).
+Syntax: ``/kit <name> [player]``
+- `<name>` - Kit name
+- `[player]` - Target player (optional)
+
+Permission: ``fancycore.commands.kit.(name)``
+
+### listkits
+
+Description: Lists all available kits.
+Syntax: ``/listkits`` or ``/kits``
+
+Permission: ``fancycore.commands.listkits``
+
+## Backpacks
+
+### backpack
+
+Description: Opens the specified backpack of the targeted player.
+Syntax: ``/backpack <name> [player]``
+- `<name>` - Backpack name
+- `[player]` - Target player (optional)
+
+Permission: ``fancycore.commands.backpack``
+
+### createbackpack
+
+Description: Creates a new backpack with the specified name and size.
+Syntax: ``/createbackpack <name> <size>``
+- `<name>` - Backpack name
+- `<size>` - Inventory size
+
+Permission: ``fancycore.commands.createbackpack``
+
+### deletebackpack
+
+Description: Deletes the specified backpack.
+Syntax: ``/deletebackpack <name>``
+- `<name>` - Backpack name
+
+Permission: ``fancycore.commands.deletebackpack``
+
+### listbackpacks
+
+Description: Lists all available backpacks.
+Syntax: ``/listbackpacks`` or ``/backpacks``
+
+Permission: ``fancycore.commands.listbackpacks``
+
+## Utilities
+
+### clearinventory
+
+Description: Clears the inventory of the targeted player(s).
+Syntax: ``/clearinventory [player]``
+- `[player]` - Target player (optional)
+
+Permission: ``fancycore.commands.clearinventory``
+
+### openinventory
+
+Description: Opens the inventory of the targeted player.
+Syntax: ``/openinventory <player>`` or ``/invsee <player>``
+- `<player>` - Target player
+
+Permission: ``fancycore.commands.openinventory``

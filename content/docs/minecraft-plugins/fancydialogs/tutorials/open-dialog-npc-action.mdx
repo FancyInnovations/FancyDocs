@@ -1,0 +1,52 @@
+---
+title: Open Dialog with NPC
+description: How to open a dialog using FancyNPCs' NPCs
+---
+
+<Callout type="warn">
+    This action is only available if both [FancyDialogs](https://modrinth.com/plugin/fancydialogs) AND [FancyNpcs](https://modrinth.com/plugin/fancynpcs) are installed on the server.
+</Callout>
+
+When you have both FancyDialogs and FancyNpcs installed, FancyDialogs automatically registers a new action type called `open_dialog` in the FancyNpcs action system. This allows you to create interactive NPCs that open custom dialogs when players interact with them.
+
+## Adding the Action
+
+To add the dialog action to an NPC, use the following command:
+
+```
+/npc action <npc_id> ANY_CLICK add open_dialog <dialog_id>
+```
+
+### Parameters
+
+- `<npc_id>`: The ID or name of the NPC you want to add the action to
+- `<dialog_id>`: The ID of the dialog you want to open (must exist in `plugins/FancyDialogs/data/dialogs/`)
+
+### Click Types
+
+You can customize when the dialog opens by changing the click type:
+
+- `ANY_CLICK`: Opens the dialog on any click (left or right)
+- `LEFT_CLICK`: Opens the dialog only on left click
+- `RIGHT_CLICK`: Opens the dialog only on right click
+
+## Example
+
+Here's a complete example of creating an NPC that opens a welcome dialog:
+
+```
+# Create the NPC
+/npc create shop_keeper
+
+# Add the dialog action
+/npc action shop_keeper ANY_CLICK add open_dialog welcome
+
+# Move the NPC to your location
+/npc movehere shop_keeper
+```
+
+Now when players click on the NPC, they'll see the welcome dialog.
+
+<Callout>
+    You can add multiple actions to an NPC. For example, you could open a dialog AND execute a command when the player clicks the NPC.
+</Callout>

@@ -1,0 +1,65 @@
+---
+title: Economy
+description: Economy options for FancyCore
+---
+
+![](/common/commands.png)
+
+# Commands for the economy system
+
+<Callout type="warn">
+    The command list is not complete and not all commands are properly documented yet.
+    Some commands might not be implemented yet.
+</Callout>
+
+### balance
+
+Description: Displays the balance of the specified player or your own balance if no player is specified.
+Syntax: ``/balance [player]``
+- `[player]` - Player to check (optional)
+
+Permission: ``fancycore.commands.balance``
+
+### pay
+
+Description: Transfers a specified amount of money from your balance to another player's balance.
+Syntax: ``/pay <player> <amount>``
+- `<player>` - Target player
+- `<amount>` - Amount to transfer
+
+Permission: ``fancycore.commands.pay``
+
+### setbalance
+
+Description: Sets the balance of the specified player to a given amount.
+Syntax: ``/setbalance <player> <amount>``
+- `<player>` - Target player
+- `<amount>` - New balance amount
+
+Permission: ``fancycore.commands.setbalance``
+
+### addbalance
+
+Description: Adds a specified amount of money to the balance of the specified player.
+Syntax: ``/addbalance <player> <amount>``
+- `<player>` - Target player
+- `<amount>` - Amount to add
+
+Permission: ``fancycore.commands.addbalance``
+
+### removebalance
+
+Description: Removes a specified amount of money from the balance of the specified player.
+Syntax: ``/removebalance <player> <amount>``
+- `<player>` - Target player
+- `<amount>` - Amount to remove
+
+Permission: ``fancycore.commands.removebalance``
+
+### topbalances
+
+Description: Displays a leaderboard of players with the highest balances.
+Syntax: ``/topbalances [page]``
+- `[page]` - Page number (optional)
+
+Permission: ``fancycore.commands.topbalances``

@@ -1,0 +1,6 @@
+{
+  "title": "FancyHolograms",
+  "icon": "",
+  "defaultOpen": true,
+  "pages": ["getting-started", "commands", "tutorials", "api", "changelog","inspiration", "faq"]
+}

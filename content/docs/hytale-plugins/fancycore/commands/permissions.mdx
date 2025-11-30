@@ -1,0 +1,98 @@
+---
+title: Permissions
+description: Permission options for FancyCore
+---
+
+![](/common/commands.png)
+
+# Commands for the permissions system
+
+<Callout type="warn">
+    The command list is not complete and not all commands are properly documented yet.
+    Some commands might not be implemented yet.
+</Callout>
+
+## Groups
+
+### groups
+
+Description: Manage permission groups.
+Syntax: ``/groups <action> [args...]``
+
+**Actions:**
+- ``/groups create <name>`` - Creates a new group
+  - `<name>` - Group name
+  - Permission: ``fancycore.commands.creategroup``
+
+- ``/groups delete <name>`` - Deletes a group
+  - `<name>` - Group name
+  - Permission: ``fancycore.commands.deletegroup``
+
+- ``/groups list`` - Lists all available groups
+  - Permission: ``fancycore.commands.listgroups``
+
+- ``/groups info <name>`` - Displays group information
+  - `<name>` - Group name
+  - Permission: ``fancycore.commands.infogroup``
+
+- ``/groups parent <group> set <parent>`` - Sets parent group
+  - `<group>` - Target group
+  - `<parent>` - Parent group name
+  - Permission: ``fancycore.commands.setparentgroup``
+
+- ``/groups permission <group> add <permission>`` - Adds permission to group
+  - `<group>` - Target group
+  - `<permission>` - Permission node
+  - Permission: ``fancycore.commands.addpermtogroup``
+
+- ``/groups permission <group> remove <permission>`` - Removes permission from group
+  - `<group>` - Target group
+  - `<permission>` - Permission node
+  - Permission: ``fancycore.commands.removepermfromgroup``
+
+- ``/groups prefix <group> set <prefix>`` - Sets group prefix
+  - `<group>` - Target group
+  - `<prefix>` - Prefix text
+  - Permission: ``fancycore.commands.setprefixforgroup``
+
+- ``/groups suffix <group> set <suffix>`` - Sets group suffix
+  - `<group>` - Target group
+  - `<suffix>` - Suffix text
+  - Permission: ``fancycore.commands.setsuffixforgroup``
+
+- ``/groups player <player> add <group>`` - Adds player to group
+  - `<player>` - Target player
+  - `<group>` - Group name
+  - Permission: ``fancycore.commands.addplayertogroup``
+
+- ``/groups player <player> remove <group>`` - Removes player from group
+  - `<player>` - Target player
+  - `<group>` - Group name
+  - Permission: ``fancycore.commands.removeplayerfromgroup``
+
+## Player Permissions
+
+### permission
+
+Description: Manage player permissions.
+Syntax: ``/permission <action> [args...]``
+
+**Actions:**
+- ``/permission add <permission> [player]`` - Adds permission to player
+  - `<permission>` - Permission node
+  - `[player]` - Target player (optional)
+  - Permission: ``fancycore.commands.addpermtoplayer``
+
+- ``/permission remove <permission> [player]`` - Removes permission from player
+  - `<permission>` - Permission node
+  - `[player]` - Target player (optional)
+  - Permission: ``fancycore.commands.removepermfromplayer``
+
+- ``/permission check <permission> [player]`` - Checks if player has permission
+  - `<permission>` - Permission node
+  - `[player]` - Target player (optional)
+  - Permission: ``fancycore.commands.checkplayerperm``
+
+- ``/permission list [player]`` - Lists all player permissions
+  - `[player]` - Target player (optional)
+  - Permission: ``fancycore.commands.listplayerperms``

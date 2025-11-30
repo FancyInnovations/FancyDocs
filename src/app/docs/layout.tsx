@@ -9,6 +9,11 @@ export default function Layout({ children }: LayoutProps<'/docs'>) {
         sidebar={{
             tabs: [
                 {
+                    title: 'General',
+                    description: 'Blog, development guidelines, and product direction.',
+                    url: '/docs/general',
+                },
+                {
                     title: 'Minecraft Plugins',
                     description: 'Docs for our Minecraft (paper) plugins.',
                     url: '/docs/minecraft-plugins',

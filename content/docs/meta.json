@@ -3,6 +3,7 @@
   "description": "",
   "root": true,
   "pages": [
+    "general",
     "minecraft-plugins",
     "hytale-plugins",
     "fancyanalytics"

@@ -1,0 +1,83 @@
+---
+title: Server
+description: Server options for FancyCore
+---
+
+![](/common/commands.png)
+
+# Commands for the server system
+
+<Callout type="warn">
+    The command list is not complete and not all commands are properly documented yet.
+    Some commands might not be implemented yet.
+</Callout>
+
+## Server control
+
+### restart
+
+Description: Restarts the server after a specified delay.
+Syntax: ``/restart <delay>``
+- `<delay>` - Delay in seconds
+
+Permission: ``fancycore.commands.restart``
+
+### stop
+
+Description: Stops the server after a specified delay.
+Syntax: ``/stop <delay>``
+- `<delay>` - Delay in seconds
+
+Permission: ``fancycore.commands.stop``
+
+### saveall
+
+Description: Forces the server to save all data immediately.
+Syntax: ``/saveall``
+
+Permission: ``fancycore.commands.saveall``
+
+## Server health
+
+### health
+
+Description: Displays server health information.
+Syntax: ``/health [metric]``
+
+**Metrics:**
+- ``/health`` - Overview of server health
+  - Permission: ``fancycore.commands.health``
+
+- ``/health tps`` - Current ticks per second
+  - Permission: ``fancycore.commands.health.tps``
+
+- ``/health memory`` - Current memory usage
+  - Permission: ``fancycore.commands.health.memory``
+
+- ``/health uptime`` - Server uptime since restart
+  - Permission: ``fancycore.commands.health.uptime``
+
+- ``/health cpu`` - Current CPU usage
+  - Permission: ``fancycore.commands.health.cpu``
+
+- ``/health entities`` - Total loaded entities
+  - Permission: ``fancycore.commands.health.entities``
+
+- ``/health players`` - Current player count
+  - Permission: ``fancycore.commands.health.players``
+
+## Players
+
+### onlineplayers
+
+Description: Lists all players currently online on the server.
+Syntax: ``/onlineplayers``
+
+Permission: ``fancycore.commands.onlineplayers``
+
+### registeredplayers
+
+Description: Lists all players registered on the server.
+Syntax: ``/registeredplayers``
+
+Permission: ``fancycore.commands.registeredplayers``

@@ -1,0 +1,7 @@
+{
+  "title": "blog",
+  "description": "",
+  "pages": [
+    "introducing-hytale-plugins", "fa-dev-log-2", "fa-dev-log-1", "dialog-use-cases", "what-are-minecraft-dialogs", "1_21_5-update", "why-monorepo", "new-docs"
+  ]
+}

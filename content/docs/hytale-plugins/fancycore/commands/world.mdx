@@ -1,0 +1,74 @@
+---
+title: World
+description: World options for FancyCore
+---
+
+![](/common/commands.png)
+
+# Commands for the world management system
+
+<Callout type="warn">
+    The command list is not complete and not all commands are properly documented yet.
+    Some commands might not be implemented yet.
+</Callout>
+
+## World Management
+
+### createworld
+
+Description: Creates a new world with the specified name.
+Syntax: ``/createworld <name> [type]``
+- `<name>` - World name
+- `[type]` - World type (optional)
+
+Permission: ``fancycore.commands.createworld``
+
+### copyworld
+
+Description: Creates a copy of the specified world.
+Syntax: ``/copyworld <source> <destination>``
+- `<source>` - Source world name
+- `<destination>` - New world name
+
+Permission: ``fancycore.commands.copyworld``
+
+### deleteworld
+
+Description: Deletes the specified world from the server.
+Syntax: ``/deleteworld <name>``
+- `<name>` - World name
+
+Permission: ``fancycore.commands.deleteworld``
+
+### listworlds
+
+Description: Lists all available worlds on the server.
+Syntax: ``/listworlds`` or ``/worlds``
+
+Permission: ``fancycore.commands.listworlds``
+
+### world
+
+Description: Teleports you to the specified world.
+Syntax: ``/world <name>``
+- `<name>` - World name
+
+Permission: ``fancycore.commands.world``
+
+## Utility Commands
+
+### setweather
+
+Description: Sets the weather in the current world.
+Syntax: ``/setweather <weather>``
+- `<weather>` - Weather type (sun/rain)
+
+Permission: ``fancycore.commands.setweather``
+
+### settime
+
+Description: Sets the time of day in the current world.
+Syntax: ``/settime <time>``
+- `<time>` - Time value
+
+Permission: ``fancycore.commands.settime``
