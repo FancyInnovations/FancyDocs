@@ -4,8 +4,10 @@
 
 @theme {
     --color-fd-primary: hsl(57, 100%, 42%);
+    --color-primary-foreground: hsl(0, 0%, 5%);
 }
 
 .dark {
     --color-fd-primary: hsl(57, 100%, 42%);
+    --color-primary-foreground: hsl(0, 0%, 5%);
 }

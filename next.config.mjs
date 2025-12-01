@@ -15,6 +15,10 @@ const config = {
         protocol: 'https',
         hostname: 'media1.tenor.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+      },
     ],
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
