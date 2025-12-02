@@ -1,0 +1,219 @@
+---
+title: NPC Manager
+description: Managing NPCs with the NpcManager
+---
+
+The `NpcManager` is the central registry for all NPCs in FancyNPCs. It handles registration, retrieval, and persistence of NPCs.
+
+## Accessing the NPC Manager
+
+You can access the NPC manager through the main plugin instance:
+
+```java
+NpcManager npcManager = FancyNpcsPlugin.get().getNpcManager();
+```
+
+## Registering NPCs
+
+### Register a new NPC
+
+Register an NPC to make it managed by FancyNPCs. This enables automatic saving, spawning, and despawning.
+
+```java
+Npc npc = FancyNpcsPlugin.get().getNpcAdapter().apply(npcData);
+npcManager.registerNpc(npc);
+```
+
+<Callout type="warn">
+    Always register NPCs after the `NpcsLoadedEvent` has been fired, or wait at least 10 seconds after server startup.
+</Callout>
+
+### Unregister an NPC
+
+Remove an NPC from the manager. This will stop tracking the NPC but won't automatically despawn it for players.
+
+```java
+npcManager.removeNpc(npc);
+```
+
+## Retrieving NPCs
+
+### Get NPC by name
+
+```java
+Npc npc = npcManager.getNpc("my_npc");
+if (npc == null) {
+    // NPC not found
+}
+```
+
+### Get NPC by ID
+
+```java
+String npcId = "550e8400-e29b-41d4-a716-446655440000";
+Npc npc = npcManager.getNpcById(npcId);
+```
+
+### Get NPC by name and creator
+
+When the `player-npcs` feature flag is enabled, NPC names are no longer unique. Use this method to get NPCs by both name and creator UUID:
+
+```java
+UUID creatorUUID = player.getUniqueId();
+Npc npc = npcManager.getNpc("my_npc", creatorUUID);
+```
+
+### Get all NPCs
+
+Retrieve all registered NPCs:
+
+```java
+Collection<Npc> allNpcs = npcManager.getAllNpcs();
+
+// Iterate over all NPCs
+for (Npc npc : allNpcs) {
+    String name = npc.getData().getName();
+    Location location = npc.getData().getLocation();
+    // ... do something with the NPC
+}
+```
+
+### Filter NPCs
+
+You can filter NPCs by various criteria:
+
+```java
+// Get all NPCs in a specific world
+String worldName = "world";
+List<Npc> npcsInWorld = npcManager.getAllNpcs().stream()
+    .filter(npc -> npc.getData().getLocation().getWorld().getName().equals(worldName))
+    .toList();
+
+// Get all NPCs of a specific type
+EntityType type = EntityType.PLAYER;
+List<Npc> playerNpcs = npcManager.getAllNpcs().stream()
+    .filter(npc -> npc.getData().getType() == type)
+    .toList();
+
+// Get all NPCs created by a specific player
+UUID creator = player.getUniqueId();
+List<Npc> playerCreatedNpcs = npcManager.getAllNpcs().stream()
+    .filter(npc -> npc.getData().getCreator().equals(creator))
+    .toList();
+```
+
+## Persistence
+
+### Save NPCs to disk
+
+Save all registered NPCs to the disk:
+
+```java
+npcManager.saveNpcs(false); // false = only save if dirty
+npcManager.saveNpcs(true);  // true = force save all
+```
+
+### Load NPCs from disk
+
+Load all NPCs from the disk. This is automatically called on plugin startup:
+
+```java
+npcManager.loadNpcs();
+```
+
+<Callout type="warn">
+    Be careful when calling `loadNpcs()` manually, as it will reload all NPCs from disk and may cause existing NPC references to become invalid.
+</Callout>
+
+### Reload NPCs
+
+Reload all NPCs from disk. This will unregister all current NPCs and load them fresh:
+
+```java
+npcManager.reloadNpcs();
+```
+
+## Check if NPCs are loaded
+
+Check if the NPC manager has finished loading NPCs:
+
+```java
+boolean isLoaded = npcManager.isLoaded();
+
+if (isLoaded) {
+    // Safe to register NPCs
+} else {
+    // Wait for NpcsLoadedEvent
+}
+```
+
+## Example: Creating a helper class
+
+Here's a complete example of a helper class for managing NPCs:
+
+```java
+import de.oliver.fancynpcs.api.Npc;
+import de.oliver.fancynpcs.api.NpcData;
+import de.oliver.fancynpcs.api.FancyNpcsPlugin;
+import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
+
+import java.util.List;
+import java.util.UUID;
+
+public class NpcHelper {
+    private static final FancyNpcsPlugin plugin = FancyNpcsPlugin.get();
+
+    /**
+     * Create and register a new NPC
+     */
+    public static Npc createNpc(String name, UUID creator, Location location) {
+        // Create NPC data
+        NpcData data = new NpcData(name, creator, location);
+        data.setType(EntityType.PLAYER);
+
+        // Create NPC instance
+        Npc npc = plugin.getNpcAdapter().apply(data);
+
+        // Register with manager
+        plugin.getNpcManager().registerNpc(npc);
+
+        // Spawn for all players
+        npc.create();
+        npc.spawnForAll();
+
+        return npc;
+    }
+
+    /**
+     * Safely remove an NPC
+     */
+    public static void removeNpc(String name) {
+        Npc npc = plugin.getNpcManager().getNpc(name);
+        if (npc != null) {
+            npc.removeForAll();
+            plugin.getNpcManager().removeNpc(npc);
+        }
+    }
+
+    /**
+     * Get all NPCs in a world
+     */
+    public static List<Npc> getNpcsInWorld(String worldName) {
+        return plugin.getNpcManager().getAllNpcs().stream()
+            .filter(npc -> {
+                Location loc = npc.getData().getLocation();
+                return loc != null && loc.getWorld() != null
+                    && loc.getWorld().getName().equals(worldName);
+            })
+            .toList();
+    }
+
+    /**
+     * Get NPC count
+     */
+    public static int getNpcCount() {
+        return plugin.getNpcManager().getAllNpcs().size();
+    }
+}
+```

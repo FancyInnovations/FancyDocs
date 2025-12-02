@@ -1,0 +1,529 @@
+---
+title: Item Holograms
+description: Creating and managing item display holograms
+---
+
+Item holograms display 3D items in the world. They can show any Minecraft item with full support for custom model data, enchantments, and item meta.
+
+## Creating an item hologram
+
+### Using the builder
+
+The recommended way to create item holograms is using the `ItemHologramBuilder`:
+
+```java
+import de.oliver.fancyholograms.api.data.ItemHologramData;
+import de.oliver.fancyholograms.api.data.builder.ItemHologramBuilder;
+import de.oliver.fancyholograms.api.hologram.Hologram;
+import de.oliver.fancyholograms.api.FancyHolograms;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+
+Location location = new Location(world, 100, 64, 200);
+ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
+
+ItemHologramData data = ItemHologramBuilder.create("my_item_hologram", location)
+    .item(item)
+    .scale(2.0f)  // Make it larger
+    .billboard(Display.Billboard.CENTER)  // Always face player
+    .persistent(true)
+    .build();
+
+Hologram hologram = FancyHolograms.get().getHologramManager().create(data);
+FancyHolograms.get().getHologramRegistry().register(hologram);
+```
+
+### Direct instantiation
+
+You can also create `ItemHologramData` directly:
+
+```java
+ItemHologramData data = new ItemHologramData("my_item_hologram", location);
+data.setItem(new ItemStack(Material.DIAMOND));
+data.setScale(1.5f);
+```
+
+## Setting the displayed item
+
+### Simple items
+
+```java
+// Display a diamond
+data.setItem(new ItemStack(Material.DIAMOND));
+
+// Display multiple items (stacks)
+data.setItem(new ItemStack(Material.GOLD_INGOT, 64));
+
+// Display armor
+data.setItem(new ItemStack(Material.DIAMOND_CHESTPLATE));
+
+// Display tools
+data.setItem(new ItemStack(Material.DIAMOND_PICKAXE));
+```
+
+### Items with enchantments
+
+```java
+ItemStack enchantedSword = new ItemStack(Material.DIAMOND_SWORD);
+enchantedSword.addEnchantment(Enchantment.SHARPNESS, 5);
+enchantedSword.addEnchantment(Enchantment.FIRE_ASPECT, 2);
+
+data.setItem(enchantedSword);
+```
+
+### Items with custom names
+
+```java
+ItemStack namedItem = new ItemStack(Material.DIAMOND);
+ItemMeta meta = namedItem.getItemMeta();
+meta.setDisplayName("§6§lSpecial Diamond");
+meta.setLore(Arrays.asList("§7A very special diamond", "§7Worth 1000 coins"));
+namedItem.setItemMeta(meta);
+
+data.setItem(namedItem);
+```
+
+### Items with custom model data
+
+```java
+ItemStack customItem = new ItemStack(Material.STICK);
+ItemMeta meta = customItem.getItemMeta();
+meta.setCustomModelData(1001);  // Your custom model ID
+customItem.setItemMeta(meta);
+
+data.setItem(customItem);
+```
+
+### Player heads
+
+```java
+ItemStack head = new ItemStack(Material.PLAYER_HEAD);
+SkullMeta skullMeta = (SkullMeta) head.getItemMeta();
+skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer("Notch"));
+head.setItemMeta(skullMeta);
+
+data.setItem(head);
+```
+
+## Display properties
+
+### Scale
+
+Control the size of the displayed item:
+
+```java
+// Default size
+data.setScale(1.0f);
+
+// Double size
+data.setScale(2.0f);
+
+// Half size
+data.setScale(0.5f);
+
+// Giant
+data.setScale(5.0f);
+
+// Get current scale
+float scale = data.getScale();
+```
+
+### Rotation
+
+Rotate the item display:
+
+```java
+import org.joml.Vector3f;
+
+// Rotate around Y axis (yaw)
+data.setRotation(new Vector3f(0, 45, 0));
+
+// Rotate around X axis (pitch)
+data.setRotation(new Vector3f(45, 0, 0));
+
+// Rotate around Z axis (roll)
+data.setRotation(new Vector3f(0, 0, 45));
+
+// Complex rotation
+data.setRotation(new Vector3f(45, 90, 15));
+
+// Get current rotation
+Vector3f rotation = data.getRotation();
+```
+
+### Billboard mode
+
+Control how the item faces the player:
+
+```java
+import org.bukkit.entity.Display;
+
+// Always face player (recommended for items)
+data.setBillboard(Display.Billboard.CENTER);
+
+// Fixed orientation (doesn't rotate)
+data.setBillboard(Display.Billboard.FIXED);
+
+// Face player vertically only
+data.setBillboard(Display.Billboard.VERTICAL);
+
+// Face player horizontally only
+data.setBillboard(Display.Billboard.HORIZONTAL);
+```
+
+### Glow effect
+
+Add a glowing outline:
+
+```java
+// Enable glow with color
+data.setGlowing(true);
+data.setGlowColor(ChatColor.GOLD);
+
+// Disable glow
+data.setGlowing(false);
+
+// Check if glowing
+boolean glowing = data.isGlowing();
+```
+
+## Complete examples
+
+### Example: Shop item display
+
+```java
+public class ShopItemDisplay {
+
+    public Hologram createShopItem(Location location, ItemStack item, int price) {
+        ItemHologramData data = ItemHologramBuilder.create(
+            "shop_" + item.getType().name().toLowerCase(),
+            location
+        )
+        .item(item)
+        .scale(1.5f)
+        .billboard(Display.Billboard.CENTER)
+        .glowing(true)
+        .glowColor(ChatColor.GOLD)
+        .persistent(false)  // Temporary display
+        .build();
+
+        Hologram hologram = FancyHolograms.get().getHologramManager().create(data);
+        FancyHolograms.get().getHologramRegistry().register(hologram);
+
+        // Add price label above
+        createPriceLabel(location.clone().add(0, 1, 0), price);
+
+        return hologram;
+    }
+
+    private void createPriceLabel(Location location, int price) {
+        TextHologramData priceData = TextHologramBuilder.create(
+            "price_" + System.currentTimeMillis(),
+            location
+        )
+        .text("<gold>$" + price + "</gold>")
+        .scale(0.8f)
+        .billboard(Display.Billboard.CENTER)
+        .persistent(false)
+        .build();
+
+        Hologram priceHologram = FancyHolograms.get().getHologramManager().create(priceData);
+        FancyHolograms.get().getHologramRegistry().register(priceHologram);
+    }
+}
+```
+
+### Example: Rotating showcase
+
+```java
+public class RotatingShowcase {
+
+    private Hologram itemHologram;
+    private float currentRotation = 0;
+
+    public void create(Location location, ItemStack item) {
+        ItemHologramData data = ItemHologramBuilder.create("showcase", location)
+            .item(item)
+            .scale(2.0f)
+            .billboard(Display.Billboard.FIXED)  // Fixed so we can rotate it
+            .persistent(false)
+            .build();
+
+        itemHologram = FancyHolograms.get().getHologramManager().create(data);
+        FancyHolograms.get().getHologramRegistry().register(itemHologram);
+
+        // Start rotation task
+        startRotation();
+    }
+
+    private void startRotation() {
+        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            if (itemHologram == null) return;
+
+            currentRotation += 5;
+            if (currentRotation >= 360) currentRotation = 0;
+
+            ItemHologramData data = (ItemHologramData) itemHologram.getData();
+            data.setRotation(new Vector3f(0, currentRotation, 0));
+
+            FancyHolograms.get().getHologramController().refreshHologram(itemHologram);
+
+        }, 0L, 1L);  // Update every tick for smooth rotation
+    }
+}
+```
+
+### Example: Achievement display
+
+```java
+public class AchievementDisplay {
+
+    public void showAchievement(Player player, String title, ItemStack icon) {
+        Location location = player.getEyeLocation().add(0, 1, 0);
+
+        // Create item hologram
+        ItemHologramData itemData = ItemHologramBuilder.create(
+            "achievement_" + player.getUniqueId(),
+            location
+        )
+        .item(icon)
+        .scale(1.0f)
+        .billboard(Display.Billboard.CENTER)
+        .glowing(true)
+        .glowColor(ChatColor.YELLOW)
+        .persistent(false)
+        .build();
+
+        Hologram itemHologram = FancyHolograms.get().getHologramManager().create(itemData);
+        FancyHolograms.get().getHologramRegistry().register(itemHologram);
+
+        // Create title above
+        TextHologramData titleData = TextHologramBuilder.create(
+            "achievement_title_" + player.getUniqueId(),
+            location.clone().add(0, 0.5, 0)
+        )
+        .text(
+            "<yellow><bold>Achievement Unlocked!</bold></yellow>",
+            "<gold>" + title + "</gold>"
+        )
+        .scale(0.7f)
+        .billboard(Display.Billboard.CENTER)
+        .textShadow(true)
+        .persistent(false)
+        .build();
+
+        Hologram titleHologram = FancyHolograms.get().getHologramManager().create(titleData);
+        FancyHolograms.get().getHologramRegistry().register(titleHologram);
+
+        // Remove after 5 seconds
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            FancyHolograms.get().getHologramRegistry().unregister(itemHologram);
+            FancyHolograms.get().getHologramRegistry().unregister(titleHologram);
+        }, 100L);
+    }
+}
+```
+
+### Example: Item pedestal
+
+```java
+public class ItemPedestal {
+
+    public void createPedestal(Location location, ItemStack displayItem) {
+        // Create base text
+        TextHologramData baseData = TextHologramBuilder.create(
+            "pedestal_base_" + location.hashCode(),
+            location.clone().add(0, -0.5, 0)
+        )
+        .text(
+            "<gray>═══════════</gray>",
+            "<dark_gray>Pedestal</dark_gray>",
+            "<gray>═══════════</gray>"
+        )
+        .scale(0.6f)
+        .textAlignment(TextDisplay.TextAlignment.CENTER)
+        .persistent(true)
+        .build();
+
+        // Create item display
+        ItemHologramData itemData = ItemHologramBuilder.create(
+            "pedestal_item_" + location.hashCode(),
+            location
+        )
+        .item(displayItem)
+        .scale(1.5f)
+        .billboard(Display.Billboard.CENTER)
+        .glowing(true)
+        .glowColor(ChatColor.AQUA)
+        .persistent(true)
+        .build();
+
+        // Create label
+        TextHologramData labelData = TextHologramBuilder.create(
+            "pedestal_label_" + location.hashCode(),
+            location.clone().add(0, 1, 0)
+        )
+        .text("<aqua>" + getItemDisplayName(displayItem) + "</aqua>")
+        .scale(0.8f)
+        .textShadow(true)
+        .persistent(true)
+        .build();
+
+        // Register all
+        FancyHolograms api = FancyHolograms.get();
+        api.getHologramRegistry().register(api.getHologramManager().create(baseData));
+        api.getHologramRegistry().register(api.getHologramManager().create(itemData));
+        api.getHologramRegistry().register(api.getHologramManager().create(labelData));
+    }
+
+    private String getItemDisplayName(ItemStack item) {
+        if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
+            return item.getItemMeta().getDisplayName();
+        }
+        return item.getType().name().replace("_", " ");
+    }
+}
+```
+
+### Example: Floating item with animation
+
+```java
+public class FloatingItem {
+
+    private Hologram hologram;
+    private double baseY;
+    private double offset = 0;
+
+    public void create(Location location, ItemStack item) {
+        this.baseY = location.getY();
+
+        ItemHologramData data = ItemHologramBuilder.create(
+            "floating_" + System.currentTimeMillis(),
+            location
+        )
+        .item(item)
+        .scale(1.2f)
+        .billboard(Display.Billboard.CENTER)
+        .glowing(true)
+        .glowColor(ChatColor.YELLOW)
+        .persistent(false)
+        .build();
+
+        hologram = FancyHolograms.get().getHologramManager().create(data);
+        FancyHolograms.get().getHologramRegistry().register(hologram);
+
+        // Start bobbing animation
+        startBobbing();
+    }
+
+    private void startBobbing() {
+        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            if (hologram == null) return;
+
+            offset += 0.05;
+            double newY = baseY + Math.sin(offset) * 0.3;  // Bob up and down
+
+            Location newLoc = hologram.getData().getLocation().clone();
+            newLoc.setY(newY);
+            hologram.getData().setLocation(newLoc);
+
+            FancyHolograms.get().getHologramController().refreshHologram(hologram);
+
+        }, 0L, 2L);  // Update every 2 ticks
+    }
+}
+```
+
+## Updating item holograms
+
+### Change the displayed item
+
+```java
+Hologram hologram = FancyHolograms.get().getHologramRegistry()
+    .get("my_item_hologram").orElse(null);
+
+if (hologram != null && hologram.getData() instanceof ItemHologramData itemData) {
+    // Change to a different item
+    itemData.setItem(new ItemStack(Material.EMERALD));
+
+    // Refresh for all viewers
+    FancyHolograms.get().getHologramController().refreshHologram(hologram);
+}
+```
+
+### Animate item changes
+
+```java
+public class ItemCycler {
+
+    private final List<ItemStack> items = Arrays.asList(
+        new ItemStack(Material.DIAMOND),
+        new ItemStack(Material.EMERALD),
+        new ItemStack(Material.GOLD_INGOT),
+        new ItemStack(Material.IRON_INGOT)
+    );
+
+    private int currentIndex = 0;
+
+    public void startCycling(Hologram hologram) {
+        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            if (!(hologram.getData() instanceof ItemHologramData itemData)) {
+                return;
+            }
+
+            // Cycle to next item
+            currentIndex = (currentIndex + 1) % items.size();
+            itemData.setItem(items.get(currentIndex));
+
+            FancyHolograms.get().getHologramController().refreshHologram(hologram);
+
+        }, 0L, 60L);  // Change every 3 seconds
+    }
+}
+```
+
+## Combining with text holograms
+
+Create complete displays by combining item and text holograms:
+
+```java
+public void createRewardDisplay(Location location, ItemStack reward, String description) {
+    // Item hologram
+    ItemHologramData itemData = ItemHologramBuilder.create(
+        "reward_item",
+        location
+    )
+    .item(reward)
+    .scale(1.5f)
+    .billboard(Display.Billboard.CENTER)
+    .glowing(true)
+    .glowColor(ChatColor.GOLD)
+    .build();
+
+    // Title above
+    TextHologramData titleData = TextHologramBuilder.create(
+        "reward_title",
+        location.clone().add(0, 1.5, 0)
+    )
+    .text("<gold><bold>REWARD</bold></gold>")
+    .scale(1.2f)
+    .textShadow(true)
+    .build();
+
+    // Description below
+    TextHologramData descData = TextHologramBuilder.create(
+        "reward_desc",
+        location.clone().add(0, -0.8, 0)
+    )
+    .text("<gray>" + description + "</gray>")
+    .scale(0.7f)
+    .build();
+
+    // Register all
+    FancyHolograms api = FancyHolograms.get();
+    api.getHologramRegistry().register(api.getHologramManager().create(itemData));
+    api.getHologramRegistry().register(api.getHologramManager().create(titleData));
+    api.getHologramRegistry().register(api.getHologramManager().create(descData));
+}
+```
