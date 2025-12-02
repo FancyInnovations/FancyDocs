@@ -1,0 +1,6 @@
+{
+  "title": "API",
+  "icon": "",
+  "defaultOpen": false,
+  "pages": ["getting-started", "creating-dialogs"]
+}

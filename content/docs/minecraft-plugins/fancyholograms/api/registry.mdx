@@ -1,0 +1,313 @@
+---
+title: Hologram Registry
+description: Managing holograms with the HologramRegistry
+---
+
+The `HologramRegistry` is the central registry for all holograms in FancyHolograms. It manages hologram registration, retrieval, and lifecycle.
+
+## Accessing the registry
+
+```java
+import de.oliver.fancyholograms.api.FancyHolograms;
+import de.oliver.fancyholograms.api.HologramRegistry;
+
+HologramRegistry registry = FancyHolograms.get().getRegistry();
+```
+
+## Registering holograms
+
+### Register a hologram
+
+```java
+import de.oliver.fancyholograms.api.hologram.Hologram;
+
+Hologram hologram = // ... create hologram
+registry.register(hologram);
+```
+
+### Unregister a hologram
+
+```java
+registry.unregister(hologram);
+```
+
+<Callout type="warn">
+    Unregistering a hologram will remove it from the registry but won't automatically despawn it from players. Use the `HologramController` to hide it first if needed.
+</Callout>
+
+## Retrieving holograms
+
+### Get hologram by name
+
+The registry uses `Optional` to safely handle missing holograms:
+
+```java
+import java.util.Optional;
+
+Optional<Hologram> optional = registry.get("my_hologram");
+
+if (optional.isPresent()) {
+    Hologram hologram = optional.get();
+    // Use the hologram
+} else {
+    // Hologram not found
+}
+
+// Or use ifPresent
+registry.get("my_hologram").ifPresent(hologram -> {
+    // Do something with the hologram
+});
+```
+
+### Get hologram or throw exception
+
+If you're certain a hologram exists, use `mustGet`:
+
+```java
+try {
+    Hologram hologram = registry.mustGet("my_hologram");
+    // Use the hologram
+} catch (IllegalArgumentException e) {
+    // Hologram doesn't exist
+}
+```
+
+### Check if hologram exists
+
+```java
+boolean exists = registry.contains("my_hologram");
+
+if (exists) {
+    // Hologram is registered
+}
+```
+
+### Get all holograms
+
+```java
+import java.util.Collection;
+
+Collection<Hologram> allHolograms = registry.getAll();
+
+// Iterate over all holograms
+for (Hologram hologram : allHolograms) {
+    String name = hologram.getData().getName();
+    // ... do something
+}
+```
+
+### Get only persistent holograms
+
+Get holograms that are saved to disk:
+
+```java
+Collection<Hologram> persistentHolograms = registry.getAllPersistent();
+```
+
+### Filter holograms
+
+Use streams to filter holograms by criteria:
+
+```java
+import de.oliver.fancyholograms.api.data.HologramType;
+
+// Get all text holograms
+List<Hologram> textHolograms = registry.getAll().stream()
+    .filter(h -> h.getData().getType() == HologramType.TEXT)
+    .toList();
+
+// Get holograms in a specific world
+String worldName = "world";
+List<Hologram> worldHolograms = registry.getAll().stream()
+    .filter(h -> h.getData().getWorldName().equals(worldName))
+    .toList();
+
+// Get holograms within radius
+Location center = new Location(world, 0, 64, 0);
+double radius = 50.0;
+
+List<Hologram> nearbyHolograms = registry.getAll().stream()
+    .filter(h -> {
+        Location loc = h.getData().getLocation();
+        return loc != null && loc.getWorld() != null
+            && loc.getWorld().getName().equals(center.getWorld().getName())
+            && loc.distance(center) <= radius;
+    })
+    .toList();
+```
+
+## Clear all holograms
+
+Remove all holograms from the registry:
+
+```java
+registry.clear();
+```
+
+<Callout type="warn">
+    This will unregister ALL holograms. Use with caution!
+</Callout>
+
+## Complete example: Hologram manager
+
+```java
+import de.oliver.fancyholograms.api.*;
+import de.oliver.fancyholograms.api.hologram.Hologram;
+import de.oliver.fancyholograms.api.data.TextHologramData;
+import org.bukkit.Location;
+
+public class HologramManager {
+
+    private final FancyHolograms api = FancyHolograms.get();
+
+    /**
+     * Create and register a hologram
+     */
+    public Hologram createHologram(String name, Location location, String... lines) {
+        TextHologramData data = TextHologramBuilder.create(name, location)
+            .text(lines)
+            .persistent(true)
+            .build();
+
+        Hologram hologram = api.getHologramManager().create(data);
+        api.getRegistry().register(hologram);
+
+        return hologram;
+    }
+
+    /**
+     * Safely remove a hologram
+     */
+    public void removeHologram(String name) {
+        api.getRegistry().get(name).ifPresent(hologram -> {
+            // Hide from all players first
+            api.getHologramController().hideHologramFrom(hologram,
+                Bukkit.getOnlinePlayers().toArray(new Player[0]));
+
+            // Unregister
+            api.getRegistry().unregister(hologram);
+        });
+    }
+
+    /**
+     * Get hologram count
+     */
+    public int getHologramCount() {
+        return api.getRegistry().getAll().size();
+    }
+
+    /**
+     * Get persistent hologram count
+     */
+    public int getPersistentCount() {
+        return api.getRegistry().getAllPersistent().size();
+    }
+
+    /**
+     * Check if hologram exists
+     */
+    public boolean exists(String name) {
+        return api.getRegistry().contains(name);
+    }
+
+    /**
+     * Get all hologram names
+     */
+    public List<String> getAllNames() {
+        return api.getRegistry().getAll().stream()
+            .map(h -> h.getData().getName())
+            .sorted()
+            .toList();
+    }
+
+    /**
+     * Get holograms by type
+     */
+    public List<Hologram> getByType(HologramType type) {
+        return api.getRegistry().getAll().stream()
+            .filter(h -> h.getData().getType() == type)
+            .toList();
+    }
+}
+```
+
+## Example: Hologram cleanup task
+
+```java
+public class HologramCleanup implements Runnable {
+
+    private final FancyHolograms api = FancyHolograms.get();
+
+    @Override
+    public void run() {
+        Collection<Hologram> allHolograms = api.getRegistry().getAll();
+        int removed = 0;
+
+        for (Hologram hologram : allHolograms) {
+            HologramData data = hologram.getData();
+
+            // Remove holograms in unloaded worlds
+            if (Bukkit.getWorld(data.getWorldName()) == null) {
+                api.getRegistry().unregister(hologram);
+                removed++;
+                continue;
+            }
+
+            // Remove non-persistent holograms with no viewers
+            if (!data.isPersistent() && hologram.getViewers().isEmpty()) {
+                api.getRegistry().unregister(hologram);
+                removed++;
+            }
+        }
+
+        if (removed > 0) {
+            plugin.getLogger().info("Cleaned up " + removed + " holograms");
+        }
+    }
+}
+
+// Schedule the cleanup task
+Bukkit.getScheduler().runTaskTimer(plugin, new HologramCleanup(), 6000L, 6000L);
+// Runs every 5 minutes
+```
+
+## Example: Hologram backup
+
+```java
+public class HologramBackup {
+
+    public void backupAllHolograms() {
+        Collection<Hologram> persistent =
+            FancyHolograms.get().getRegistry().getAllPersistent();
+
+        List<String> backup = new ArrayList<>();
+        backup.add("# Hologram Backup - " + LocalDateTime.now());
+        backup.add("# Total holograms: " + persistent.size());
+        backup.add("");
+
+        for (Hologram hologram -> {
+            HologramData data = hologram.getData();
+            Location loc = data.getLocation();
+
+            backup.add("Name: " + data.getName());
+            backup.add("Type: " + data.getType());
+            backup.add("World: " + data.getWorldName());
+            backup.add("Location: " + loc.getX() + "," + loc.getY() + "," + loc.getZ());
+            backup.add("");
+        });
+
+        // Save to file
+        Path backupFile = plugin.getDataFolder().toPath()
+            .resolve("backups")
+            .resolve("holograms-" + System.currentTimeMillis() + ".txt");
+
+        try {
+            Files.createDirectories(backupFile.getParent());
+            Files.write(backupFile, backup);
+            plugin.getLogger().info("Backed up " + persistent.size() + " holograms");
+        } catch (IOException e) {
+            plugin.getLogger().severe("Failed to backup holograms: " + e.getMessage());
+        }
+    }
+}
+```

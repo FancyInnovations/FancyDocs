@@ -1,0 +1,436 @@
+---
+title: NPC Data
+description: Understanding and configuring NPC properties
+---
+
+The `NpcData` class stores all configuration and state information for an NPC. It uses a fluent builder pattern, allowing you to chain method calls for easy configuration.
+
+## Creating NPC Data
+
+### Basic constructor
+
+```java
+NpcData data = new NpcData(name, creatorUUID, location);
+```
+
+**Parameters:**
+- `name` - Unique identifier for the NPC (unless `player-npcs` feature is enabled)
+- `creatorUUID` - UUID of the player who created the NPC
+- `location` - Where the NPC should be positioned
+
+### Example
+
+```java
+Location spawn = new Location(world, 100, 64, 200);
+UUID creator = player.getUniqueId();
+NpcData data = new NpcData("shop_keeper", creator, spawn);
+```
+
+## Core Properties
+
+### Identity
+
+```java
+// Get the NPC's unique ID
+String id = data.getId();
+
+// Get/set the NPC name
+String name = data.getName();
+data.setName("new_name");
+
+// Get/set display name (supports MiniMessage format)
+String displayName = data.getDisplayName();
+data.setDisplayName("<rainbow>Rainbow Name</rainbow>");
+data.setDisplayName(null); // Hide display name
+
+// Get the creator UUID
+UUID creator = data.getCreator();
+```
+
+### Position and rotation
+
+```java
+// Get/set location
+Location location = data.getLocation();
+data.setLocation(new Location(world, x, y, z));
+
+// Move NPC relative to current position
+Location current = data.getLocation();
+data.setLocation(current.clone().add(0, 1, 0)); // Move up by 1 block
+```
+
+### Entity type
+
+Set what type of entity the NPC should be:
+
+```java
+// Set entity type
+data.setType(EntityType.PLAYER);
+data.setType(EntityType.ARMOR_STAND);
+data.setType(EntityType.VILLAGER);
+data.setType(EntityType.ZOMBIE);
+
+// Get current type
+EntityType type = data.getType();
+```
+
+<Callout>
+    Different entity types support different features. For example, only PLAYER type NPCs can have skins and show in the tab list.
+</Callout>
+
+## Appearance
+
+### Skin
+
+Configure the NPC's skin (only for PLAYER type):
+
+```java
+// Set skin by player name
+data.setSkin("Notch");
+
+// Set skin by URL
+data.setSkin("https://example.com/skin.png");
+
+// Set skin by file (in plugins/FancyNPCs/skins/)
+data.setSkin("custom_skin.png");
+
+// Remove skin
+data.setSkin(null);
+
+// Mirror the skin of nearby players
+data.setMirrorSkin(true);
+
+// Get current skin data
+SkinData skin = data.getSkin();
+```
+
+### Scale
+
+Adjust the NPC's size (1.20.5+):
+
+```java
+// Default scale is 1.0
+data.setScale(1.5f); // 50% larger
+data.setScale(0.5f); // 50% smaller
+data.setScale(2.0f); // Double size
+
+float currentScale = data.getScale();
+```
+
+### Glowing effect
+
+Make the NPC glow with a specific color:
+
+```java
+// Enable glowing with red color
+data.setGlowing(true);
+data.setGlowingColor(ChatColor.RED);
+
+// Disable glowing
+data.setGlowing(false);
+
+// Check if glowing
+boolean isGlowing = data.isGlowing();
+ChatColor color = data.getGlowingColor();
+```
+
+## Equipment
+
+Set armor and items for the NPC:
+
+```java
+import de.oliver.fancynpcs.api.NpcEquipmentSlot;
+
+// Set equipment in specific slots
+data.setEquipment(NpcEquipmentSlot.HELMET, new ItemStack(Material.DIAMOND_HELMET));
+data.setEquipment(NpcEquipmentSlot.CHESTPLATE, new ItemStack(Material.DIAMOND_CHESTPLATE));
+data.setEquipment(NpcEquipmentSlot.LEGGINGS, new ItemStack(Material.DIAMOND_LEGGINGS));
+data.setEquipment(NpcEquipmentSlot.BOOTS, new ItemStack(Material.DIAMOND_BOOTS));
+data.setEquipment(NpcEquipmentSlot.MAIN_HAND, new ItemStack(Material.DIAMOND_SWORD));
+data.setEquipment(NpcEquipmentSlot.OFF_HAND, new ItemStack(Material.SHIELD));
+
+// Get equipment
+ItemStack helmet = data.getEquipment(NpcEquipmentSlot.HELMET);
+
+// Remove equipment
+data.setEquipment(NpcEquipmentSlot.HELMET, null);
+
+// Get all equipment
+Map<NpcEquipmentSlot, ItemStack> allEquipment = data.getEquipment();
+```
+
+### Example: Full armor set
+
+```java
+public void equipNpc(NpcData data) {
+    // Create diamond armor set
+    data.setEquipment(NpcEquipmentSlot.HELMET,
+        new ItemStack(Material.DIAMOND_HELMET));
+    data.setEquipment(NpcEquipmentSlot.CHESTPLATE,
+        new ItemStack(Material.DIAMOND_CHESTPLATE));
+    data.setEquipment(NpcEquipmentSlot.LEGGINGS,
+        new ItemStack(Material.DIAMOND_LEGGINGS));
+    data.setEquipment(NpcEquipmentSlot.BOOTS,
+        new ItemStack(Material.DIAMOND_BOOTS));
+
+    // Add enchanted sword
+    ItemStack sword = new ItemStack(Material.DIAMOND_SWORD);
+    sword.addEnchantment(Enchantment.SHARPNESS, 5);
+    data.setEquipment(NpcEquipmentSlot.MAIN_HAND, sword);
+}
+```
+
+## Behavior
+
+### Turn to player
+
+Make the NPC look at nearby players:
+
+```java
+// Enable turning to player
+data.setTurnToPlayer(true);
+
+// Set detection range (in blocks)
+data.setTurnToPlayerDistance(5.0f);
+
+// Reset facing when player leaves range
+data.setResetFacingWhenOutOfRange(true);
+
+// Check settings
+boolean turnEnabled = data.isTurnToPlayer();
+float distance = data.getTurnToPlayerDistance();
+```
+
+### Interaction cooldown
+
+Set a cooldown between player interactions:
+
+```java
+import de.oliver.fancynpcs.api.utils.Interval;
+
+// Set 3 second cooldown
+data.setInteractionCooldown(new Interval(3, Interval.Unit.SECONDS));
+
+// Set 100 millisecond cooldown
+data.setInteractionCooldown(new Interval(100, Interval.Unit.MILLISECONDS));
+
+// Set 20 tick cooldown (1 second)
+data.setInteractionCooldown(new Interval(20, Interval.Unit.TICKS));
+
+// Disable cooldown
+data.setInteractionCooldown(null);
+
+// Get current cooldown
+Interval cooldown = data.getInteractionCooldown();
+```
+
+### Visibility
+
+Control when and where the NPC is visible:
+
+```java
+// Set custom visibility distance (-1 for default)
+data.setVisibilityDistance(50); // Visible up to 50 blocks
+data.setVisibilityDistance(-1); // Use default distance
+
+int distance = data.getVisibilityDistance();
+
+// Set spawn entity flag
+data.setSpawnEntity(true); // NPC will spawn as entity
+data.setSpawnEntity(false); // NPC won't spawn
+
+boolean spawns = data.isSpawnEntity();
+```
+
+### Collision
+
+Control whether players can collide with the NPC:
+
+```java
+// Enable collision
+data.setCollidable(true);
+
+// Disable collision (players walk through)
+data.setCollidable(false);
+
+boolean canCollide = data.isCollidable();
+```
+
+### Tab list
+
+Show the NPC in the player list (PLAYER type only):
+
+```java
+// Show in tab list
+data.setShowInTab(true);
+
+// Hide from tab list
+data.setShowInTab(false);
+
+boolean inTab = data.isShowInTab();
+```
+
+<Callout type="warn">
+    Showing NPCs in the tab list may require players to reconnect to see the changes.
+</Callout>
+
+## Attributes
+
+Apply custom entity attributes to NPCs:
+
+```java
+import de.oliver.fancynpcs.api.NpcAttribute;
+
+// Get attribute manager
+AttributeManager attrManager = FancyNpcsPlugin.get().getAttributeManager();
+
+// Get attribute for entity type
+EntityType type = data.getType();
+NpcAttribute attribute = attrManager.getAttributeByName(type, "BURNING");
+
+// Apply attribute
+if (attribute != null) {
+    attribute.apply(npc, "true");
+}
+
+// Get all attributes for an entity type
+List<NpcAttribute> attributes = attrManager.getAllAttributesForEntityType(type);
+```
+
+## Actions
+
+Add interactive behaviors to NPCs:
+
+```java
+import de.oliver.fancynpcs.api.actions.ActionTrigger;
+import de.oliver.fancynpcs.api.actions.NpcAction;
+
+// Add action for right-click
+List<NpcAction.NpcActionData> rightClickActions = new ArrayList<>();
+rightClickActions.add(new NpcAction.NpcActionData(0, messageAction, "Hello!"));
+
+data.addAction(ActionTrigger.RIGHT_CLICK, rightClickActions);
+
+// Get actions for a trigger
+List<NpcAction.NpcActionData> actions = data.getActions(ActionTrigger.RIGHT_CLICK);
+
+// Remove all actions for a trigger
+data.removeActions(ActionTrigger.RIGHT_CLICK);
+
+// Get all actions
+Map<ActionTrigger, List<NpcAction.NpcActionData>> allActions = data.getActions();
+```
+
+See the [Actions System](./actions/overview.mdx) documentation for more details.
+
+## Custom click handler
+
+Set a custom handler for player clicks:
+
+```java
+// Set click handler
+data.setOnClick(player -> {
+    player.sendMessage("You clicked the NPC!");
+    player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+});
+
+// Get click handler
+Consumer<Player> onClick = data.getOnClick();
+
+// Remove click handler
+data.setOnClick(null);
+```
+
+## Persistence
+
+Control whether the NPC is saved to disk:
+
+```java
+// Enable saving to file
+npc.setSaveToFile(true);
+
+// Disable saving (temporary NPC)
+npc.setSaveToFile(false);
+```
+
+<Callout>
+    NPCs with `saveToFile` set to false will be lost when the server restarts.
+</Callout>
+
+## Dirty flag
+
+The dirty flag indicates if the NPC data has unsaved changes:
+
+```java
+// Check if NPC has unsaved changes
+boolean hasChanges = data.isDirty();
+
+// Mark as dirty (has changes)
+data.setDirty(true);
+
+// Mark as clean (no changes)
+data.setDirty(false);
+```
+
+<Callout>
+    The dirty flag is automatically set when you modify NPC properties. FancyNPCs uses this to optimize save operations.
+</Callout>
+
+## Complete example
+
+Here's a complete example creating a fully configured NPC:
+
+```java
+import de.oliver.fancynpcs.api.Npc;
+import de.oliver.fancynpcs.api.NpcData;
+import de.oliver.fancynpcs.api.NpcEquipmentSlot;
+import de.oliver.fancynpcs.api.FancyNpcsPlugin;
+import de.oliver.fancynpcs.api.utils.Interval;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.ItemStack;
+
+public Npc createShopKeeper(Location location, UUID creator) {
+    // Create NPC data
+    NpcData data = new NpcData("shop_keeper", creator, location);
+
+    // Configure appearance
+    data.setType(EntityType.PLAYER);
+    data.setSkin("MHF_Villager");
+    data.setDisplayName("<gold>Shop Keeper</gold>");
+
+    // Set equipment
+    data.setEquipment(NpcEquipmentSlot.MAIN_HAND,
+        new ItemStack(Material.EMERALD));
+
+    // Configure behavior
+    data.setTurnToPlayer(true);
+    data.setTurnToPlayerDistance(5.0f);
+    data.setInteractionCooldown(
+        new Interval(2, Interval.Unit.SECONDS)
+    );
+    data.setCollidable(false);
+
+    // Set visibility
+    data.setVisibilityDistance(30);
+    data.setGlowing(true);
+    data.setGlowingColor(ChatColor.GREEN);
+
+    // Add click handler
+    data.setOnClick(player -> {
+        player.sendMessage("Welcome to my shop!");
+        // Open shop GUI here
+    });
+
+    // Create and register NPC
+    Npc npc = FancyNpcsPlugin.get().getNpcAdapter().apply(data);
+    FancyNpcsPlugin.get().getNpcManager().registerNpc(npc);
+
+    // Spawn for all players
+    npc.create();
+    npc.spawnForAll();
+
+    return npc;
+}
+```
