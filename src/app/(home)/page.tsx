@@ -93,7 +93,7 @@ export default function HomePage() {
               <div className="plugin-card">
                 <div className="card-icon">
                   <Image
-                      src="https://raw.githubusercontent.com/FancyInnovations/FancyPlugins/main/docs/src/static/logos-and-banners/fancynpcs-logo.png"
+                      src="/logos-and-banners/fancynpcs-logo.png"
                       alt="FancyNpcs Logo"
                       width={80}
                       height={80}
@@ -111,10 +111,10 @@ export default function HomePage() {
               <div className="plugin-card">
                 <div className="card-icon">
                   <Image
-                      src="https://raw.githubusercontent.com/FancyInnovations/FancyPlugins/main/docs/src/static/logos-and-banners/fancyholograms-logo.png"
+                      src="/logos-and-banners/fancyholograms-logo.png"
                       alt="FancyHolograms Logo"
                       width={80}
-                      height={80}
+                    height={80}
                   />
                 </div>
                 <h3 className="card-title">FancyHolograms</h3>
@@ -129,7 +129,7 @@ export default function HomePage() {
               <div className="plugin-card">
                 <div className="card-icon">
                   <Image
-                      src="https://raw.githubusercontent.com/FancyInnovations/FancyPlugins/main/docs/src/static/logos-and-banners/fancydialogs-logo.png"
+                      src="/logos-and-banners/fancydialogs-logo.png"
                       alt="FancyDialogs Logo"
                       width={80}
                       height={80}
@@ -152,7 +152,7 @@ export default function HomePage() {
               <div className="plugin-card">
                 <div className="card-icon">
                   <Image
-                      src="https://raw.githubusercontent.com/FancyInnovations/FancyPlugins/main/docs/src/static/logos-and-banners/fancycore-logo.png"
+                      src="/logos-and-banners/fancycore-logo.png"
                       alt="FancyCore Logo"
                       width={80}
                       height={80}
@@ -179,7 +179,7 @@ export default function HomePage() {
               <div className="plugin-card">
                 <div className="card-icon">
                   <Image
-                      src="https://raw.githubusercontent.com/FancyInnovations/FancyPlugins/main/docs/src/static/logos-and-banners/fancyanalytics-logo.png"
+                      src="/logos-and-banners/fancyanalytics-logo.png"
                       alt="FancyAnalytics Logo"
                       width={80}
                       height={80}
