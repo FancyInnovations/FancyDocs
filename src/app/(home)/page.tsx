@@ -39,6 +39,17 @@ export default function HomePage() {
     }
   }, []);
 
+  useEffect(() => {
+    const audio = document.getElementById('background-music') as HTMLAudioElement;
+    if (audio) {
+      audio.volume = 0.5;
+      audio.currentTime = 24; // Start at 0:24
+      audio.play().catch((error) => {
+        console.log('Autoplay prevented by browser:', error);
+      });
+    }
+  }, []);
+
   return (
     <div className="page-wrapper">
       <div className="hero-section">
@@ -251,6 +262,14 @@ export default function HomePage() {
           </div>
         </div>
       )}
+
+      <audio
+        id="background-music"
+        loop
+        preload="auto"
+      >
+        <source src="/common/Bangarang (feat. Sirah) - Skrillex.mp3" type="audio/mpeg" />
+      </audio>
 
       <style jsx global>{`
         .page-wrapper {
