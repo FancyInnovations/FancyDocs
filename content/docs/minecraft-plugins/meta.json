@@ -6,6 +6,7 @@
     "index",
     "fancynpcs",
     "fancyholograms",
-    "fancydialogs"
+    "fancydialogs",
+    "minecraft-version-support"
   ]
 }
