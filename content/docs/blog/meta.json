@@ -1,0 +1,13 @@
+{
+  "title": "Blog",
+  "description": "",
+  "root": true,
+  "pages": [
+    "index",
+    "---Hytale Plugins---",
+    "introducing-hytale-plugins",
+    "---FancyAnalytics---",
+    "fa-dev-log-1",
+    "fa-dev-log-2"
+  ]
+}

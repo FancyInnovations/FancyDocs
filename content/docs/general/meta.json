@@ -1,5 +1,11 @@
 {
   "title": "General",
   "description": "",
-  "root": true
+  "root": true,
+  "pages": [
+    "index",
+    "development-guidelines",
+    "product-direction",
+    "[Blog](blog/)"
+    ]
 }
