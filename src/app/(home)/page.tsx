@@ -361,7 +361,7 @@ export default function HomePage() {
         }
 
         .feature-tag {
-          padding: 0.75rem 1.5rem;
+          padding: 0.25rem 2rem;
           background: hsl(var(--primary) / 0.1);
           border: 2px solid hsl(57, 100%, 42%);
           border-radius: 50px;

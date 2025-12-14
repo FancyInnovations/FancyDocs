@@ -9,6 +9,7 @@ export default function Layout({ children }: LayoutProps<'/'>) {
           { text: 'Download', url: 'https://modrinth.com/user/oliver' },
           { text: 'GitHub', url: 'https://github.com/fancyinnovations' },
           { text: 'Discord', url: 'https://discord.gg/ZUgYCEJUEx' },
+          { text: 'Blog', url: '/docs/blog/' },
       ]}
       githubUrl={"https://github.com/fancyinnovations"}
 
