@@ -10,7 +10,7 @@ export default function Layout({ children }: LayoutProps<'/docs'>) {
             tabs: [
                 {
                     title: 'General',
-                    description: 'Blog, development guidelines, and product direction.',
+                    description: 'Development guidelines, product direction and blog',
                     url: '/docs/general',
                 },
                 {
