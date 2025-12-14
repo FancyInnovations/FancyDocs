@@ -3,6 +3,7 @@
   "description": "",
   "root": true,
   "pages": [
+    "index",
     "fancynpcs",
     "fancyholograms",
     "fancydialogs"
