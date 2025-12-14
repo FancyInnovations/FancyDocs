@@ -40,7 +40,7 @@ export function DownloadButton({ spaceId, platform, label = 'Download' }: Downlo
           color: #000000;
           border: 2px solid hsl(57, 100%, 42%);
           border-radius: 8px;
-          padding: 0.75rem 1.5rem;
+          padding: 0.2rem 1rem;
           font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
           font-size: 0.95rem;
           font-weight: 600;

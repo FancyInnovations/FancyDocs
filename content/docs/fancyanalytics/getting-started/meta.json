@@ -2,5 +2,13 @@
   "title": "Getting started",
   "description": "Getting started with FancyAnalytics",
   "defaultOpen": true,
-  "root": true
+  "root": false,
+  "pages": [
+    "---General purpose---",
+    "rest-api",
+    "java-sdk",
+    "---Minecraft---",
+    "minecraft-servers",
+    "minecraft-plugins"
+  ]
 }
