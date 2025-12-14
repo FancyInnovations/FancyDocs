@@ -3,9 +3,10 @@
   "description": "",
   "root": true,
   "pages": [
-    "general",
-    "minecraft-plugins",
-    "hytale-plugins",
-    "fancyanalytics"
+    "[Home](/)",
+    "[General](docs/general)",
+    "[Minecraft Plugins](docs/minecraft-plugins)",
+    "[Hytale Plugins](docs/hytale-plugins)",
+    "[FancyAnalytics](docs/fancyanalytics)"
   ]
 }
