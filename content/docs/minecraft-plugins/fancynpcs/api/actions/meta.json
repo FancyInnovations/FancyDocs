@@ -1,6 +1,0 @@
-{
-  "title": "Actions",
-  "icon": "",
-  "defaultOpen": false,
-  "pages": ["overview", "custom-actions"]
-}

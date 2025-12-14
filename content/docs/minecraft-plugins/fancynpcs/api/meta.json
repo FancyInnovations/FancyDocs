@@ -1,6 +1,0 @@
-{
-  "title": "API",
-  "icon": "",
-  "defaultOpen": false,
-  "pages": ["getting-started", "npc-data", "npc-manager", "actions", "skin-manager"]
-}
