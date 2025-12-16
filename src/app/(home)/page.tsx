@@ -495,7 +495,7 @@ export default function HomePage() {
           flex-direction: column;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           position: relative;
-          overflow: visible;
+          overflow: hidden;
         }
 
         :global(.dark) .plugin-card {
