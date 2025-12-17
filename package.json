@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "fumadocs-core": "16.2.5",
-    "fumadocs-mdx": "14.1.0",
+    "fumadocs-mdx": "14.1.1",
     "fumadocs-typescript": "^4.0.14",
     "fumadocs-ui": "16.2.5",
     "lucide-react": "^0.561.0",
@@ -24,7 +24,7 @@
     "@eslint/eslintrc": "^3.3.1",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/mdx": "^2.0.13",
-    "@types/node": "^25.0.2",
+    "@types/node": "^25.0.3",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "eslint": "^9.39.2",
