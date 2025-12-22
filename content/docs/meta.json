@@ -5,14 +5,6 @@
   "pages": [
     "[Home](/)",
     "[General](docs/general)",
-    "[Blog](docs/blog)",
-    "---Minecraft Plugins---",
-    "[FancyNpcs](docs/minecraft-plugins/fancynpcs)",
-    "[FancyHolograms](docs/minecraft-plugins/fancyholograms)",
-    "[FancyDialogs](docs/minecraft-plugins/fancydialogs)",
-    "---Hytale Plugins---",
-    "[FancyCore](docs/hytale-plugins/fancycore)",
-    "---Web Services---",
-    "[FancyAnalytics](docs/web-services/fancyanalytics)"
+    "[Blog](docs/blog)"
   ]
 }
