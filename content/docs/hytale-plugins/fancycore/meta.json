@@ -2,5 +2,13 @@
   "title": "FancyCore",
   "icon": "",
   "defaultOpen": true,
-  "pages": ["getting-started", "commands", "tutorials", "api", "changelog", "faq"]
+  "pages": [
+    "getting-started",
+    "commands",
+    "permissions",
+    "tutorials",
+    "api",
+    "changelog",
+    "faq"
+  ]
 }
