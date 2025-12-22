@@ -24,9 +24,9 @@ export default function Layout({ children }: LayoutProps<'/docs'>) {
                     url: '/docs/hytale-plugins',
                 },
                 {
-                    title: 'FancyAnalytics',
-                    description: 'Docs for our analytics platform FancyAnalytics.',
-                    url: '/docs/fancyanalytics',
+                    title: 'Web Services',
+                    description: 'Docs for our web services.',
+                    url: '/docs/web-services',
                 },
             ],
         }}
