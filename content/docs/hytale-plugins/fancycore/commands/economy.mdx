@@ -12,46 +12,50 @@ description: Economy options for FancyCore
 
 ### balance
 
-Displays the balance of the specified player or your own balance if no player is specified.
+Displays the balances of all currencies for the specified player or yourself if no player is specified.
 - **Permissions**: `fancycore.commands.balance`
 - **Syntax**: `/balance [player]`
   - `[player]` - Player to check (optional)
 
 ### pay
 
-Transfers a specified amount of money from your balance to another player's balance.
+Transfers a specified amount of money from the command sender to the specified player.
 - **Permissions**: `fancycore.commands.pay`
-- **Syntax**: `/pay <player> <amount>`
+- **Syntax**: `/pay <player> <amount> [currency]`
   - `<player>` - Target player
   - `<amount>` - Amount to transfer
+  - `[currency]` - Currency type (optional)
 
 ### setbalance
 
 Sets the balance of the specified player to a given amount.
 - **Permissions**: `fancycore.commands.setbalance`
-- **Syntax**: `/setbalance <player> <amount>`
+- **Syntax**: `/setbalance <player> <amount> [currency]`
   - `<player>` - Target player
   - `<amount>` - New balance amount
+  - `[currency]` - Currency type (optional)
 
 ### addbalance
 
 Adds a specified amount of money to the balance of the specified player.
 - **Permissions**: `fancycore.commands.addbalance`
-- **Syntax**: `/addbalance <player> <amount>`
+- **Syntax**: `/addbalance <player> <amount> [currency]`
   - `<player>` - Target player
   - `<amount>` - Amount to add
+  - `[currency]` - Currency type (optional)
 
 ### removebalance
 
 Removes a specified amount of money from the balance of the specified player.
 - **Permissions**: `fancycore.commands.removebalance`
-- **Syntax**: `/removebalance <player> <amount>`
+- **Syntax**: `/removebalance <player> <amount> [currency]`
   - `<player>` - Target player
   - `<amount>` - Amount to remove
+  - `[currency]` - Currency type (optional)
 
 ### topbalances
 
 Displays a leaderboard of players with the highest balances.
 - **Permissions**: `fancycore.commands.topbalances`
-- **Syntax**: `/topbalances [page]`
-  - `[page]` - Page number (optional)
+- **Syntax**: `/topbalances [currency]`
+    - `[currency]` - Currency type (optional)
