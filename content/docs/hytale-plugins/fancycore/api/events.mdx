@@ -18,10 +18,28 @@ eventService.registerListener(PlayerReportedEvent.class, (event) -> {
 
 ## Available events
 
+### Abstract events
+
+| Event         | Description                                              |
+|---------------|----------------------------------------------------------|
+| `FancyEvent`  | Base event class for all events in the FancyCore plugin. |
+| `PlayerEvent` | Base event class for all player-related events           |
+
 ### Player events
 
-| Event                 | Description                                                                   |
-|-----------------------|-------------------------------------------------------------------------------|
-| `PlayerModifiedEvent` | Event fired when a player's data is modified (through FancyPlayer's setters). |
-| `PlayerReportedEvent` | Fired when a player is reported.                                              |
-| `PlayerPunishedEvent` | Fired when a player receives a punishment (warning, kick, mute or ban).       |
+| Event                 | Description                                                             |
+|-----------------------|-------------------------------------------------------------------------|
+| `PlayerModifiedEvent` | Fired when a player's data is modified (through FancyPlayer's setters). |
+| `PlayerReportedEvent` | Fired when a player is reported.                                        |
+| `PlayerPunishedEvent` | Fired when a player receives a punishment (warning, kick, mute or ban). |
+
+### Chat events
+
+| Event                          | Description                                              |
+|--------------------------------|----------------------------------------------------------|
+| `PlayerSentMessageEvent`       | Fired when a player sends a chat message in a chat room. |
+| `PlayerSwitchedChatRoomEvent`  | Fired when a player switches chat rooms.                 |
+| `PlayerWatchedChatRoomEvent`   | Fired when a player starts watching a chat room.         |
+| `PlayerUnwatchedChatRoomEvent` | Fired when a player stops watching a chat room.          |
+| `ChatClearedEvent`             | Fired when a chat room is cleared.                       |
+| `BroadcastMessageSentEvent`    | Fired when a broadcast message is sent to a chat room.   |
