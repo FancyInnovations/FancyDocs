@@ -16,89 +16,93 @@ description: Chat functionality for FancyCore
 
 Sends a private message to the specified player.
 - **Permissions**: `fancycore.commands.message`
-- **Syntax**: `/message <player> <message>` or `/msg <player> <message>`
+- **Syntax**: `/message <player> <message>`
   - `<player>` - Target player name
   - `<message>` - Message content
+- **Alias**: `/msg`
 
 ### reply
 
 Replies to the last private message received.
 - **Permissions**: `fancycore.commands.reply`
-- **Syntax**: `/reply <message>` or `/r <message>`
+- **Syntax**: `/reply <message>`
   - `<message>` - Reply content
+- **Alias**: `/r`
 
 ### messagespy
 
 Toggles message spying to see private messages between other players.
 - **Permissions**: `fancycore.commands.messagespy`
-- **Syntax**: `/messagespy` or `/msgspy`
+- **Syntax**: `/messagespy`
+- **Alias**: `/msgspy`
 
 ### togglemessages
 
 Toggles the ability to receive private messages.
 - **Permissions**: `fancycore.commands.togglemessages`
-- **Syntax**: `/togglemessages` or `/togglemsg`
+- **Syntax**: `/togglemessages`
+- **Alias**: `/togglemsg`
 
 ## Chat rooms
 
-### createchatroom
+### chatroom watch
 
-Creates a new chat room with the specified name.
-- **Permissions**: `fancycore.commands.createchatroom`
-- **Syntax**: `/createchatroom <name>` or `/ccr <name>`
+Watch a specific chat room. You will receive messages from this room.
+- **Permissions**: `fancycore.commands.chatroom.watch`
+- **Syntax**: `/chatroom watch <name>`
   - `<name>` - Chat room name
 
-### joinchatroom
+### chatroom unwatch
 
-Joins the specified chat room.
-- **Permissions**: `fancycore.commands.joinchatroom`
-- **Syntax**: `/joinchatroom <name>` or `/jcr <name>`
+Unwatch a specific chat room.
+- **Permissions**: `fancycore.commands.chatroom.watch`
+- **Syntax**: `/chatroom unwatch <name>`
+- `<name>` - Chat room name
+
+### chatroom list
+
+Lists all available chat rooms.
+- **Permissions**: `fancycore.commands.chatroom.list`
+- **Syntax**: `/chatroom list`
+
+### chatroom switch
+
+Switches to a specific chat room. Your messages will be sent to this room.
+- **Permissions**: `fancycore.commands.chatroom.switch`
+- **Syntax**: `/chatroom switch <name>`
   - `<name>` - Chat room name
 
-### leavechatroom
+### chatroom clearchat
 
-Leaves the current chat room.
-- **Permissions**: `fancycore.commands.leavechatroom`
-- **Syntax**: `/leavechatroom` or `/lcr`
-
-### listchatrooms
-
-Lists all available chat rooms on the server.
-- **Permissions**: `fancycore.commands.listchatrooms`
-- **Syntax**: `/listchatrooms` or `/lcrs`
-
-### chatroominfo
-
-Displays information about the specified chat room.
-- **Permissions**: `fancycore.commands.chatroominfo`
-- **Syntax**: `/chatroominfo <name>` or `/crinfo <name>`
+Clears the chat for a specific chat room.
+- **Permissions**: `fancycore.commands.chatroom.clearchat`
+- **Syntax**: `/chatroom clearchat <name>`
   - `<name>` - Chat room name
+- **Alias**: `/clearchat` (clears current chat room)
 
-## Chat Management  
+### chatroom cooldown
 
-### clearchat
+Sets a cooldown for sending messages in a specific chat room.
+- **Permissions**: `fancycore.commands.chatroom.cooldown`
+- **Syntax**: `/chatroom cooldown <name> <seconds>`
+  - `<name>` - Chat room name
+  - `<seconds>` - Cooldown in seconds
+- **Alias**: `/chatcooldown` (sets cooldown for current chat room)
 
-Clears the chat for all players on the server.
-- **Permissions**: `fancycore.commands.clearchat`
-- **Syntax**: `/clearchat` or `/cc`
+### chatroom mute
 
-### slowchat
+Mutes a specific chat room, preventing players from sending messages.
+- **Permissions**: `fancycore.commands.chatroom.mute`
+- **Syntax**: `/chatroom mute <name>`
+  - `<name>` - Chat room name
+- **Alias**: `/mutechat` (mutes current chat room)
 
-Sets a slow mode for chat, limiting how often players can send messages.
-- **Permissions**: `fancycore.commands.slowchat`
-- **Syntax**: `/slowchat <seconds>` or `/slow <seconds>`
-  - `<seconds>` - Delay in seconds
+### chatroom unmute
 
-### mutechat
-
-Mutes the chat for all players, preventing them from sending messages.
-- **Permissions**: `fancycore.commands.mutechat`
-- **Syntax**: `/mutechat`
-
-### unmutechat
-
-Unmutes the chat, allowing players to send messages again.
-- **Permissions**: `fancycore.commands.unmutechat`
-- **Syntax**: `/unmutechat`
+Unmutes a specific chat room, allowing players to send messages again.
+- **Permissions**: `fancycore.commands.chatroom.unmute`
+- **Syntax**: `/chatroom unmute <name>`
+  - `<name>` - Chat room name
+- **Alias**: `/unmutechat` (unmutes current chat room)
 
 
