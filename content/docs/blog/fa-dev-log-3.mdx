@@ -1,0 +1,152 @@
+---
+title: "Dev Log 3"
+description: "FancyAnalytics Development Log 3: Progress Update and Roadmap"
+---
+
+import {Callout} from "fumadocs-ui/components/callout";
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+![](/blogs/fa-dev-log-3/dev-log-3.png)
+
+## Some numbers
+
+Let's start by looking at some numbers again, which have changed since the last dev log.
+There are +78 new users on the waiting list (since the last dev log), bringing the total to **148** users on the list.
+
+The number of recorded data points has increased to **1.6 million** and the total number of errors is now **1.3 million**.
+The total number of events is now **1 million**.
+
+FancyAnalytics now receives data from about **14k** unique clients per day, with a total of **40 million** incoming requests per day.
+
+It's impressive to see how FancyAnalytics is growing, even without any marketing.
+
+## Current state of the platform
+
+The new backend is working. It's not perfect yet, but the core functionality is there.
+All services are implemented and communicate with each other as expected.
+The new database is running and storing data as expected.
+
+The frontend is still not complete, but we're making good progress.
+Well to make the frontend usable, only the actual charts on the dashboards are missing.
+You can already create projects, create dashboards, add metrics and apply templates to quickly set up common use cases.
+
+The foundation for project members, public dashboards and more login methods is already prepared, but will be available later.
+I also made concepts for alerts, reports and actual real-time data, but the priority is to get the core functionality working first.
+A complete list of implemented and planned features will be provided before the next beta phase starts.
+
+The next step is to deploy the new platform to production and run integration tests to ensure everything works as expected, then getting start receiving real data.
+
+## Roadmap
+
+<Steps>
+    <Step>
+        ### Local integration tests (done)
+
+        I'm currently working on local integration tests for the new platform to ensure that everything works as expected before deploying to production.
+        This includes testing ingesting data, processing it, and storing it in the database as well as retrieving and visualizing the data on the dashboards.
+        Additionally, I'm testing the current SDKs (mainly the Go SDK) to ensure they work seamlessly with the new platform.
+    </Step>
+    <Step>
+        ### Prod deployment of all new services (doing this right now)
+
+        Everything is already prepared for production deployment, such as Docker images, CI/CD pipelines, and infrastructure as code.
+        I'm going to rent a new (more powerful) server for the new platform and deploy all services there.
+    </Step>
+    <Step>
+        ### Integration tests on prod
+
+        After deploying to production, I'm going to run the same integration tests as before, but this time on the production environment.
+        I'll also do some load testing to ensure the platform can handle the expected traffic.
+        This will be the first time the new platform is running in a real-world environment, so I'm expecting to find some issues that need to be fixed.
+        Especially I'm curious how the new database performs under load.
+    </Step>
+    <Step>
+        ### Finish SDKs and add more templates
+
+        I've already made good progress on the SDKs, but there are still some features missing and some bugs to fix.
+
+        Currently the following SDKs are in progress:
+        - General Java SDK (Java applications, Spring Boot, Android, etc.)
+        - Minecraft API (for plugin developers to easily track plugin usage of their plugins)
+        - Minecraft plugin (to track performance, entity, player and world stats (and many more) of Minecraft servers)
+        - Hytale API & plugin (similar to the Minecraft SDK and plugin, but for Hytale)
+        - Go SDK (for Go applications tracking performance and http stats)
+    </Step>
+    <Step>
+        ### Finish documentation for new platform and SDKs
+
+        The whole documentation needs to be updated to reflect the changes in the new platform and the new SDKs.
+        There is not much documentation yet for the new platform, so this will take some time.
+        But I want to make sure that everything is well documented before the public release.
+    </Step>
+    <Step>
+        ### Test the new platform with our own plugins
+
+        I'm going to use the new Minecraft API to track the usage of our own plugins (FancyNpcs, FancyHolograms and FancyDialogs).
+        This will help me to identify any issues with the new platform and SDKs, as well as to gather some real-world data to test the dashboards and visualizations.
+    </Step>
+    <Step>
+        ### Migrate all current users to the new platform
+
+        Once everything is working well, I'm going to migrate all current users (who have an account) to the new platform.
+        They will receive an email with instructions on how to access their new account and can start using the new platform (read more about the migration process below).
+    </Step>
+    <Step>
+        ### Migrate the waiting list users to the new platform
+
+        After the current users have been migrated, I'm going to migrate the users on the waiting list to the new platform.
+        They will also receive an email with instructions on how to access their new account.
+        At this point the platform will have roughly 200 users already on it, which should be a good starting point for the public release.
+        Hopefully we can identify and fix any remaining issues before opening the platform to the public - this requires feedback from real users.
+    </Step>
+    <Step>
+        ### Open the new platform to the public
+
+        Finally, once everything is working well and all users have been migrated, I'm going to open the new platform to the public.
+        This means that anyone can create an account and start using FancyAnalytics.
+
+        I'll also start publishing the Minecraft plugin on Modrinth to reach a wider audience.
+    </Step>
+</Steps>
+
+I can not give you a specific date for the public release yet, as there are still many unknowns and potential issues that could arise during the testing and migration process.
+But I'm aiming to open the platform to the public in January or February.
+
+## Migration
+
+Everyone who currently has an account or is on the waiting list will be automatically migrated to the new platform.
+You will receive an email once the migration is complete with instructions on how to access your new account.
+No data will be migrated, you will have to recreate all your projects and dashboards on the new platform.
+This is because the data model has changed significantly, and it would take too much time to migrate all the data.
+
+<Callout type="warn">
+    It's important that you set a valid email address in your current account settings, otherwise your account cannot be migrated.
+    You can check and update your email address on the profile settings page.
+</Callout>
+
+Creating new projects and dashboards is easier than before thanks to the new templates.
+There are tons of pre-built templates for different use cases for you to choose from, so you can get started quickly.
+Each template comes with pre-defined metrics and dashboards with charts to visualize the data.
+So you just need to apply the desired templates and use the new SDKs to begin tracking data again.
+
+I know there are currently a few Minecraft plugins that use FancyAnalytics to track their plugin usage.
+There will be a dedicated migration process for these plugins to make the transition as smooth as possible.
+There are thousands of servers still sending data to the old project IDs, so I will provide a way to **link the old project IDs to the new ones**.
+Just create a ticket on the [Discord server](https://discord.gg/ZUgYCEJUEx), provide your old project ID and the new project ID, and I will link them together.
+All data sent to the old project ID will then be automatically forwarded to the new project ID for a limited time to give you enough time to update your plugins with the new project ID.
+This means you don't have to update your plugins immediately after the migration, but you should do it as soon as possible to avoid any data loss.
+If you have any questions or need help with the migration, feel free to reach out on the Discord server.
+
+## Conclusion
+
+FancyAnalytics is making great progress and is getting closer to next beta phase.
+I still can't give you a specific date for the release, as I still have a lot of work to do, but I hope you are as excited as I am about the upcoming features and improvements.
+Right now the focus is on testing the new platform and getting real data flowing through it as soon as possible.
+
+Thank you for your continued support and interest in FancyAnalytics!
+
+You can still join the [waiting list](https://fancyanalytics.net/register/) and get access to the beta version once it's available.
+
+If you have any questions or suggestions, feel free to join the [Discord server](https://discord.gg/ZUgYCEJUEx) or dm me on Discord (real_oliver).
+
+_Oliver_
