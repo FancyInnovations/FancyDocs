@@ -12,13 +12,29 @@ description: Teleportation options for FancyCore
 
 ## Player Teleportation
 
-### tp
+### switchworld
+
+Teleport to another world (teleports to spawn point of destination world).
+- **Permissions**: `fancycore.commands.switchworld`
+- **Syntax**: `/switchworld <world>`
+  - `<world>` - Destination world name
+
+### switchserver
+
+Switch to another server.
+- **Permissions**: `fancycore.commands.switchserver`
+- **Syntax**: `/switchserver <host> [port]`
+  - `<host>` - Host IP or domain
+  - `[port]` - Port of server (optional, defaults to 5520)
+
+### teleport
 
 Teleports you or the specified player to another player's location.
-- **Permissions**: `fancycore.commands.tp`
-- **Syntax**: `/tp <target> [destination]` or `/teleport <target> [destination]`
-  - `<target>` - Player to teleport
-  - `[destination]` - Destination player (optional)
+- **Permissions**: `fancycore.commands.teleport`
+- **Syntax**: `/teleport <target> [destination]` or `/tp <target> [destination]`
+  - `<target>` - Player to teleport (if only one argument, teleports yourself to target)
+  - `[destination]` - Destination player (optional, if provided teleports target to destination)
+- **Alias**: `/tp`
 
 ### tphere
 
@@ -27,21 +43,24 @@ Teleports the specified player to your location.
 - **Syntax**: `/tphere <player>` or `/teleporthere <player>`
   - `<player>` - Target player
 
-### tpall
+### teleportall
 
-Teleports all players on the server to your location.
-- **Permissions**: `fancycore.commands.tpall`
-- **Syntax**: `/tpall` or `/teleportall`
+Teleports all players in the same world to your location.
+- **Permissions**: `fancycore.commands.teleportall`
+- **Syntax**: `/teleportall` or `/tpall`
+- **Alias**: `/tpall`
+- **Note**: Only teleports players in the same world as you
 
-### tppos
+### teleportposition
 
 Teleports you to the specified coordinates.
-- **Permissions**: `fancycore.commands.tppos`
-- **Syntax**: `/tppos <x> <y> <z> [world]` or `/teleportpos <x> <y> <z> [world]`
+- **Permissions**: `fancycore.commands.teleportposition`
+- **Syntax**: `/teleportposition <x> <y> <z> [world]` or `/teleportpos <x> <y> <z> [world]`
   - `<x>` - X coordinate
   - `<y>` - Y coordinate
   - `<z>` - Z coordinate
-  - `[world]` - World name (optional)
+  - `[world]` - World name (optional, defaults to current world)
+- **Aliases**: `/tppos`, `/teleportpos`
 
 ### tprequest
 
@@ -50,31 +69,36 @@ Sends a teleport request to another player to teleport to their location.
 - **Syntax**: `/tprequest <player>` or `/tpr <player>` or `/teleportrequest <player>`
   - `<player>` - Target player
 
-### tpaccept
+### teleportaccept
 
 Accepts a pending teleport request from another player.
-- **Permissions**: `fancycore.commands.tpaccept`
-- **Syntax**: `/tpaccept [player]` or `/tpa [player]` or `/teleportaccept [player]`
-  - `[player]` - Requesting player (optional)
+- **Permissions**: `fancycore.commands.teleportaccept`
+- **Syntax**: `/teleportaccept [player]` or `/tpaccept [player]` or `/tpa [player]`
+  - `[player]` - Requesting player (optional, if not provided accepts first pending request)
+- **Aliases**: `/tpa`, `/tpaccept`
 
-### tpdeny
+### teleportdeny
 
 Denies a pending teleport request from another player.
-- **Permissions**: `fancycore.commands.tpdeny`
-- **Syntax**: `/tpdeny [player]` or `/tpd [player]` or `/teleportdeny [player]`
+- **Permissions**: `fancycore.commands.teleportdeny`
+- **Syntax**: `/teleportdeny [player]` or `/tpdeny [player]` or `/tpd [player]`
   - `[player]` - Requesting player (optional)
+- **Aliases**: `/tpd`, `/tpdeny`
 
 ### back
 
 Teleports you back to your previous location before your last teleport.
 - **Permissions**: `fancycore.commands.back`
 - **Syntax**: `/back`
+- **Note**: Saves your current location as the new back location when used
 
-### deathback
+### teleportdeathback
 
 Teleports you to the location where you last died.
-- **Permissions**: `fancycore.commands.deathback`
-- **Syntax**: `/deathback` or `/deathtp` or `/deathteleport`
+- **Permissions**: `fancycore.commands.teleportdeathback`
+- **Syntax**: `/teleportdeathback` or `/deathback` or `/deathtp` or `/deathteleport`
+- **Aliases**: `/deathback`, `/deathtp`, `/deathteleport`
+- **Note**: Only works for deaths in the current world
 
 ## Spawn
 
@@ -82,7 +106,10 @@ Teleports you to the location where you last died.
 
 Sets the server's spawn point to your current location.
 - **Permissions**: `fancycore.commands.setspawn`
-- **Syntax**: `/setspawn`
+- **Syntax**: `/setspawn [position] [rotation]`
+  - `[position]` - Position to set (optional, defaults to your current position)
+  - `[rotation]` - Rotation to set (optional, defaults to your current rotation)
+- **Alias**: `/createspawn`
 
 ### spawn
 
@@ -92,12 +119,15 @@ Teleports you to the server's spawn point.
 
 ## Warps
 
-### createwarp
+### setwarp
 
 Creates a warp point at your current location with the specified name.
-- **Permissions**: `fancycore.commands.createwarp`
-- **Syntax**: `/createwarp <name>`
+- **Permissions**: `fancycore.commands.setwarp`
+- **Syntax**: `/setwarp <name> [position] [rotation]`
   - `<name>` - Warp name
+  - `[position]` - Position to set (optional, defaults to your current position)
+  - `[rotation]` - Rotation to set (optional, defaults to your current rotation)
+- **Alias**: `/createwarp`
 
 ### deletewarp
 
@@ -105,19 +135,21 @@ Deletes the warp point with the specified name.
 - **Permissions**: `fancycore.commands.deletewarp`
 - **Syntax**: `/deletewarp <name>`
   - `<name>` - Warp name
+- **Alias**: `/delwarp`
 
 ### warp
 
 Teleports you to the warp point with the specified name.
-- **Permissions**: `fancycore.commands.warp.(name)`
+- **Permissions**: `fancycore.commands.warp` and `fancycore.warps.<name>`
 - **Syntax**: `/warp <name>`
   - `<name>` - Warp name
 
 ### listwarps
 
-Lists all available warp points on the server.
+Lists all available warp points on the server that you have permission to use.
 - **Permissions**: `fancycore.commands.listwarps`
-- **Syntax**: `/listwarps` or `/warps`
+- **Syntax**: `/listwarps`
+- **Alias**: `/warps`
 
 ## Homes
 
@@ -125,8 +157,12 @@ Lists all available warp points on the server.
 
 Sets your home point to your current location.
 - **Permissions**: `fancycore.commands.sethome`
-- **Syntax**: `/sethome <name>`
+- **Syntax**: `/sethome <name> [position] [rotation]`
   - `<name>` - Home name
+  - `[position]` - Position to set (optional, defaults to your current position)
+  - `[rotation]` - Rotation to set (optional, defaults to your current rotation)
+- **Alias**: `/createhome`
+- **Note**: Maximum number of homes can be limited by group metadata `max_homes`
 
 ### deletehome
 
@@ -134,10 +170,12 @@ Deletes your home point with the specified name.
 - **Permissions**: `fancycore.commands.deletehome`
 - **Syntax**: `/deletehome <name>`
   - `<name>` - Home name
+- **Alias**: `/delhome`
 
 ### home
 
 Teleports you to your home point with the specified name or the first home if no name is provided.
 - **Permissions**: `fancycore.commands.home`
 - **Syntax**: `/home [name]`
-  - `[name]` - Home name (optional)
+  - `[name]` - Home name (optional, defaults to first home)
+- **Aliases**: `/home`, `/h`

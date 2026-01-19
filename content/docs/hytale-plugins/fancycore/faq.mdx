@@ -6,3 +6,55 @@ description: Frequently asked questions for FancyCore
 ### Is FancyCore available for Minecraft?
 
 No, FancyCore is a Hytale only plugin. There are no plans to make it available for Minecraft at this time.
+
+### What version of Hytale does FancyCore support?
+
+FancyCore is designed to work with the latest version of Hytale. Only the latest version is officially supported. Make sure your server is running the most recent Hytale server build.
+
+### How do I reload the FancyCore configuration?
+
+You can reload the FancyCore configuration file (`config.json`) without restarting the server by using the `/fancycore reloadconfig` command. This requires the `fancycore.commands.fancycore.reloadconfig` permission.
+
+### Can I use FancyCore on multiple servers?
+
+Yes! FancyCore supports multi-server setups. You can configure the server name in the config file to distinguish between different servers. This is useful for server networks where you want to share data or coordinate between servers.
+
+### How does the permission system work?
+
+FancyCore uses a hierarchical permission system with groups and individual player permissions. Players can be assigned to groups, and groups can have parent groups, allowing for complex permission inheritance. You can manage permissions using the `/permissions` and `/group` commands. See the [Permissions documentation](/docs/hytale-plugins/fancycore/commands/permissions) for more details.
+
+### Can I create multiple currencies?
+
+Yes! FancyCore supports multiple currencies. You can create new currencies using `/currency create`, and each currency can be configured independently. The primary currency is set in the configuration file. See the [Economy documentation](/docs/hytale-plugins/fancycore/commands/economy) for more information.
+
+### Where is player data stored?
+
+FancyCore stores all player data, including permissions, economy balances, homes, warps, kits, backpacks, and more, in JSON files located in the `mods/FancyCore/` directory. The data is automatically saved periodically and on server shutdown.
+
+### How do I use the FancyCore API in my plugin?
+
+To use the FancyCore API, you need to add it as a dependency in your build file (Gradle or Maven). The API is available from the FancySpaces Maven repository. See the [API Getting Started guide](/docs/hytale-plugins/fancycore/api/getting-started) for detailed instructions.
+
+### Can I disable certain features of FancyCore?
+
+Some features can be configured or disabled through the configuration file. For example, you can disable analytics, configure Discord webhook notifications, and adjust various settings. Check the configuration file in `mods/FancyCore/config.json` for available options.
+
+### How do I check for updates?
+
+FancyCore automatically checks for updates on startup and will notify you in the console if a newer version is available. You can also manually check for updates using the `/fancycore update` command (if available).
+
+### What happens if I delete a group that players are assigned to?
+
+If you delete a group that has members, those players will lose the permissions and benefits associated with that group. Make sure to reassign players to other groups before deleting a group, or use `/group members list` to check which players are in a group before deletion.
+
+### Can I customize chat formatting?
+
+Yes! FancyCore allows you to customize chat formatting through the configuration file. You can set custom chat formats, private message formats, and configure chat rooms with different settings. The chat format supports placeholders for dynamic content.
+
+### How do kits and backpacks work?
+
+Kits allow you to give players predefined sets of items. You can create kits using `/createkit` and configure cooldowns. Backpacks are virtual storage spaces that players can access. Both kits and backpacks are stored per-player and persist across server restarts. See the [Inventory documentation](/docs/hytale-plugins/fancycore/commands/inventory) for more details.
+
+### Is FancyCore still in development?
+
+Yes, FancyCore is currently in active development. Snapshot versions are available for testing, but some features may not be fully implemented yet. Join our [Discord server](https://discord.gg/ZUgYCEJUEx) to stay updated on the latest developments and get the "FancyCore" role for notifications.

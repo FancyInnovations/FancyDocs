@@ -10,52 +10,86 @@ description: Economy options for FancyCore
     Some commands might not be implemented yet.
 </Callout>
 
+## Currency Management
+
+The `/currency` command is a command collection for managing currencies.
+
+### currency list
+
+Lists all available currencies.
+- **Permissions**: `fancycore.commands.currency.list`
+- **Syntax**: `/currency list`
+
+### currency info
+
+Get information about a specific currency.
+- **Permissions**: `fancycore.commands.currency.info`
+- **Syntax**: `/currency info <currency>`
+  - `<currency>` - Currency name
+
+### currency create
+
+Create a new currency in the system.
+- **Permissions**: `fancycore.commands.currency.create`
+- **Syntax**: `/currency create <name> [symbol] [serverbound]`
+  - `<name>` - Name of the new currency
+  - `[symbol]` - Symbol of the new currency (optional)
+  - `[serverbound]` - Whether the currency should be bound to this server only (optional, boolean)
+
+### currency remove
+
+Remove a specific currency from the system.
+- **Permissions**: `fancycore.commands.currency.remove`
+- **Syntax**: `/currency remove <currency>`
+  - `<currency>` - Currency name (cannot be the primary currency)
+
+## Balance Commands
+
+All balance commands use the primary currency unless otherwise specified.
+
 ### balance
 
-Displays the balances of all currencies for the specified player or yourself if no player is specified.
+Displays the balance of the primary currency for the specified player or yourself if no player is specified.
 - **Permissions**: `fancycore.commands.balance`
 - **Syntax**: `/balance [player]`
   - `[player]` - Player to check (optional)
+- **Alias**: `/bal`
 
 ### pay
 
-Transfers a specified amount of money from the command sender to the specified player.
+Transfers a specified amount of money from the command sender to the specified player using the primary currency.
 - **Permissions**: `fancycore.commands.pay`
-- **Syntax**: `/pay <player> <amount> [currency]`
+- **Syntax**: `/pay <player> <amount>`
   - `<player>` - Target player
   - `<amount>` - Amount to transfer
-  - `[currency]` - Currency type (optional)
 
-### setbalance
+### addmoney
 
-Sets the balance of the specified player to a given amount.
-- **Permissions**: `fancycore.commands.setbalance`
-- **Syntax**: `/setbalance <player> <amount> [currency]`
-  - `<player>` - Target player
-  - `<amount>` - New balance amount
-  - `[currency]` - Currency type (optional)
-
-### addbalance
-
-Adds a specified amount of money to the balance of the specified player.
-- **Permissions**: `fancycore.commands.addbalance`
-- **Syntax**: `/addbalance <player> <amount> [currency]`
+Adds a specified amount of money to the balance of the specified player using the primary currency.
+- **Permissions**: `fancycore.commands.addmoney`
+- **Syntax**: `/addmoney <player> <amount>`
   - `<player>` - Target player
   - `<amount>` - Amount to add
-  - `[currency]` - Currency type (optional)
 
-### removebalance
+### removemoney
 
-Removes a specified amount of money from the balance of the specified player.
-- **Permissions**: `fancycore.commands.removebalance`
-- **Syntax**: `/removebalance <player> <amount> [currency]`
+Removes a specified amount of money from the balance of the specified player using the primary currency.
+- **Permissions**: `fancycore.commands.remove`
+- **Syntax**: `/removemoney <player> <amount>`
   - `<player>` - Target player
   - `<amount>` - Amount to remove
-  - `[currency]` - Currency type (optional)
 
-### topbalances
+### setmoney
 
-Displays a leaderboard of players with the highest balances.
-- **Permissions**: `fancycore.commands.topbalances`
-- **Syntax**: `/topbalances [currency]`
-    - `[currency]` - Currency type (optional)
+Sets the balance of the specified player to a given amount using the primary currency.
+- **Permissions**: `fancycore.commands.setmoney`
+- **Syntax**: `/setmoney <player> <amount>`
+  - `<player>` - Target player
+  - `<amount>` - New balance amount
+
+### balancetop
+
+Displays a leaderboard of the top 10 players with the highest balances for the primary currency.
+- **Permissions**: `fancycore.commands.balancetop`
+- **Syntax**: `/balancetop`
+- **Alias**: `/baltop`

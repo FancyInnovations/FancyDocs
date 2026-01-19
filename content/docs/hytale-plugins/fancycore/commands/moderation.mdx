@@ -14,20 +14,35 @@ description: Moderation options for FancyCore
 
 ### report
 
-Reports a player for misconduct.
+Reports a player to the staff team.
 - **Permissions**: `fancycore.commands.report`
-- **Syntax**: `/report <player> [reason]`
+- **Syntax**: `/report <player> <reason>`
   - `<player>` - Player to report
-  - `[reason]` - Report reason (optional)
+  - `<reason>` - Report reason (required)
 
 ### reports
 
-Manage player reports.
-- **Permissions**: `fancycore.commands.reports.list`, `fancycore.commands.reports.view`, `fancycore.commands.reports.close`
-- **Syntax**: `/reports list` or `/reports view <reportid>` or `/reports close <reportid>`
-  - `list` - Lists all active reports
-  - `view <reportid>` - View report details
-  - `close <reportid>` - Close a report
+The `/reports` command is a command collection for managing player reports.
+
+#### reports list
+
+Lists all unresolved player reports.
+- **Permissions**: `fancycore.commands.reports.list`
+- **Syntax**: `/reports list`
+
+#### reports info
+
+Get detailed information about a specific report.
+- **Permissions**: `fancycore.commands.reports.info`
+- **Syntax**: `/reports info <report>`
+  - `<report>` - Report ID
+
+#### reports resolve
+
+Resolve a specific player report.
+- **Permissions**: `fancycore.commands.reports.resolve`
+- **Syntax**: `/reports resolve <report>`
+  - `<report>` - Report ID
 
 ## Warn
 
@@ -35,28 +50,28 @@ Manage player reports.
 
 Issues a warning to a player.
 - **Permissions**: `fancycore.commands.warn`
-- **Syntax**: `/warn <player> [reason]`
-  - `<player>` - Target player
-  - `[reason]` - Warning reason (optional)
+- **Syntax**: `/warn <player> <reason>`
+  - `<player>` - Target player (must be online)
+  - `<reason>` - Warning reason (required)
 
 ## Mute
 
 ### mute
 
-Mutes a player, preventing them from sending chat messages.
+Permanently mutes a player, preventing them from sending chat messages.
 - **Permissions**: `fancycore.commands.mute`
-- **Syntax**: `/mute <player> [reason]`
+- **Syntax**: `/mute <player> <reason>`
   - `<player>` - Target player
-  - `[reason]` - Mute reason (optional)
+  - `<reason>` - Mute reason (required)
 
 ### tempmute
 
 Temporarily mutes a player for a specified duration.
 - **Permissions**: `fancycore.commands.tempmute`
-- **Syntax**: `/tempmute <player> <duration> [reason]`
+- **Syntax**: `/tempmute <player> <duration> <reason>`
   - `<player>` - Target player
-  - `<duration>` - Mute duration
-  - `[reason]` - Mute reason (optional)
+  - `<duration>` - Mute duration (e.g., "1h", "30m", "2d")
+  - `<reason>` - Mute reason (required)
 
 ### unmute
 
@@ -65,35 +80,34 @@ Unmutes a player.
 - **Syntax**: `/unmute <player>`
   - `<player>` - Target player
 
-
 ## Kick
 
 ### kick
 
 Kicks a player from the server.
 - **Permissions**: `fancycore.commands.kick`
-- **Syntax**: `/kick <player> [reason]`
-  - `<player>` - Target player
-  - `[reason]` - Kick reason (optional)
+- **Syntax**: `/kick <player> <reason>`
+  - `<player>` - Target player (must be online)
+  - `<reason>` - Kick reason (required)
 
 ## Ban
 
 ### ban
 
-Bans a player from the server.
+Permanently bans a player from the server.
 - **Permissions**: `fancycore.commands.ban`
-- **Syntax**: `/ban <player> [reason]`
+- **Syntax**: `/ban <player> <reason>`
   - `<player>` - Target player
-  - `[reason]` - Ban reason (optional)
+  - `<reason>` - Ban reason (required)
 
 ### tempban
 
 Temporarily bans a player from the server for a specified duration.
 - **Permissions**: `fancycore.commands.tempban`
-- **Syntax**: `/tempban <player> <duration> [reason]`
+- **Syntax**: `/tempban <player> <duration> <reason>`
   - `<player>` - Target player
-  - `<duration>` - Ban duration
-  - `[reason]` - Ban reason (optional)
+  - `<duration>` - Ban duration (e.g., "1h", "30m", "2d")
+  - `<reason>` - Ban reason (required)
 
 ### unban
 
@@ -101,6 +115,31 @@ Unbans a player from the server.
 - **Permissions**: `fancycore.commands.unban`
 - **Syntax**: `/unban <player>`
   - `<player>` - Target player
+
+## Punishments
+
+The `/punishments` command is a command collection for managing player punishments.
+
+### punishments list
+
+List all punishments for a player.
+- **Permissions**: `fancycore.commands.punishments.list`
+- **Syntax**: `/punishments list <target>`
+  - `<target>` - Target player
+
+### punishments listactive
+
+List all active punishments for a player.
+- **Permissions**: `fancycore.commands.punishments.list`
+- **Syntax**: `/punishments listactive <target>`
+  - `<target>` - Target player
+
+### punishments info
+
+Get detailed information about a specific punishment.
+- **Permissions**: `fancycore.commands.punishments.info`
+- **Syntax**: `/punishments info <punishment>`
+  - `<punishment>` - Punishment ID
 
 ## Logs
 

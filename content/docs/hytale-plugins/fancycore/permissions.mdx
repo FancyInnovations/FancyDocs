@@ -3,10 +3,210 @@ title: Permissions
 description: Permission overview for FancyCore
 ---
 
-## Chat
+## Permission Patterns
 
-Watch / join chat room: `fancycore.chatroom.<name>`
+FancyCore uses a hierarchical permission system. Most permissions follow the pattern `fancycore.commands.<category>.<action>`.
 
-Bypass chat room mute: `fancycore.chat.bypassmute`
+## Chat Permissions
 
-Bypass chat cooldown: `fancycore.chat.bypasscooldown`
+### Chat Room Access
+- `fancycore.chatrooms.<name>` - Access to a specific chat room (replace `<name>` with the chat room name)
+
+### Chat Bypass Permissions
+- `fancycore.chat.bypassmute` - Bypass chat room mute restrictions
+- `fancycore.chat.bypasscooldown` - Bypass chat cooldown restrictions
+
+### Chat Commands
+- `fancycore.commands.message` - Send private messages
+- `fancycore.commands.reply` - Reply to private messages
+- `fancycore.commands.ignore` - Ignore players
+- `fancycore.commands.uningnore` - Unignore players
+- `fancycore.commands.togglemessages` - Toggle receiving private messages
+- `fancycore.commands.chatrooms.info` - View chat room information
+- `fancycore.commands.chatrooms.list` - List chat rooms
+- `fancycore.commands.chatrooms.create` - Create chat rooms
+- `fancycore.commands.chatrooms.delete` - Delete chat rooms
+- `fancycore.commands.chatrooms.watch` - Watch chat rooms
+- `fancycore.commands.chatrooms.unwatch` - Unwatch chat rooms
+- `fancycore.commands.chatrooms.watching` - View watched chat rooms
+- `fancycore.commands.chatrooms.switch` - Switch chat rooms
+- `fancycore.commands.chatrooms.clearchat` - Clear chat
+- `fancycore.commands.chatrooms.mute` - Mute chat rooms
+- `fancycore.commands.chatrooms.unmute` - Unmute chat rooms
+- `fancycore.commands.chatrooms.cooldown` - Set chat room cooldown
+- `fancycore.commands.chatcolor.set` - Set chat color
+- `fancycore.commands.broadcast` - Broadcast messages
+
+## Economy Permissions
+
+### Currency Commands
+- `fancycore.commands.currency.list` - List currencies
+- `fancycore.commands.currency.info` - View currency information
+- `fancycore.commands.currency.create` - Create currencies
+- `fancycore.commands.currency.remove` - Remove currencies
+
+### Balance Commands
+- `fancycore.commands.balance` - Check balance
+- `fancycore.commands.pay` - Pay other players
+- `fancycore.commands.addmoney` - Add money to players
+- `fancycore.commands.remove` - Remove money from players
+- `fancycore.commands.setmoney` - Set player money
+- `fancycore.commands.balancetop` - View balance leaderboard
+
+## Permissions System
+
+### Player Permissions Commands
+- `fancycore.commands.permissions.check` - Check permissions
+- `fancycore.commands.permissions.list` - List player permissions
+- `fancycore.commands.permissions.set` - Set player permissions
+- `fancycore.commands.permissions.remove` - Remove player permissions
+
+### Group Commands
+- `fancycore.commands.groups.info` - View group information
+- `fancycore.commands.groups.list` - List groups
+- `fancycore.commands.groups.create` - Create groups
+- `fancycore.commands.groups.delete` - Delete groups
+- `fancycore.commands.groups.setprefix` - Set group prefix
+- `fancycore.commands.groups.setsuffix` - Set group suffix
+- `fancycore.commands.groups.setweight` - Set group weight
+- `fancycore.commands.groups.permissions.list` - List group permissions
+- `fancycore.commands.groups.permissions.set` - Set group permissions
+- `fancycore.commands.groups.permissions.remove` - Remove group permissions
+- `fancycore.commands.groups.permissions.clear` - Clear group permissions
+- `fancycore.commands.groups.parents.list` - List parent groups
+- `fancycore.commands.groups.parents.add` - Add parent group
+- `fancycore.commands.groups.parents.remove` - Remove parent group
+- `fancycore.commands.groups.parents.clear` - Clear parent groups
+- `fancycore.commands.groups.metadata.list` - List group metadata
+- `fancycore.commands.groups.metadata.set` - Set group metadata
+- `fancycore.commands.groups.metadata.remove` - Remove group metadata
+- `fancycore.commands.groups.metadata.clear` - Clear group metadata
+- `fancycore.commands.groups.members.list` - List group members
+- `fancycore.commands.groups.members.add` - Add group member
+- `fancycore.commands.groups.members.remove` - Remove group member
+- `fancycore.commands.groups.members.clear` - Clear group members
+
+## Moderation Permissions
+
+### Punishment Commands
+- `fancycore.commands.warn` - Warn players
+- `fancycore.commands.kick` - Kick players
+- `fancycore.commands.mute` - Mute players
+- `fancycore.commands.tempmute` - Temporarily mute players
+- `fancycore.commands.unmute` - Unmute players
+- `fancycore.commands.ban` - Ban players
+- `fancycore.commands.tempban` - Temporarily ban players
+- `fancycore.commands.unban` - Unban players
+- `fancycore.commands.punishments.list` - List punishments
+- `fancycore.commands.punishments.info` - View punishment information
+
+### Report Commands
+- `fancycore.commands.report` - Report players
+- `fancycore.commands.reports.list` - List reports
+- `fancycore.commands.reports.info` - View report information
+- `fancycore.commands.reports.resolve` - Resolve reports
+
+## Player Utility Permissions
+
+### Player Commands
+- `fancycore.commands.playerlist` - List online players
+- `fancycore.commands.playtime` - Check playtime
+- `fancycore.commands.seen` - Check last seen time
+- `fancycore.commands.near` - Find nearby players
+- `fancycore.commands.ping` - Check ping
+- `fancycore.commands.gamemode` - Change gamemode
+- `fancycore.commands.gamemode.others` - Change other players' gamemode
+- `fancycore.commands.fly` - Toggle fly mode
+- `fancycore.commands.speed` - Set speed
+- `fancycore.commands.heal` - Heal players
+- `fancycore.commands.feed` - Feed players
+- `fancycore.commands.god` - Toggle god mode
+- `fancycore.commands.vanish` - Toggle vanish mode
+
+## Teleportation Permissions
+
+### Teleport Commands
+- `fancycore.commands.teleport` - Teleport to players
+- `fancycore.commands.teleporthere` - Teleport players to you
+- `fancycore.commands.teleportall` - Teleport all players
+- `fancycore.commands.teleportposition` - Teleport to coordinates
+- `fancycore.commands.teleportrequest` - Request teleport
+- `fancycore.commands.teleportaccept` - Accept teleport request
+- `fancycore.commands.teleportdeny` - Deny teleport request
+- `fancycore.commands.back` - Teleport back
+- `fancycore.commands.teleportdeathback` - Teleport to death location
+
+### Spawn Commands
+- `fancycore.commands.setspawn` - Set spawn point
+- `fancycore.commands.spawn` - Teleport to spawn
+
+### Home Commands
+- `fancycore.commands.sethome` - Set home
+- `fancycore.commands.deletehome` - Delete home
+- `fancycore.commands.home` - Teleport to home
+- `fancycore.commands.listhomes` - List homes
+
+### Warp Commands
+- `fancycore.commands.setwarp` - Create warp
+- `fancycore.commands.deletewarp` - Delete warp
+- `fancycore.commands.warp` - Teleport to warp
+- `fancycore.commands.listwarps` - List warps
+- `fancycore.warps.<name>` - Access to a specific warp (replace `<name>` with the warp name)
+
+### World/Server Commands
+- `fancycore.commands.switchworld` - Switch worlds
+- `fancycore.commands.switchserver` - Switch servers
+
+## Inventory Permissions
+
+### Kit Commands
+- `fancycore.commands.createkit` - Create kits
+- `fancycore.commands.deletekit` - Delete kits
+- `fancycore.commands.kit` - Use kits
+- `fancycore.commands.listkits` - List kits
+- `fancycore.kits.<name>` - Access to a specific kit (replace `<name>` with the kit name)
+- `fancycore.kits.bypasscooldown` - Bypass kit cooldowns
+
+### Backpack Commands
+- `fancycore.commands.createbackpack` - Create backpacks
+- `fancycore.commands.deletebackpack` - Delete backpacks
+- `fancycore.commands.backpack` - Open backpacks
+- `fancycore.commands.backpack.others` - Open other players' backpacks
+- `fancycore.commands.listbackpacks` - List backpacks
+
+### Inventory Utility Commands
+- `fancycore.commands.clearinventory` - Clear inventory
+- `fancycore.commands.clearinventory.others` - Clear other players' inventories
+- `fancycore.commands.openinventory` - Open player inventory
+
+## Scoreboard Permissions
+
+### Scoreboard Commands
+- `fancycore.commands.scoreboard` - Access scoreboard commands
+- `fancycore.commands.scoreboard.listpages` - List scoreboard pages
+- `fancycore.commands.scoreboard.switchpage` - Switch scoreboard page
+- `fancycore.commands.scoreboard.page` - Access page commands
+- `fancycore.commands.scoreboard.page.info` - View page information
+- `fancycore.commands.scoreboard.page.create` - Create pages
+- `fancycore.commands.scoreboard.page.delete` - Delete pages
+- `fancycore.commands.scoreboard.page.setalignment` - Set page alignment
+- `fancycore.commands.scoreboard.page.setwidth` - Set page width
+- `fancycore.commands.scoreboard.page.setheight` - Set page height
+- `fancycore.commands.scoreboard.page.setoffset` - Set page offset
+- `fancycore.commands.scoreboard.page.setbackgroundcolor` - Set page background color
+- `fancycore.commands.scoreboard.page.setopacity` - Set page opacity
+- `fancycore.commands.scoreboard.page.lines` - Access line commands
+- `fancycore.commands.scoreboard.page.lines.info` - View line information
+- `fancycore.commands.scoreboard.page.lines.add` - Add lines
+- `fancycore.commands.scoreboard.page.lines.remove` - Remove lines
+- `fancycore.commands.scoreboard.page.lines.settext` - Set line text
+- `fancycore.commands.scoreboard.page.lines.setalignment` - Set line alignment
+- `fancycore.commands.scoreboard.page.lines.fontsize` - Set line font size
+- `fancycore.commands.scoreboard.page.lines.setpaddingtop` - Set line top padding
+- `fancycore.commands.scoreboard.page.lines.setpaddingbottom` - Set line bottom padding
+- `fancycore.commands.scoreboard.page.lines.setpaddingleft` - Set line left padding
+- `fancycore.commands.scoreboard.page.lines.setpaddingright` - Set line right padding
+
+## Plugin Commands
+
+- `fancycore.commands.fancycore` - Access FancyCore commands (version, update, reloadconfig)
