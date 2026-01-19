@@ -19,7 +19,7 @@ Sends a private message to the specified player.
 - **Syntax**: `/message <player> <message>`
   - `<player>` - Target player name
   - `<message>` - Message content
-- **Alias**: `/msg`
+- **Aliases**: `/msg`, `/dm`, `/tell`, `/whisper`
 
 ### reply
 
@@ -29,6 +29,27 @@ Replies to the last private message received.
   - `<message>` - Reply content
 - **Alias**: `/r`
 
+### ignore
+
+Ignores a player to stop receiving their messages.
+- **Permissions**: `fancycore.commands.ignore`
+- **Syntax**: `/ignore <player>`
+  - `<player>` - Target player to ignore
+
+### unignore
+
+Unignores a player to start receiving their messages again.
+- **Permissions**: `fancycore.commands.uningnore`
+- **Syntax**: `/unignore <player>`
+  - `<player>` - Target player to unignore
+
+### togglemessages
+
+Toggles the ability to receive private messages.
+- **Permissions**: `fancycore.commands.togglemessages`
+- **Syntax**: `/togglemessages`
+- **Aliases**: `/toggledms`
+
 ### messagespy
 
 Toggles message spying to see private messages between other players.
@@ -36,73 +57,115 @@ Toggles message spying to see private messages between other players.
 - **Syntax**: `/messagespy`
 - **Alias**: `/msgspy`
 
-### togglemessages
-
-Toggles the ability to receive private messages.
-- **Permissions**: `fancycore.commands.togglemessages`
-- **Syntax**: `/togglemessages`
-- **Alias**: `/togglemsg`
-
 ## Chat rooms
+
+The `/chatroom` command (alias `/cr`) is a command collection for managing chat rooms.
+
+### chatroom info
+
+Get information about a chat room.
+- **Permissions**: `fancycore.commands.chatrooms.info`
+- **Syntax**: `/chatroom info [chatroom]`
+  - `[chatroom]` - Chat room name (optional, defaults to current chat room)
+
+### chatroom list
+
+Lists all chat rooms you have permission to access.
+- **Permissions**: `fancycore.commands.chatrooms.list`
+- **Syntax**: `/chatroom list`
+
+### chatroom create
+
+Create a new chat room.
+- **Permissions**: `fancycore.commands.chatrooms.create`
+- **Syntax**: `/chatroom create <name>`
+  - `<name>` - Chat room name
+
+### chatroom delete
+
+Deletes a chat room.
+- **Permissions**: `fancycore.commands.chatrooms.delete`
+- **Syntax**: `/chatroom delete [chatroom]`
+  - `[chatroom]` - Chat room name (optional, defaults to current chat room)
 
 ### chatroom watch
 
 Watch a specific chat room. You will receive messages from this room.
-- **Permissions**: `fancycore.commands.chatroom.watch`
+- **Permissions**: `fancycore.commands.chatrooms.watch`
 - **Syntax**: `/chatroom watch <name>`
   - `<name>` - Chat room name
 
 ### chatroom unwatch
 
-Unwatch a specific chat room.
-- **Permissions**: `fancycore.commands.chatroom.watch`
+Stop watching a specific chat room. You will no longer receive messages from this chat room.
+- **Permissions**: `fancycore.commands.chatrooms.unwatch`
 - **Syntax**: `/chatroom unwatch <name>`
-- `<name>` - Chat room name
+  - `<name>` - Chat room name
 
-### chatroom list
+### chatroom watching
 
-Lists all available chat rooms.
-- **Permissions**: `fancycore.commands.chatroom.list`
-- **Syntax**: `/chatroom list`
+Show information about the chat rooms you are currently watching.
+- **Permissions**: `fancycore.commands.chatrooms.watching`
+- **Syntax**: `/chatroom watching`
 
 ### chatroom switch
 
-Switches to a specific chat room. Your messages will be sent to this room.
-- **Permissions**: `fancycore.commands.chatroom.switch`
+Switch to a chat room. Your messages will be sent to this chat room.
+- **Permissions**: `fancycore.commands.chatrooms.switch`
 - **Syntax**: `/chatroom switch <name>`
   - `<name>` - Chat room name
 
 ### chatroom clearchat
 
 Clears the chat for a specific chat room.
-- **Permissions**: `fancycore.commands.chatroom.clearchat`
-- **Syntax**: `/chatroom clearchat <name>`
-  - `<name>` - Chat room name
-- **Alias**: `/clearchat` (clears current chat room)
+- **Permissions**: `fancycore.commands.chatrooms.clearchat`
+- **Syntax**: `/chatroom clearchat [chatroom]`
+  - `[chatroom]` - Chat room name (optional, defaults to current chat room)
+- **Aliases**: `/cc`, `/clear`
 
 ### chatroom cooldown
 
 Sets a cooldown for sending messages in a specific chat room.
-- **Permissions**: `fancycore.commands.chatroom.cooldown`
-- **Syntax**: `/chatroom cooldown <name> <seconds>`
-  - `<name>` - Chat room name
-  - `<seconds>` - Cooldown in seconds
-- **Alias**: `/chatcooldown` (sets cooldown for current chat room)
+- **Permissions**: `fancycore.commands.chatrooms.cooldown`
+- **Syntax**: `/chatroom cooldown <seconds> [chatroom]`
+  - `<seconds>` - Cooldown in seconds (float)
+  - `[chatroom]` - Chat room name (optional, defaults to current chat room)
 
 ### chatroom mute
 
 Mutes a specific chat room, preventing players from sending messages.
-- **Permissions**: `fancycore.commands.chatroom.mute`
-- **Syntax**: `/chatroom mute <name>`
-  - `<name>` - Chat room name
-- **Alias**: `/mutechat` (mutes current chat room)
+- **Permissions**: `fancycore.commands.chatrooms.mute`
+- **Syntax**: `/chatroom mute [chatroom]`
+  - `[chatroom]` - Chat room name (optional, defaults to current chat room)
 
 ### chatroom unmute
 
 Unmutes a specific chat room, allowing players to send messages again.
-- **Permissions**: `fancycore.commands.chatroom.unmute`
-- **Syntax**: `/chatroom unmute <name>`
-  - `<name>` - Chat room name
-- **Alias**: `/unmutechat` (unmutes current chat room)
+- **Permissions**: `fancycore.commands.chatrooms.unmute`
+- **Syntax**: `/chatroom unmute [chatroom]`
+  - `[chatroom]` - Chat room name (optional, defaults to current chat room)
+
+## Chat Color
+
+### chatcolor
+
+The `/chatcolor` command is a command collection for managing your chat color.
+
+#### chatcolor set
+
+Set your chat color.
+- **Permissions**: `fancycore.commands.chatcolor.set`
+- **Syntax**: `/chatcolor set <color>`
+  - `<color>` - Color code (must start with `&` and be 2 characters, e.g., `&a` for green)
+
+## Broadcast
+
+### broadcast
+
+Broadcast a message to all players.
+- **Permissions**: `fancycore.commands.broadcast`
+- **Syntax**: `/broadcast <message>`
+  - `<message>` - Broadcast message content
+- **Aliases**: `/bc`, `/announce`
 
 

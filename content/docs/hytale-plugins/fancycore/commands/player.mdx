@@ -13,24 +13,24 @@ description: Player options for FancyCore
 ### gamemode
 
 Changes the gamemode of a player.
-- **Permissions**: `fancycore.commands.gamemode`
+- **Permissions**: `fancycore.commands.gamemode` (use `fancycore.commands.gamemode.others` to change others' gamemode)
 - **Syntax**: `/gamemode <gamemode> [player]` or `/gm <gamemode> [player]`
-  - `<gamemode>` - Game mode type
-  - `[player]` - Target player (optional)
+  - `<gamemode>` - Game mode type (Adventure, Creative, Explorer, Survival)
+  - `[player]` - Target player (optional, defaults to yourself)
 
-### gme
+### gma
 
-Changes the gamemode of a player to explorer mode.
-- **Permissions**: `fancycore.commands.gamemode`
-- **Syntax**: `/gme [player]`
-  - `[player]` - Target player (optional)
+Changes the gamemode of a player to adventure mode.
+- **Permissions**: `fancycore.commands.gamemode` (use `fancycore.commands.gamemode.others` to change others' gamemode)
+- **Syntax**: `/gma [player]`
+  - `[player]` - Target player (optional, defaults to yourself)
 
 ### gmc
 
 Changes the gamemode of a player to creative mode.
-- **Permissions**: `fancycore.commands.gamemode`
+- **Permissions**: `fancycore.commands.gamemode` (use `fancycore.commands.gamemode.others` to change others' gamemode)
 - **Syntax**: `/gmc [player]`
-  - `[player]` - Target player (optional)
+  - `[player]` - Target player (optional, defaults to yourself)
 
 ### fly
 
@@ -44,8 +44,8 @@ Toggles fly mode for a player.
 Sets the walk and fly speed of a player.
 - **Permissions**: `fancycore.commands.speed`
 - **Syntax**: `/speed <speed> [player]`
-  - `<speed>` - Speed value
-  - `[player]` - Target player (optional)
+  - `<speed>` - Speed value (float, between 0.1 and 10.0)
+  - `[player]` - Target player (optional, defaults to yourself)
 
 ### heal
 
@@ -94,11 +94,18 @@ Displays the last seen time of a player.
 Lists players near the command sender within a specified radius.
 - **Permissions**: `fancycore.commands.near`
 - **Syntax**: `/near [radius]`
-  - `[radius]` - Search radius (optional)
+  - `[radius]` - Search radius (optional, defaults to 50.0 blocks)
+
+### playerlist
+
+Displays a list of all online players.
+- **Permissions**: `fancycore.commands.playerlist`
+- **Syntax**: `/playerlist`
+- **Aliases**: `/online`, `/list`
 
 ### ping
 
 Displays the ping of a player.
 - **Permissions**: `fancycore.commands.ping`
 - **Syntax**: `/ping [player]`
-  - `[player]` - Target player (optional)
+  - `[player]` - Target player (optional, defaults to yourself)

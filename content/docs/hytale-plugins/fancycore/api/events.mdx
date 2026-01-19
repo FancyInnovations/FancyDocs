@@ -29,6 +29,8 @@ eventService.registerListener(PlayerReportedEvent.class, (event) -> {
 
 | Event                 | Description                                                             |
 |-----------------------|-------------------------------------------------------------------------|
+| `PlayerJoinedEvent`   | Fired when a player joins the server.                                   |
+| `PlayerLeftEvent`     | Fired when a player leaves the server.                                 |
 | `PlayerModifiedEvent` | Fired when a player's data is modified (through FancyPlayer's setters). |
 | `PlayerReportedEvent` | Fired when a player is reported.                                        |
 | `PlayerPunishedEvent` | Fired when a player receives a punishment (warning, kick, mute or ban). |
@@ -38,8 +40,16 @@ eventService.registerListener(PlayerReportedEvent.class, (event) -> {
 | Event                          | Description                                              |
 |--------------------------------|----------------------------------------------------------|
 | `PlayerSentMessageEvent`       | Fired when a player sends a chat message in a chat room. |
+| `PrivateMessageSentEvent`      | Fired when a player sends a private message to another player. |
 | `PlayerSwitchedChatRoomEvent`  | Fired when a player switches chat rooms.                 |
 | `PlayerWatchedChatRoomEvent`   | Fired when a player starts watching a chat room.         |
 | `PlayerUnwatchedChatRoomEvent` | Fired when a player stops watching a chat room.          |
 | `ChatClearedEvent`             | Fired when a chat room is cleared.                       |
 | `BroadcastMessageSentEvent`    | Fired when a broadcast message is sent to a chat room.   |
+
+### Server events
+
+| Event                 | Description                                              |
+|-----------------------|----------------------------------------------------------|
+| `ServerStartedEvent`  | Fired when the server starts.                            |
+| `ServerStoppedEvent`  | Fired when the server stops.                             |

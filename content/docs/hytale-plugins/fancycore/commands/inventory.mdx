@@ -14,10 +14,11 @@ description: Economy options for FancyCore
 
 ### createkit
 
-Creates a new kit with the specified name (*note: it contains all items in your inventory*).
+Creates a new kit with the specified name (note: it contains all items in your inventory including hotbar, storage, and armor).
 - **Permissions**: `fancycore.commands.createkit`
-- **Syntax**: `/createkit <name>`
+- **Syntax**: `/createkit <name> [cooldown]`
   - `<name>` - Kit name
+  - `[cooldown]` - Cooldown duration (optional, e.g., "1h", "30m", "2d")
 
 ### deletekit
 
@@ -25,38 +26,44 @@ Deletes the specified kit.
 - **Permissions**: `fancycore.commands.deletekit`
 - **Syntax**: `/deletekit <name>`
   - `<name>` - Kit name
+- **Alias**: `/delkit`
 
 ### kit
 
-Gives the specified kit to the targeted player(s).
-- **Permissions**: `fancycore.commands.kit.(name)`
+Gives the specified kit to the targeted player.
+- **Permissions**: `fancycore.commands.kit` and `fancycore.kits.<name>` (use `fancycore.kits.bypasscooldown` to bypass cooldown)
 - **Syntax**: `/kit <name> [player]`
   - `<name>` - Kit name
-  - `[player]` - Target player (optional)
+  - `[player]` - Target player (optional, defaults to yourself)
+- **Note**: Respects kit cooldown unless you have bypass permission
 
 ### listkits
 
-Lists all available kits.
+Lists all available kits that you have permission to use.
 - **Permissions**: `fancycore.commands.listkits`
-- **Syntax**: `/listkits` or `/kits`
+- **Syntax**: `/listkits`
+- **Alias**: `/kits`
 
 ## Backpacks
 
 ### backpack
 
 Opens the specified backpack of the targeted player.
-- **Permissions**: `fancycore.commands.backpack`
+- **Permissions**: `fancycore.commands.backpack` (use `fancycore.commands.backpack.others` to open others' backpacks)
 - **Syntax**: `/backpack <name> [player]`
   - `<name>` - Backpack name
-  - `[player]` - Target player (optional)
+  - `[player]` - Target player (optional, defaults to yourself)
+- **Aliases**: `/bp`, `/virtualbackback`, `/vbp`
 
 ### createbackpack
 
 Creates a new backpack with the specified name and size.
 - **Permissions**: `fancycore.commands.createbackpack`
-- **Syntax**: `/createbackpack <name> <size>`
+- **Syntax**: `/createbackpack <name> [size]`
   - `<name>` - Backpack name
-  - `<size>` - Inventory size
+  - `[size]` - Inventory size (optional, defaults to 54, must be between 1 and 54)
+- **Aliases**: `/createbp`, `/createvirtualbackpack`
+- **Note**: Maximum number of backpacks can be limited by group metadata `max_backpacks`
 
 ### deletebackpack
 
@@ -64,25 +71,29 @@ Deletes the specified backpack.
 - **Permissions**: `fancycore.commands.deletebackpack`
 - **Syntax**: `/deletebackpack <name>`
   - `<name>` - Backpack name
+- **Aliases**: `/deletebp`, `/deletevirtualbackpack`
 
 ### listbackpacks
 
-Lists all available backpacks.
+Lists all your available backpacks.
 - **Permissions**: `fancycore.commands.listbackpacks`
-- **Syntax**: `/listbackpacks` or `/backpacks`
+- **Syntax**: `/listbackpacks`
+- **Aliases**: `/backpacks`, `/listvirtualbackpacks`, `/listbp`
 
 ## Utilities
 
 ### clearinventory
 
-Clears the inventory of the targeted player(s).
-- **Permissions**: `fancycore.commands.clearinventory`
+Clears the inventory of the targeted player (clears hotbar and storage, but not armor).
+- **Permissions**: `fancycore.commands.clearinventory` (use `fancycore.commands.clearinventory.others` to clear others' inventories)
 - **Syntax**: `/clearinventory [player]`
-  - `[player]` - Target player (optional)
+  - `[player]` - Target player (optional, defaults to yourself)
+- **Alias**: `/ci`
 
 ### openinventory
 
-Opens the inventory of the targeted player.
+Opens the inventory of the targeted player (allows viewing and editing in real-time).
 - **Permissions**: `fancycore.commands.openinventory`
-- **Syntax**: `/openinventory <player>` or `/invsee <player>`
-  - `<player>` - Target player
+- **Syntax**: `/openinventory <player>`
+  - `<player>` - Target player (must be online)
+- **Alias**: `/invsee`

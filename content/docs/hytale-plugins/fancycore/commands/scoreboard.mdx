@@ -1,0 +1,192 @@
+---
+title: Scoreboard
+description: Scoreboard options for FancyCore
+---
+
+# Commands for the scoreboard system
+
+<Callout type="warn">
+    The command list is not complete and not all commands are properly documented yet.
+    Some commands might not be implemented yet.
+</Callout>
+
+The `/scoreboard` command (alias `/sb`) is a command collection for managing scoreboards and their pages.
+
+## scoreboard listpages
+
+List all scoreboard pages.
+- **Permissions**: `fancycore.commands.scoreboard.listpages`
+- **Syntax**: `/scoreboard listpages`
+
+## scoreboard switchpage
+
+Switch the active scoreboard page for yourself or another player.
+- **Permissions**: `fancycore.commands.scoreboard.switchpage`
+- **Syntax**: `/scoreboard switchpage <page> [target]`
+  - `<page>` - The scoreboard page to switch to
+  - `[target]` - Target player (optional, defaults to yourself)
+
+## scoreboard page
+
+The `/scoreboard page` command is a subcollection for managing scoreboard pages.
+
+### scoreboard page info
+
+Get information about a scoreboard page.
+- **Permissions**: `fancycore.commands.scoreboard.page.info`
+- **Syntax**: `/scoreboard page info <page>`
+  - `<page>` - The scoreboard page
+
+### scoreboard page create
+
+Creates a new scoreboard page with default content.
+- **Permissions**: `fancycore.commands.scoreboard.page.create`
+- **Syntax**: `/scoreboard page create <name>`
+  - `<name>` - The new page name
+- **Note**: Creates a page with default lines including server name, welcome message, player info, group, money, playtime, and online players
+
+### scoreboard page delete
+
+Delete a scoreboard page.
+- **Permissions**: `fancycore.commands.scoreboard.page.delete`
+- **Syntax**: `/scoreboard page delete <page>`
+  - `<page>` - The scoreboard page to delete
+
+### scoreboard page setalignment
+
+Set the alignment of a scoreboard page.
+- **Permissions**: `fancycore.commands.scoreboard.page.setalignment`
+- **Syntax**: `/scoreboard page setalignment <page> <alignment>`
+  - `<page>` - The scoreboard page to modify
+  - `<alignment>` - Alignment: `Right` or `Left`
+
+### scoreboard page setwidth
+
+Set the width of a scoreboard page.
+- **Permissions**: `fancycore.commands.scoreboard.page.setwidth`
+- **Syntax**: `/scoreboard page setwidth <page> <width>`
+  - `<page>` - The scoreboard page to modify
+  - `<width>` - New width (positive integer)
+
+### scoreboard page setheight
+
+Set the height of a scoreboard page.
+- **Permissions**: `fancycore.commands.scoreboard.page.setheight`
+- **Syntax**: `/scoreboard page setheight <page> <height>`
+  - `<page>` - The scoreboard page to modify
+  - `<height>` - New height (positive integer)
+
+### scoreboard page setoffset
+
+Set the offset of a scoreboard page.
+- **Permissions**: `fancycore.commands.scoreboard.page.setoffset`
+- **Syntax**: `/scoreboard page setoffset <page> <offset>`
+  - `<page>` - The scoreboard page to modify
+  - `<offset>` - New offset (positive integer)
+
+### scoreboard page setbackgroundcolor
+
+Set the background color of a scoreboard page.
+- **Permissions**: `fancycore.commands.scoreboard.page.setbackgroundcolor`
+- **Syntax**: `/scoreboard page setbackgroundcolor <page> <color>`
+  - `<page>` - The scoreboard page to modify
+  - `<color>` - New background color (integer color value)
+
+### scoreboard page setopacity
+
+Set the opacity of a scoreboard page.
+- **Permissions**: `fancycore.commands.scoreboard.page.setopacity`
+- **Syntax**: `/scoreboard page setopacity <page> <opacity>`
+  - `<page>` - The scoreboard page to modify
+  - `<opacity>` - New opacity in percent (1-100)
+
+## scoreboard page lines
+
+The `/scoreboard page lines` command is a subcollection for managing scoreboard page lines.
+
+### scoreboard page lines info
+
+Get information about a scoreboard page line.
+- **Permissions**: `fancycore.commands.scoreboard.page.lines.info`
+- **Syntax**: `/scoreboard page lines info <page> <line>`
+  - `<page>` - The scoreboard page
+  - `<line>` - The number of the line (starting from 1)
+
+### scoreboard page lines add
+
+Add a new line to a scoreboard page.
+- **Permissions**: `fancycore.commands.scoreboard.page.lines.add`
+- **Syntax**: `/scoreboard page lines add <page> <text>`
+  - `<page>` - The scoreboard page
+  - `<text>` - The text for the new line
+
+### scoreboard page lines remove
+
+Remove a line from a scoreboard page.
+- **Permissions**: `fancycore.commands.scoreboard.page.lines.remove`
+- **Syntax**: `/scoreboard page lines remove <page> <line>`
+  - `<page>` - The scoreboard page
+  - `<line>` - The number of the line to remove (starting from 1)
+
+### scoreboard page lines settext
+
+Set the text of a scoreboard line.
+- **Permissions**: `fancycore.commands.scoreboard.page.lines.settext`
+- **Syntax**: `/scoreboard page lines settext <page> <line> <text>`
+  - `<page>` - The scoreboard page
+  - `<line>` - The number of the line (starting from 1)
+  - `<text>` - The new text
+
+### scoreboard page lines setalignment
+
+Set the alignment of a scoreboard line.
+- **Permissions**: `fancycore.commands.scoreboard.page.lines.setalignment`
+- **Syntax**: `/scoreboard page lines setalignment <page> <line> <alignment>`
+  - `<page>` - The scoreboard page
+  - `<line>` - The number of the line (starting from 1)
+  - `<alignment>` - Alignment: `Center` or `Left` (Note: `Right` alignment crashes the client)
+
+### scoreboard page lines setfontsize
+
+Set the font size of a scoreboard line.
+- **Permissions**: `fancycore.commands.scoreboard.page.lines.fontsize`
+- **Syntax**: `/scoreboard page lines setfontsize <page> <line> <fontsize>`
+  - `<page>` - The scoreboard page
+  - `<line>` - The number of the line (starting from 1)
+  - `<fontsize>` - Font size (must be at least 1)
+
+### scoreboard page lines setpaddingtop
+
+Set the top padding of a scoreboard line.
+- **Permissions**: `fancycore.commands.scoreboard.page.lines.setpaddingtop`
+- **Syntax**: `/scoreboard page lines setpaddingtop <page> <line> <padding>`
+  - `<page>` - The scoreboard page
+  - `<line>` - The number of the line (starting from 1)
+  - `<padding>` - Padding value (must be at least 1)
+
+### scoreboard page lines setpaddingbottom
+
+Set the bottom padding of a scoreboard line.
+- **Permissions**: `fancycore.commands.scoreboard.page.lines.setpaddingbottom`
+- **Syntax**: `/scoreboard page lines setpaddingbottom <page> <line> <padding>`
+  - `<page>` - The scoreboard page
+  - `<line>` - The number of the line (starting from 1)
+  - `<padding>` - Padding value (must be at least 1)
+
+### scoreboard page lines setpaddingleft
+
+Set the left padding of a scoreboard line.
+- **Permissions**: `fancycore.commands.scoreboard.page.lines.setpaddingleft`
+- **Syntax**: `/scoreboard page lines setpaddingleft <page> <line> <padding>`
+  - `<page>` - The scoreboard page
+  - `<line>` - The number of the line (starting from 1)
+  - `<padding>` - Padding value (must be at least 1)
+
+### scoreboard page lines setpaddingright
+
+Set the right padding of a scoreboard line.
+- **Permissions**: `fancycore.commands.scoreboard.page.lines.setpaddingright`
+- **Syntax**: `/scoreboard page lines setpaddingright <page> <line> <padding>`
+  - `<page>` - The scoreboard page
+  - `<line>` - The number of the line (starting from 1)
+  - `<padding>` - Padding value (must be at least 1)
