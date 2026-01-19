@@ -156,8 +156,10 @@ Lists all available warp points on the server that you have permission to use.
 ### sethome
 
 Sets your home point to your current location.
-- **Permissions**: `fancycore.commands.sethome`
-- **Syntax**: `/sethome <name> [position] [rotation]`
+- **Permissions**:
+  - `fancycore.commands.sethome`
+  - `fancycore.maxhomes.x`
+- **Syntax**: `/sethome <name>`
   - `<name>` - Home name
   - `[position]` - Position to set (optional, defaults to your current position)
   - `[rotation]` - Rotation to set (optional, defaults to your current rotation)
@@ -177,5 +179,4 @@ Deletes your home point with the specified name.
 Teleports you to your home point with the specified name or the first home if no name is provided.
 - **Permissions**: `fancycore.commands.home`
 - **Syntax**: `/home [name]`
-  - `[name]` - Home name (optional, defaults to first home)
-- **Aliases**: `/home`, `/h`
+  - `[name]` - Home name (optional)
