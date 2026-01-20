@@ -3,7 +3,23 @@ title: Changelog v0
 description: The changelog for version 0
 ---
 
-# FancyCore v0.6.0
+# v0.6.1
+
+Added more player placeholders:
+- `%player_is_op%` - Player is OP
+- `%player_location_x%` - Player X coordinate
+- `%player_location_y%` - Player Y coordinate
+- `%player_location_z%` - Player Z coordinate
+- `%player_location_yaw%` - Player yaw
+- `%player_location_pitch%` - Player pitch
+- `%player_location_roll%` - Player roll
+
+Added some LuckPerms placeholders:
+- `%luckperms_prefix%` - LuckPerms player prefix
+- `%luckperms_suffix%` - LuckPerms player suffix
+- `%luckperms_primary_group_name%` - LuckPerms primary group name
+
+# v0.6.0
 
 - Scoreboard system with multiple pages
 - Configurable default scoreboard page (`scoreboard.default_page`)
@@ -13,7 +29,7 @@ description: The changelog for version 0
 - Fixed items from hotbar not being added to kit items when creating a kit
 
 
-# FancyCore v0.5.0
+# v0.5.0
 
 - Configurable kit cooldown (`/createkit <name> --cooldown=1d`)
 - Bypass kit cooldowns with permission `fancycore.kit.bypasscooldown`
@@ -25,11 +41,11 @@ description: The changelog for version 0
 - Added `/playtime` command
 - Opening someone else's backpack now requires `fancycore.commands.backpack.others` permission
 - Clearing someone else's inventory now requires `fancycore.commands.clearinventory.others` permission
-- Added `/fancycore reloadconfig` command
+- Added `/reloadconfig` command
 - Player groups can now have custom metadata: `/group metadata list`, `/group metadata set`, `/group metadata remove`, `/group metadata clear`
 
 
-# FancyCore v0.4.0
+# v0.4.0
 
 - Moderation system
 - New commands: `/kick`, `/warn`, `/mute`, `/tempmute`, `/unmute`, `/ban`, `/tempban`, `/unban`
@@ -37,7 +53,7 @@ description: The changelog for version 0
 - Report system: `/report`, `/reports list`, `/reports info`, `/reports resolve`
 
 
-# FancyCore v0.3.0
+# v0.3.0
 
 - Economy system with multiple currencies
 - Currency commands: `/<currency> balance`, `/<currency> pay`, `/<currency> add`, `/<currency> remove`, `/<currency> set`
@@ -48,7 +64,7 @@ description: The changelog for version 0
 - Configurable default group for new players
 - Reworked default generated data with groups and permissions
 
-# FancyCore v0.2.1-0.2.3
+# v0.2.1-0.2.3
 
 - Added virtual backpacks (`/createbackpack`, `/backpack`, `/deletebackpack`, `/listbackpacks`)
 - Added `/openinventory` (also `/invsee`) command to open a player's inventory
@@ -56,7 +72,7 @@ description: The changelog for version 0
 - Added configurable default group for new players (configurable in `config.json` at `settings.default_group_name`)
 - Updated seeded data with permissions for the default group
 
-# FancyCore v0.2.0
+# v0.2.0
 
 - Chat room system
 - Private messages
@@ -68,7 +84,7 @@ description: The changelog for version 0
 - Placeholders
 
 
-# FancyCore v0.1.2
+# v0.1.2
 
 - Added commands for the chat system
 - Create and manage chat rooms
