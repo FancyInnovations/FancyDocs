@@ -1,5 +1,10 @@
 {
   "title": "Web Services",
   "description": "",
-  "root": true
+  "root": true,
+  "pages": [
+    "index",
+    "fancyspaces",
+    "fancyanalytics"
+  ]
 }
