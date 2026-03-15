@@ -1,0 +1,54 @@
+---
+title: Getting Started
+description: How to get started with the FancyWorlds API
+---
+
+{/* The source of this file is in the "/templates/" directory. Changes in the file in "/content/docs/" will be overridden. */}
+
+## Include the API in your project
+
+To include the FancyNPCs API in your project, you need to add the following dependency to your `build.gradle.kts` or `pom.xml` file.
+
+**Latest version**: <LatestVersion project="FancyWorlds" showDevBuilds />
+
+**Gradle:**
+```kotlin
+repositories {
+    maven("https://repo.fancyinnovations.com/releases")
+}
+```
+
+```kotlin
+dependencies {
+    compileOnly("com.fancyinnovations:FancyWorlds:${VERSION}")
+}
+```
+
+**Maven:**
+```xml
+<repository>
+    <id>fancyinnovations-releases</id>
+    <name>FancyInnovations Repository</name>
+    <url>https://repo.fancyinnovations.com/releases</url>
+</repository>
+```
+
+```xml
+<dependency>
+    <groupId>com.fancyinnovations</groupId>
+    <artifactId>FancyWorlds</artifactId>
+    <version>${VERSION}</version>
+    <scope>provided</scope>
+</dependency>
+```
+
+Replace `${VERSION}` with the version of the API you want to use. You can find the latest version on the download pages or in the GitHub releases.
+
+## Create and manage worlds
+
+
+## JavaDocs and help
+
+You can find the JavaDocs for the FancyWorlds API [here](https://repo.fancyinnovations.com/javadoc/releases/com/fancyinnovations/FancyWorlds/latest).
+
+Join the [FancyInnovations Discord](https://discord.gg/ZUgYCEJUEx) for help and support. There is a dedicated channel for help about the api (`#worlds-api`).

@@ -1,0 +1,6 @@
+{
+  "title": "FancyWorlds",
+  "icon": "",
+  "defaultOpen": false,
+  "pages": ["getting-started", "commands", "tutorials", "api", "changelog","inspiration", "faq"]
+}
