@@ -10,6 +10,7 @@ const PROJECT_IDS = {
   'FancyHolograms': '5QNgOj66',
   'FancyNpcs': 'EeyAn23L',
   'FancyDialogs': 'Sx6YwpnK',
+  'FancyWorlds': 'pQjoA91u',
 };
 
 async function fetchLatestVersion(projectId, projectName) {
@@ -53,6 +54,7 @@ async function main() {
     FancyHolograms: await fetchLatestVersion(PROJECT_IDS.FancyHolograms, 'FancyHolograms'),
     FancyNpcs: await fetchLatestVersion(PROJECT_IDS.FancyNpcs, 'FancyNpcs'),
     FancyDialogs: await fetchLatestVersion(PROJECT_IDS.FancyDialogs, 'FancyDialogs'),
+    FancyWorlds: await fetchLatestVersion(PROJECT_IDS.FancyWorlds, 'FancyWorlds'),
   };
 
   const failedFetches = Object.entries(versions).filter(([_, version]) => version === null);
@@ -84,6 +86,12 @@ async function main() {
       join(rootDir, 'templates/minecraft-plugins/fancyholograms/api/getting-started.mdx'),
       join(rootDir, 'content/docs/minecraft-plugins/fancyholograms/api/getting-started.mdx'),
       { '\\$\\{VERSION\\}': versions.FancyHolograms }
+    );
+
+    await processTemplate(
+        join(rootDir, 'templates/minecraft-plugins/fancyworlds/api/getting-started.mdx'),
+        join(rootDir, 'content/docs/minecraft-plugins/fancyworlds/api/getting-started.mdx'),
+        { '\\$\\{VERSION\\}': versions.FancyHolograms }
     );
 
     console.log('\n✓ All documentation files generated successfully!');

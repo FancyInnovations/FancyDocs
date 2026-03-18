@@ -6,3 +6,104 @@ description: Usage of the /world command
 
 The `/world` command is the main command for managing worlds with FancyWorlds.
 
+## World lifecycle
+
+### Link world
+
+Links an existing world to FancyWorlds, allowing you to manage it with the plugin.
+
+- **Permissions**: `fancyworlds.commands.world.link`
+- **Syntax**: `/world link <world>`
+
+### Unlink world
+
+Unlinks a world from FancyWorlds, removing it from the plugin's management.
+The world will not be deleted and will still exist on the server, but it will no longer be managed by FancyWorlds.
+
+- **Permissions**: `fancyworlds.commands.world.unlink`
+- **Syntax**: `/unworld unlink <world>`
+
+### Load world
+
+Loads an existing world from disk and registers it to FancyWorlds.
+
+- **Permissions**: `fancyworlds.commands.world.load`
+- **Syntax**: `/unworld load <world_name> [--seed=<seed>] [--environment=<environment>] [--generator=<generator>] [--structures]`
+
+*You only need to the optional flags, if you want to change the world settings.
+If you don't specify any flags, the world will be loaded with its existing settings.*
+
+### Unload world
+
+Unloads a world. There must be no players in the world for it to be unloaded, otherwise the command will fail unless you use the `--force` flag, which will teleport away players from the world before unloading it.
+
+- **Permissions**: `fancyworlds.commands.world.unload`
+- **Syntax**: `/unworld unload <world> [--force]`
+
+
+### Create new world
+
+Creates a new world and registers it to FancyWorlds.
+
+- **Permissions**: `fancyworlds.commands.world.create`
+- **Syntax**: `/unworld create <world_name> [--seed=<seed>] [--environment=<environment>] [--generator=<generator>] [--structures]`
+
+## General commands
+
+### World list
+
+Shows a list of all loaded worlds.
+
+- **Permissions**: `fancyworlds.commands.world.list`
+- **Syntax**: `/world list` or `/worlds`
+
+### Teleport to world
+
+Teleports you or someone else to the specified world.
+
+- **Permissions**: `fancyworlds.commands.world.teleport`
+- **Syntax**: `/world teleport <world> [--target=<target>] [--destination=<destination>]` or `/world tp <world> [--target=<target>] [--destination=<destination>]`
+
+### Show seed
+
+Shows the seed of the world.
+If no world is specified, the command will show the seed of the world the player is currently in.
+
+- **Permissions**: `fancyworlds.commands.world.seed`
+- **Syntax**: `/world seed [--world=<world>]` or `/seed [--world=<world>]`
+
+## World settings
+
+### Set world time
+
+Sets the time of the world. You can use 'day', 'noon', 'night', 'midnight' or a specific time value.
+If no world is specified, the command will set the time of the world the player is currently in.
+
+- **Permissions**: `fancyworlds.commands.world.time.set`
+- **Syntax**: `/world time set <time> [--world=<world>]` or `/time set <time> [--world=<world>]`
+
+You can also use `/day`, `/noon`, `/night` and `/midnight` commands as shortcuts for setting the time to day, noon, night and midnight respectively.
+
+### Get current world time
+
+Shows the current time of the world.
+If no world is specified, the command will get the time of the world the player is currently in.
+
+- **Permissions**: `fancyworlds.commands.world.time.current`
+- **Syntax**: `/world time current [--world=<world>]` or `/time current [--world=<world>]`
+
+### List gamerules
+
+Shows all gamerules of the world.
+If no world is specified, the command will get the gamerules of the world the player is currently in.
+
+- **Permissions**: `fancyworlds.commands.world.gamerules.list`
+- **Syntax**: `/world gamerules list [--world=<world>] [--changed_only]` or `/gamerule list [--world=<world>] [--changed_only]`
+
+### Set gamerule
+
+Sets a gamerule of the world.
+If no world is specified, the command will set the gamerule to the world the player is currently in.
+
+- **Permissions**: `fancyworlds.commands.world.gamerules.set`
+- **Syntax**: `/world gamerules set <gamerule> <value> [--world=<world>]` or `/gamerule set <gamerule> <value> [--world=<world>]`
