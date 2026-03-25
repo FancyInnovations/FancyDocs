@@ -175,11 +175,16 @@ Adds a line after another.
 
 ### updateTextInterval
 
-Sets the interval for refreshing the text (*note: useful for placeholders. Example ticks: `15`, example seconds: `5s`, example minutes: `5m`*).
+Sets the interval for refreshing the text (*note: useful for placeholders*).
 - **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) updatetextinterval (ticks | seconds | minutes)`
+- **Syntax**: `/hologram edit (hologram) updatetextinterval (interval)`
 
 <AutoTypeTable path="./params/hologram/hologram-updateTextInterval.ts" />
+
+Examples with different interval formats:
+- `/hologram edit myHologram updatetextinterval 500` - updates the text every 500 milliseconds
+- `/hologram edit myHologram updatetextinterval 3s` - updates the text every 3 seconds
+- `/hologram edit myHologram updatetextinterval 2m` - updates the text every 2 minutes
 
 ### background
 
