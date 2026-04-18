@@ -1,0 +1,155 @@
+---
+title: Data Collection
+---
+
+All plugins by FancyInnovation collect anonymous usage data (using [FancyAnalytics](https://fancyanalytics.net/) and [bStats](https://bstats.org)) to help us understand how the plugin is being used and to improve it.
+No personally identifiable information is collected, and you can opt out of data collection (see below).
+All collected data by all servers is aggregated, we don't store any IP addresses, server names, or any other information that could be used to identify a specific server or user.
+Only a sender_id is temporarily stored to prevent duplicate entries, it will be deleted a few minutes after the data is sent.
+
+We highly value your privacy and are committed to being transparent about the data we collect and how it is used.
+If you have any questions or concerns about our data collection practices, please don't hesitate to contact us.
+
+Please note that the data collected is used solely for improving the plugin and is not shared with any third parties.
+It helps us understand how you all use this plugin and allows us to make decisions about future features and improvements based on real usage data.
+
+## Opt-out
+
+### FancyAnalytics
+
+You can disable data collection via FancyAnalytics by setting `send_metrics` and `send_errors` to `false` in `plugins/FancyAnalytics/config.json`.
+
+### bStats
+
+To disable data collection via bStats, you can set `enabled` to `false` in the `plugins/bStats/config.yml` file.
+
+## Collected data
+
+### FancyNpcs
+
+FancyNpcs stores the following data:
+
+- amount_non_persistent_npcs (the amount of non-persistent NPCs on the server)
+- amount_not_player_npcs (the amount of NPCs that are not players on the server)
+- amount_npc_actions (the amount of NPC actions on the server)
+- amount_npcs (the total amount of NPCs on the server)
+- amount_npcs_having_attributes (the amount of NPCs having attributes on the server)
+- amount_npcs_interaction_cooldown_longer_than_5min (the amount of NPCs having an interaction cooldown longer than 5 minutes on the server)
+- avg_interaction_cooldown (the average interaction cooldown of all NPCs on the server)
+- commit_hash (the commit hash of the plugin version)
+- cpu_cores (the amount of CPU cores available to the server)
+- enabled_player_npcs_fflag (whether the player NPCs feature flag is enabled)
+- enabled_update_notifications (whether update notifications are enabled)
+- java_version (the version of Java the server is running on)
+- jvm_name (the name of the JVM the server is running on)
+- language (the configured language e.g. en, de, etc.)
+- npc_type (the type of NPCs on the server, e.g. player, cow, etc.)
+- online_players (the amount of online players at the time of data collection)
+- operating_system (the operating system the server is running on)
+- operating_system_architecture (the architecture of the operating system the server is running on)
+- operating_system_version (the version of the operating system the server is running on)
+- plugin_version (the version of the plugin)
+- server_size (player count but in ranges / categories, e.g. small, medium, large)
+- server_software (the server software the server is running on, e.g. Paper, Folia, etc.)
+- server_version (the version of the server software the server is running on)
+- using_development_build (whether the server is using a development build of the plugin)
+
+### FancyHolograms
+
+FancyHolograms stores the following data:
+
+- amount_holograms (the amount of holograms on the server)
+- commit_hash (the commit hash of the plugin version)
+- cpu_cores (the amount of CPU cores available to the server)
+- enabled_update_notifications (whether update notifications are enabled)
+- fflag_disable_holograms_for_bedrock_players (whether the feature flag to disable holograms for Bedrock players is enabled)
+- hologram_type (the type of holograms on the server, e.g. normal, item, etc.)
+- java_version (the version of Java the server is running on)
+- jvm_name (the name of the JVM the server is running on)
+- online_players (the amount of online players at the time of data collection)
+- operating_system (the operating system the server is running on)
+- operating_system_architecture (the architecture of the operating system the server is running on)
+- operating_system_version (the version of the operating system the server is running on)
+- plugin_version (the version of the plugin)
+- server_size (player count but in ranges / categories, e.g. small, medium, large)
+- server_software (the server software the server is running on, e.g. Paper, Folia, etc.)
+- server_version (the version of the server software the server is running on)
+- total_amount_attached_traits (the total amount of attached traits on all holograms on the server)
+- using_development_build (whether the server is using a development build of the plugin)
+
+### FancyDialogs
+
+FancyDialogs stores the following data:
+
+- amount_actions (the amount of actions)
+- amount_body_elements (the amount of body elements)
+- amount_buttons (the amount of buttons)
+- amount_dialogs (the amount of loaded dialogs)
+- amount_input_elements (the amount of input elements)
+- cpu_cores (the amount of CPU cores available to the server)
+- java_version (the version of Java the server is running on)
+- jvm_name (the name of the JVM the server is running on)
+- online_players (the amount of online players at the time of data collection)
+- operating_system (the operating system the server is running on)
+- operating_system_architecture (the architecture of the operating system the server is running on)
+- operating_system_version (the version of the operating system the server is running on)
+- plugin_version (the version of the plugin)
+- server_size (player count but in ranges / categories, e.g. small, medium, large)
+- server_software (the server software the server is running on, e.g. Paper, Folia, etc.)
+- server_version (the version of the server software the server is running on)
+
+### FancyWorlds
+
+FancyWorlds stores the following data:
+
+- amount_worlds (the amount of worlds on the server)
+- commit_hash (the commit hash of the plugin version)
+- cpu_cores (the amount of CPU cores available to the server)
+- enabled_update_notifications (whether update notifications are enabled)
+- java_version (the version of Java the server is running on)
+- jvm_name (the name of the JVM the server is running on)
+- online_players (the amount of online players at the time of data collection)
+- operating_system (the operating system the server is running on)
+- operating_system_architecture (the architecture of the operating system the server is running on)
+- operating_system_version (the version of the operating system the server is running on)
+- plugin_version (the version of the plugin)
+- server_size (player count but in ranges / categories, e.g. small, medium, large)
+- server_software (the server software the server is running on, e.g. Paper, Folia, etc.)
+- server_version (the version of the server software the server is running on)
+- using_development_build (whether the server is using a development build of the plugin)
+
+## FancyAnalytics data schema
+
+The data collected via FancyAnalytics is stored in MongoDB. Example data record:
+
+```json
+{
+    "projectId": "the id of the project",
+    "metricId": "plugin_version",
+    "timestamp": 1776545490344,
+    "interval": "FIVE_MINUTES",
+    "values": {
+        "2.9.0": 1192.0,
+        "2.5.1": 51.0,
+        "2.5.2": 55.0,
+        "2.5.0": 148.0,
+        "2.6.0": 88.0,
+        "2.2.2": 4.0,
+        "2.7.1": 572.0,
+        "2.7.0": 169.0,
+        "2.10.0": 16.0,
+        "2.9.1": 1121.0,
+        "2.9.2": 7100.0,
+        "2.8.0": 629.0,
+        "2.4.4": 135.0,
+        "2.8.1": 271.0,
+        "2.4.2": 101.0,
+        "2.4.3": 1.0,
+        "2.4.0": 12.0,
+        "2.4.1": 41.0,
+        ...
+    }
+}
+```
+
+Aggregation happens every 5 minutes and all the 5-minute records will be aggregated into a 24-hour record at the end of the day.
