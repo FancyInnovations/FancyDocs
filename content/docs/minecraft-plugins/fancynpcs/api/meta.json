@@ -1,0 +1,6 @@
+{
+  "title": "API Reference",
+  "icon": "",
+  "defaultOpen": false,
+  "pages": ["getting-started", "action-scripting"]
+}

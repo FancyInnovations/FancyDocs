@@ -1,0 +1,30 @@
+---
+title: Citizens Converter
+description: How to convert your Citizens NPCs to FancyNpcs
+---
+## How to use
+
+FancyNpcs provides a simple converter that allows you to convert your existing Citizens NPCs to FancyNpcs.
+This is a great way to migrate your NPCs without having to recreate them from scratch.
+
+1. Have Citizens installed (tested with version `2.0.41-b4129`)
+2. Have the latest version of [FancyNpcs](https://modrinth.com/plugin/fancynpcs/versions?c=release) installed
+3. Run the `/npcconvert citizens` command
+4. Check the result (`/fancynpcs:npc list`)
+5. You can now delete the Citizens npcs and/or the Citizens plugin
+
+The following properties get converted:
+* Npc owner
+* Npc name (white spaces will be replaced with underscores)
+* Mob type
+* Skin (only tested with usernames so far)
+* Look close (turn_to_player in fancynpcs)
+* Glowing & glowing color
+* Equipment
+* Text -> `message` action with ANY_CLICK trigger
+* Command -> `console_command` action with trigger defined as Hand
+
+The converter does not convert mob type specific attributes yet (e.g. variants or poses).
+
+Please leave feedback, bugs and issues about the converter in the Discord server or as an issue on GitHub.
+If there is any important property that is not being converted, please let us know so we can add support for it!

@@ -125,6 +125,21 @@ Example: `/npc action (npc) (trigger) add need_permission my.cool.permission`
     If you add the `!` prefix to the permission, the action will be inverted. This means that the action list will be canceled if the player has the permission.
 </Callout>
 
+### need_item
+
+Checks if the player has a specific item in their inventory.
+If the player does not have the item, the action list will be canceled.
+This action is useful for creating item-based interactions with NPCs.
+You can also specify the amount of the item required.
+
+Syntax: `need_item (item) [amount]`
+
+Example: `/npc action (npc) (trigger) add need_item diamond 5` (checks if the player has at least 5 diamonds in their inventory)
+
+<Callout>
+    If you add the `!` prefix to the item, the action will be inverted. This means that the action list will be canceled if the player has the item.
+</Callout>
+
 ### play_sound
 
 Plays a sound to the player. This action is useful for creating audio feedback for the player when interacting with the NPC.
@@ -132,3 +147,11 @@ Plays a sound to the player. This action is useful for creating audio feedback f
 Syntax: `play_sound (sound)`
 
 Example: `/npc action (npc) (trigger) add play_sound entity.experience_orb.pickup`
+
+## Custom actions
+
+The NPC Action System is designed to be extensible, allowing developers to create custom actions that can be registered and used in NPCs.
+If you're a developer and want to create custom actions, you can check out the [JavaDoc](https://fancyspaces.net/javadoc/fn/fi-releases/de.oliver:FancyNpcs/latest/de/oliver/fancynpcs/api/actions/package-summary.html) to learn how to create and register custom actions using the API.
+
+You can also use [Kite](https://echonine.dev/kite/getting-started/) to create custom actions using Kotlin scripts.
+Check out the [action scripting tutorial](../api/action-scripting) for more information on how to create custom actions with Kite.

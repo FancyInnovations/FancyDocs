@@ -1,0 +1,13 @@
+{
+  "title": "Tutorials",
+  "icon": "",
+  "defaultOpen": false,
+  "pages": [
+    "citizens-converter",
+    "action-system",
+    "multiple-lines",
+    "sitting-npcs",
+    "mineskin-api-key",
+    "using-minimessages"
+  ]
+}

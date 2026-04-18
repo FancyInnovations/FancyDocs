@@ -1,0 +1,43 @@
+---
+title: Action scripting
+description: Learn how to create custom actions for FancyNpcs using Kite.
+---
+
+FancyNpcs' action system offers some basic actions, but if you need more advanced functionality, you can use [Kite](https://echonine.dev/kite/getting-started/) to create custom action in Kotlin.
+
+With Kite, you can write scripts that define new actions, which can then be registered with FancyNpcs and used in your NPCs.
+
+Here's a simple example of how to create and register a custom action using Kite:
+
+```kotlin
+import de.oliver.fancynpcs.api.FancyNpcsPlugin
+import de.oliver.fancynpcs.api.actions.NpcAction
+import de.oliver.fancynpcs.api.actions.executor.ActionExecutionContext
+import java.lang.Thread.sleep
+
+val action = object : NpcAction("helloworld", false) {
+
+    override fun execute(context: ActionExecutionContext, value: String?) {
+        context.getPlayer()!!.sendMessage("Custom action executed with value: $value")
+    }
+}
+
+onLoad {
+    Thread {
+        sleep(20 * 1000) // Wait for 20 seconds to ensure that FancyNpcs is fully loaded before registering the action
+        registerAction()
+    }.start()
+}
+
+fun registerAction() {
+    FancyNpcsPlugin.get().getActionManager().registerAction(action)
+    println("Registered custom action: ${action.name}")
+}
+```
+
+*(As you may see, I'm not a Kotlin developer. Feel free to send me some better examples over!)*
+
+Put the code in `plugins/Kite/scripts/my_custom_actions.kite.kts`, and restart your server.
+You can then use the custom action `custom_action_name` in your NPCs, passing a string value that will be displayed to the player when the action is executed.
+
+Now you can extend the script to add more complex logic. The [ActionExecutionContext](https://fancyspaces.net/javadoc/fn/fi-releases/de.oliver:FancyNpcs/latest/de/oliver/fancynpcs/api/actions/executor/ActionExecutionContext.html) provides various methods to interact with the NPC and the player, allowing you to create a wide range of custom actions.
