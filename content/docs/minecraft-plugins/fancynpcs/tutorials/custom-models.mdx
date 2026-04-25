@@ -1,0 +1,42 @@
+---
+title: Custom Models
+description: How to apply custom 3D models to npcs
+---
+
+This tutorial shows you how to apply custom 3D models to npcs using BetterModel.
+
+Requirements:
+- [FancyNpcs](https://modrinth.com/plugin/fancynpcs) (latest version)
+- [FancyNpcsModel](https://modrinth.com/plugin/fancynpcsmodel) (latest version)
+- [BetterModel 3.0.2-SNAPSHOT-491](https://modrinth.com/plugin/bettermodel) or newer
+
+## Custom models
+
+How to apply a custom model to a npc:
+
+1. Install the required plugins
+2. Import models to BetterModel (see [BetterModel's documentation](https://github.com/toxicity188/BetterModel/wiki) for that)
+3. Make sure your npc is a player npc (`/npc type (npc) player`)
+4. Set the custom model: `/npc custom_model (npc) (model name)`
+5. Done! Your npc should now have the model you assigned to it
+
+Setting the custom model to `@none` will remove the model.
+
+Commands that won't work, when the npcs has a custom model:
+- `/npc displayname`
+- `/npc equipment`
+- `/npc glowing`
+- `/npc skin`
+- `/npc turn_to_player` (depends on model)
+
+## Animations
+
+This plugin also adds two new actions (for npcs with custom models only) to play animations.
+
+Actions:
+- `play_animation_once`: plays the specified animation once
+- `play_animation_loop`: plays the specified animation in a loop
+
+How to add the action: `/npc action (npc) (trigger) add play_animation_once (animation name)`
+
+There is also a command to play an animation: `/npc play_animation (npc) (animation name) [--loop]`
