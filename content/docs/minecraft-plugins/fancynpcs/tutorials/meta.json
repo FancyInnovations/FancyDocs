@@ -5,6 +5,7 @@
   "pages": [
     "citizens-converter",
     "action-system",
+    "custom-models",
     "multiple-lines",
     "sitting-npcs",
     "mineskin-api-key",
