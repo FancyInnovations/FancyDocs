@@ -1,0 +1,6 @@
+{
+  "title": "Commands",
+  "icon": "",
+  "defaultOpen": false,
+  "pages": ["fancyworlds", "world", "portal"]
+}
