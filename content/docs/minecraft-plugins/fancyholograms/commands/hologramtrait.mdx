@@ -1,0 +1,243 @@
+---
+title: /hologramtrait
+description: Usage of the /hologramtrait command
+---
+
+## Multiple Pages Trait
+
+Manages multi-page holograms that automatically cycle through different pages of content.
+Perfect for displaying leaderboards, tutorials, or dynamic information that changes over time.
+Supports three modes: CYCLE (auto-advances), RANDOM (random page selection), and MANUAL (requires manual switching).
+
+### Info
+
+Displays information about the multiple pages trait for the hologram.
+Shows the current mode (CYCLE, RANDOM, or MANUAL), the delay between page changes, which page is currently displayed, and a preview of all configured pages.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.multiple_pages.info`
+- **Syntax**: `/hologram trait <hologram> multiple_pages info`
+    - `<hologram>`: the name of the hologram with a MultiplePagesTrait attached
+- **Examples**:
+    - `/hologram trait tutorial_text multiple_pages info`: displays information about `tutorial_text`, including its current mode, page delay, and all configured pages
+
+### Set Mode
+
+Sets the behavior for how pages are displayed.
+Choose between CYCLE (auto-advances through pages in order), RANDOM (randomly selects pages), or MANUAL (requires player interaction to switch).
+
+- **Permission**: `fancyholograms.commands.hologramtrait.multiple_pages.mode`
+- **Syntax**: `/hologram trait <hologram> multiple_pages mode <mode>`
+    - `<hologram>`: the name of the hologram with a MultiplePagesTrait attached
+    - `<mode>`: the display mode. Options are `cycle`, `random`, or `manual`
+- **Examples**:
+    - `/hologram trait tutorial_text multiple_pages mode cycle`: sets `tutorial_text` to auto-cycle through pages every 5 seconds
+    - `/hologram trait random_signs multiple_pages mode random`: sets `random_signs` to show random pages
+
+### Set Delay
+
+Sets how long each page should be displayed before switching (in CYCLE mode).
+The delay also applies in MANUAL mode as a cooldown between manual switches. Use `.none` or `0` for no automatic delay.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.multiple_pages.delay`
+- **Syntax**: `/hologram trait <hologram> multiple_pages delay <delay>`
+    - `<hologram>`: the name of the hologram with a MultiplePagesTrait attached
+    - `<delay>`: the delay between page changes in milliseconds (e.g., `5000` for 5 seconds). Use `.none` or `0` to disable automatic cycling
+- **Examples**:
+    - `/hologram trait cycle_pages multiple_pages delay 3000`: sets a 3-second delay between pages for `cycle_pages`
+    - `/hologram trait static_signs multiple_pages delay .none`: disables automatic page changing
+
+### Set Current Index
+
+Manually jumps to a specific page. Use this in MANUAL mode or when you want to force display a particular page immediately.
+The index is 1-based (not 0-based).
+
+- **Permission**: `fancyholograms.commands.hologramtrait.multiple_pages.current_index`
+- **Syntax**: `/hologram trait <hologram> multiple_pages current_index <index>`
+    - `<hologram>`: the name of the hologram with a MultiplePagesTrait attached
+    - `<index>`: the 1-based page number to display (e.g., `1` for first page, `2` for second)
+- **Examples**:
+    - `/hologram trait multi_page_sign multiple_pages current_index 3`: displays page 3 of `multi_page_sign` immediately
+
+### Add Line
+
+Adds a new line of text to a specific page.
+This expands the content on that page while preserving all existing lines.
+Useful for updating long messages or adding more details over time.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.multiple_pages.add_line`
+- **Syntax**: `/hologram trait <hologram> multiple_pages add_line <page> <text>`
+    - `<hologram>`: the name of the hologram with a MultiplePagesTrait attached
+    - `<page>`: the 1-based page number to add the line to (e.g., `1` for first page, `2` for second)
+    - `<text>`: the text content to add as a new line
+- **Examples**:
+    - `/hologram trait tutorial_page_1 multiple_pages add_line 1 This is a long instruction`: adds a line to page 1 of `tutorial_page_1`
+    - `/hologram trait multi_info multiple_pages add_line 2 Additional information here`: adds "Additional information here" to page 2
+
+### Remove Line
+
+Removes a specific line from a page.
+Use this to trim content or fix formatting errors.
+Lines are removed by their position in the list, not by content matching.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.multiple_pages.remove_line`
+- **Syntax**: `/hologram trait <hologram> multiple_pages remove_line <page> <index>`
+    - `<hologram>`: the name of the hologram with a MultiplePagesTrait attached
+    - `<page>`: the 1-based page number containing the line (e.g., `1` for first page)
+    - `<index>`: the 1-based position of the line to remove within that page (e.g., `1` for first line, `2` for second)
+- **Examples**:
+    - `/hologram trait short_message multiple_pages remove_line 1 2`: removes the second line from page 1 of `short_message`
+    - `/hologram trait error_sign multiple_pages remove_line 1 3`: removes the third line from page 1
+
+### Set Line
+
+Replaces an existing line's text at a specific position.
+This is useful for updating message content without adding or removing lines.
+Note that the index refers to the current position in the list, not the content itself.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.multiple_pages.set_line`
+- **Syntax**: `/hologram trait <hologram> multiple_pages set_line <page> <index> <text>`
+    - `<hologram>`: the name of the hologram with a MultiplePagesTrait attached
+    - `<page>`: the 1-based page number to modify (e.g., `1` for first page)
+    - `<index>`: the 1-based position of the line within that page (e.g., `1` for first line, `2` for second)
+    - `<text>`: the new text to replace the existing line with
+- **Examples**:
+    - `/hologram trait welcome_sign multiple_pages set_line 1 1 Welcome players!`: replaces the first line on page 1 with "Welcome players!"
+    - `/hologram trait error_code_058 set_line 2 3 Error: Invalid input`: sets the third line of `error_code_058` page 1 to show "Error: Invalid input"
+
+## Interaction Trait
+
+Creates an interactive hologram that players can click on.
+When clicked, the hologram triggers configured actions like showing messages, running commands, healing players, or opening chests.
+This requires FancyNpcs plugin to be installed and enabled.
+
+### Info
+
+Displays information about the interaction trait for the hologram.
+Shows the current hitbox configuration and all configured actions that will trigger when a player interacts with the hologram.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.interaction.info`
+- **Syntax**: `/hologram trait <hologram> interaction info`
+  - `<hologram>`: the name of the hologram with an InteractionTrait attached
+- **Examples**:
+  - `/hologram trait npc_interaction interaction info`: displays information about the interaction trait, including the hitbox and all configured actions
+
+### Update Hitbox
+
+Updates the hitbox of the hologram.
+This adjusts the interactive area to match the current hologram size and position.
+Useful after modifying the hologram's scale or dimensions.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.interaction.update_hitbox`
+- **Syntax**: `/hologram trait <hologram> interaction update_hitbox`
+  - `<hologram>`: the name of the hologram with an InteractionTrait attached
+- **Examples**:
+  - `/hologram trait large_npc interaction update_hitbox`: updates the hitbox to match the new size of `large_npc`
+
+### Add Action
+
+Adds a new action that will trigger when a player clicks on the hologram.
+Actions can show messages, run commands, heal players, damage entities, open chests, and more.
+See FancyNpcs documentation for available actions like "message", "heal", "damage", "open_chest", etc.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.interaction.add_action`
+- **Syntax**: `/hologram trait <hologram> interaction add_action <action> <value>`
+  - `<hologram>`: the name of the hologram with an InteractionTrait attached
+  - `<action>`: the action to execute when clicked. See FancyNpcs for available actions (e.g., `message`, `heal`, `damage`, `open_chest`, `play_sound`)
+  - `<value>`: the value or argument for the action (e.g., the message text, command to run, amount to heal/damage)
+- **Examples**:
+  - `/hologram trait npc_interaction interaction add_action message This is an interactive NPC!`: adds a message action that displays "This is an interactive NPC!" when clicked
+  - `/hologram trait donation_box interaction add_action command op <player> add_permission fancyholograms.donate_item`: runs an OP command to give the clicked player permission
+
+### Remove Action
+
+Removes an action from the list of configured interactions.
+Use this to delete unwanted actions or adjust the order of actions by using a different index later.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.interaction.remove_action`
+- **Syntax**: `/hologram trait <hologram> interaction remove_action <index>`
+  - `<hologram>`: the name of the hologram with an InteractionTrait attached
+  - `<index>`: the 1-based index number of the action to remove (e.g., `1` for the first action, `2` for the second)
+- **Examples**:
+  - `/hologram trait npc_interaction interaction remove_action 1`: removes the first action from `npc_interaction`
+  - `/hologram trait donation_box interaction remove_action 2`: removes the second action from `donation_box`
+
+### Clear Actions
+
+Removes all configured actions from the hologram.
+This leaves only a default message action if desired, or you can add new actions afterward to create different interactions.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.interaction.clear_actions`
+- **Syntax**: `/hologram trait <hologram> interaction clear_actions`
+  - `<hologram>`: the name of the hologram with an InteractionTrait attached
+- **Examples**:
+  - `/hologram trait npc_interaction interaction clear_actions`: removes all actions from `npc_interaction`, leaving only a default message action
+
+### Set Action
+
+Replaces an existing action at a specific index.
+This allows you to modify the action or its value without removing it first and then re-adding it.
+Useful for quickly editing hologram interactions.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.interaction.set_action`
+- **Syntax**: `/hologram trait <hologram> interaction set_action <index> <action> <value>`
+  - `<hologram>`: the name of the hologram with an InteractionTrait attached
+  - `<index>`: the 1-based index number of the action to modify (e.g., `1` for the first action, `2` for the second)
+  - `<action>`: the action to set. See FancyNpcs for available actions (e.g., `message`, `heal`, `damage`, `open_chest`)
+  - `<value>`: the value or argument for the action
+- **Examples**:
+  - `/hologram trait npc_interaction interaction set_action 1 message Welcome to the server!`: sets the first action of `npc_interaction` to display "Welcome to the server!"
+  - `/hologram trait donation_box interaction set_action 2 command op <player> give_player_item diamond_sword`: modifies the second action to run a specific OP command
+
+## File Content Trait
+
+Displays information and manages the file content trait, which loads content from a file on your server and displays it as the hologram text.
+The content is automatically refreshed at regular intervals.
+
+### Info
+
+Displays information about the file content trait for the hologram.
+Shows the current file path being used and how frequently the content is refreshed.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.file_content.info`
+- **Syntax**: `/hologram trait <hologram> file_content info`
+    - `<hologram>`: the name of the hologram with a FileContentTrait attached
+- **Examples**:
+    - `/hologram trait my_hologram file_content info`: displays information about the file content trait of `my_hologram`, including the current file path and refresh interval
+
+### Set File Path
+
+Sets the file path for the file content trait.
+The hologram will read its text content from this file location.
+Make sure the file exists on the server and is readable by the plugin.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.file_content.file_path`
+- **Syntax**: `/hologram trait <hologram> file_content file_path <file_path>`
+    - `<hologram>`: the name of the hologram with a FileContentTrait attached
+    - `--file-path`: absolute or relative path to the file containing the hologram content. Supports `.yml` and `.txt` files
+- **Examples**:
+    - `/hologram trait my_hologram file_content file_path /plugins/FancyHolograms/data/my_file.yml`: sets the file path to `/plugins/FancyHolograms/data/my_file.yml` for the hologram `my_hologram`
+    - `/hologram trait signs_at_spawn file_content file_path config.yml`: loads content from `config.yml` for `signs_at_spawn`
+
+### Set Refresh Interval
+
+Sets how frequently the file content should be re-read and updated.
+Use this if you want to keep the hologram text synchronized with changes in your source file without manually updating it each time.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.file_content.refresh_interval`
+- **Syntax**: `/hologram trait <hologram> file_content refresh_interval <refresh_interval>`
+    - `<hologram>`: the name of the hologram with a FileContentTrait attached
+    - `<refresh_interval>`: the time interval in milliseconds between automatic content refreshes (e.g., `60000` for 1 minute, `30000` for 30 seconds). Set to `0` or use `.none` to disable automatic refreshing
+- **Examples**:
+    - `/hologram trait my_hologram file_content refresh_interval 60000`: sets the refresh interval to 60 seconds
+    - `/hologram trait dynamic_info file_content refresh_interval .none`: disables automatic refreshing for `dynamic_info`
+
+### Update
+
+Manually triggers an immediate update of the file content without waiting for the scheduled refresh interval.
+Useful when you want to force the hologram to read the latest content immediately.
+
+- **Permission**: `fancyholograms.commands.hologramtrait.file_content.update`
+- **Syntax**: `/hologram trait <hologram> file_content update`
+    - `<hologram>`: the name of the hologram with a FileContentTrait attached
+- **Examples**:
+    - `/hologram trait my_hologram file_content update`: immediately updates `my_hologram` to reflect changes in its source file

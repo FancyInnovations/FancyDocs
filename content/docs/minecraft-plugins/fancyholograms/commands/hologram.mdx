@@ -1,237 +1,566 @@
 ---
 title: /hologram
-description: Usage of /hologram
+description: Usage of the /hologram command
 ---
 
 ## Manage holograms
 
-### help
+The following commands are available for all hologram types.
 
-Shows a list of all subcommands.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram help`
+### Create hologram
 
-### list
+Creates a new hologram at your current location.
+The hologram can be of text, item, or block type.
+Text holograms are the default type when no type is specified.
 
-Shows a list of all holograms.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram list`
+- **Permission**: `fancyholograms.commands.hologram.create`
+- **Syntax**: `/hologram create <name> [--type <text|item|block>]`
+  - `<name>`: the unique name of the hologram to create
+  - `--type <type>`: the type of hologram. Defaults to `text`. Can be `text`, `item`, or `block`
+- **Examples**:
+  - `/hologram create my_text_hologram`: creates a new text hologram at your location with name "my_text_hologram"
+  - `/hologram create my_item_hologram --type item`: creates a new item hologram at your location
+  - `/hologram create my_block_hologram --type block`: creates a new block hologram at your location
 
-### nearby
+### Copy hologram
 
-Shows all holograms nearby you in a range.
-- **Permissions**: `fancyholograms.admin`
+Creates a duplicate of an existing hologram with a new name.
+The new hologram is created at the player's location with the same properties (content, visibility distance, scale, etc.) as the original.
+
+- **Permission**: `fancyholograms.commands.hologram.copy`
+- **Syntax**: `/hologram copy <hologram> <name>`
+  - `<hologram>`: the name of the hologram to copy (can use `.selected` for the currently selected hologram or `.nearest` for the closest one)
+  - `<name>`: the unique name for the new hologram
+- **Examples**:
+  - `/hologram copy my_hologram my_hologram_copy`: creates a new hologram with all properties from "my_hologram"
+  - `/hologram copy .selected my_copy`: copies the currently selected hologram to "my_copy"
+  - `/hologram copy .nearest my_nearest`: copies the closest hologram to you
+
+### Remove hologram
+
+Deletes a hologram and unregisters it.
+The hologram will disappear immediately for all online players.
+
+- **Permission**: `fancyholograms.commands.hologram.remove`
+- **Syntax**: `/hologram remove <hologram>`
+  - `<hologram>`: the name of the hologram to delete
+- **Examples**:
+  - `/hologram remove old_hologram`: permanently deletes "old_hologram" from the world
+
+### List holograms
+
+Displays a list of all currently loaded holograms.
+If there are more than 10 holograms, results are shown with pagination support.
+Only persistent holograms (that are saved) are listed.
+
+- **Permission**: `fancyholograms.commands.hologram.list`
+- **Syntax**: `/hologram list [page]`
+  - `page`: the page number to show (1-based). Defaults to page 1. Shows up to 10 holograms per page.
+- **Examples**:
+  - `/hologram list`: shows the first page of all loaded holograms
+  - `/hologram list 2`: shows the second page of holograms
+
+### Nearby holograms
+
+Finds and lists all holograms within a specified radius around the player.
+Useful for discovering where you're in relation to other holograms.
+
+- **Permission**: `fancyholograms.commands.hologram.nearby`
 - **Syntax**: `/hologram nearby <range>`
-
-### create
-
-Creates a new hologram at your location.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram create (type) (name)`
-
-<AutoTypeTable path="./params/hologram/hologram-create.ts" />
-
-### remove
-
-Removes a certain hologram.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram remove (hologram)`
-
-### copy
-
-Creates a copy of a hologram.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram copy (hologram) (new name)`
-
-### info
-
-Shows you all information about the hologram.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram info (hologram)`
-
-## General hologram modification
-
-These commands can be run for any hologram type (text, item and block).
-
-### moveHere
-
-Teleports the hologram to you (*note: Alias: `/hologram edit (hologram) position`*).
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) movehere`
-
-### moveTo
-
-Teleports the hologram to the location.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) moveto (x) (y) (z) [yaw] [pitch]`
-
-<AutoTypeTable path="./params/hologram/hologram-moveTo.ts" />
-
-### rotate
-
-Rotates the hologram around the y-axis.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) rotate (degrees)`
-
-### rotatepitch
-
-Rotates the hologram around the x-axis.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) rotatepitch (degrees)`
-
-### translate
-
-Translates the hologram by a certain amount in the x, y and z direction.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) translate (x) (y) (z)`
-
-<AutoTypeTable path="./params/hologram/hologram-translate.ts" />
-
-### visibilityDistance
-
-Sets from how far away players can see the hologram (*note: -1 for default distance*).
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) visibilitydistance (distance)`
-
-### visibility
-
-Sets how the visibility should be controlled (*note: Permission to view a hologram: `fancyholograms.viewhologram.<name>`*).
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) visibility (all | manual | permission_needed)`
-
-<AutoTypeTable path="./params/hologram/hologram-visibility.ts" />
-
-### scale
-
-Sets the scale (can be floats).
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) scale (factor)`
-
-### billboard
-
-Sets the billboard.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) billboard (center | fixed | vertical | horizontal)`
-
-<AutoTypeTable path="./params/hologram/hologram-billboard.ts" />
-
-### shadowStrength
-
-Sets the shadow strength.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) shadowstrength (strength)`
-
-### shadowRadius
-
-Sets the shadow radius.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) shadowradius (radius)`
-
-### linkWithNpc
-
-Links a hologram with an NPC (*note: requires FancyNpcs*).
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) linkwithnpc (npc)`
-
-### unlinkWithNpc
-
-Unlinks the hologram from the NPC.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) unlinkwithnpc`
-
-## Text hologram modification
-
-These commands can be run for all **text** holograms.
-
-### setLine
-
-Sets the content of the line.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) setline (line) (text...)`
-
-### addLine
-
-Adds a line at the bottom.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) addline (text...)`
-
-### removeLine
-
-Removes a line.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) removeline (line)`
-
-### insertBefore
-
-Adds a line before another.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) insertbefore (line) (text...)`
-
-### insertAfter
-
-Adds a line after another.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) insertafter (line) (text...)`
-
-### updateTextInterval
-
-Sets the interval for refreshing the text (*note: useful for placeholders*).
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) updatetextinterval (interval)`
-
-<AutoTypeTable path="./params/hologram/hologram-updateTextInterval.ts" />
-
-Examples with different interval formats:
-- `/hologram edit myHologram updatetextinterval 500` - updates the text every 500 milliseconds
-- `/hologram edit myHologram updatetextinterval 3s` - updates the text every 3 seconds
-- `/hologram edit myHologram updatetextinterval 2m` - updates the text every 2 minutes
-
-### background
-
-Sets the background color.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) background (color)`
-
-<AutoTypeTable path="./params/hologram/hologram-background.ts" />
-
-### textShadow
-
-Enables/disables the text shadow.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) textshadow (true|false)`
-
-### brightness
-
-Changes the brightness of the hologram.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) brightness (block | sky) (0-15)`
-
-<AutoTypeTable path="./params/hologram/hologram-brightness.ts" />
-
-### textAlignment
-
-Sets the alignment of the text.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) textalignment (center | left | right)`
-
-<AutoTypeTable path="./params/hologram/hologram-textAlignment.ts" />
-
-## Item hologram modification
-
-These commands can be run for all **item** holograms.
-
-### item
-
-Sets the hologram item you are holding in your main hand.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) item`
-
-## Block hologram modification
-
-These commands can be run for all **block** holograms.
-
-### block
-
-Sets the hologram block.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/hologram edit (hologram) block (block type)`
+  - `<range>`: search radius in blocks. Must be at least 1 block. Defaults to 10 blocks.
+- **Examples**:
+  - `/hologram nearby`: finds all holograms within the default 10-block radius
+  - `/hologram nearby 50`: searches for holograms up to 50 blocks away
+
+### Select hologram
+
+Selects a hologram to work with other commands.
+Once selected, it becomes the target hologram for operations like teleporting, removing, or editing properties.
+The selection is stored in your player's persistent data and remains active across command sessions.
+
+- **Permission**: `fancyholograms.commands.hologram.select`
+- **Syntax**: `/hologram select <hologram>`
+  - `<hologram>`: the name of the hologram to select
+- **Examples**:
+  - `/hologram select my_hologram`: selects "my_hologram" as your current working hologram. You can then use commands like `remove` or `teleport` without specifying a target
+
+### Teleport hologram
+
+Teleports you directly to the location of a hologram.
+This is useful for quickly traveling to different holograms in the world, especially those created across different chunks or dimensions.
+
+- **Permission**: `fancyholograms.commands.hologram.teleport`
+- **Syntax**: `/hologram teleport <hologram>`
+  - `<hologram>`: the name of the hologram to teleport to
+- **Examples**:
+  - `/hologram teleport my_hologram`: instantly teleports you to where "my_hologram" is located in the world
+
+## General modification
+
+### Center position
+
+Moves the hologram so it sits in the center of the current block (aligns X and Z coordinates).
+The Y coordinate remains unchanged.
+Useful for making holograms appear on specific blocks without floating between them.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.center`
+- **Syntax**: `/hologram edit <hologram> center`
+  - No arguments required
+- **Examples**:
+  - `/hologram edit sign_display center`: centers the hologram on the block you're standing on
+
+### Move here
+
+Teleports the hologram to your current player position while preserving its orientation (yaw/pitch).
+Note that you cannot move a hologram here if it's currently linked to an NPC.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.move_here`
+- **Syntax**: `/hologram edit <hologram> move_here`
+  - No arguments required, moves to player location
+- **Examples**:
+  - `/hologram edit banner_display move_here`: brings the hologram with you as you walk around
+  - `/hologram edit display_sign move_here`: follows you at your current position
+
+### Move to coordinates
+
+Moves a hologram to specific world coordinates.
+You can use absolute values or relative offsets using `~` notation (one `~` for current hologram, two `~` for player).
+Optional yaw and pitch arguments allow rotation adjustments.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.move_to`
+- **Syntax**: `/hologram edit <hologram> move_to <x> <y> <z> [yaw] [pitch]`
+  - `<x>`: X coordinate (absolute or with `~` notation)
+  - `<y>`: Y coordinate (height/level)
+  - `<z>`: Z coordinate (absolute or with `~` notation)
+  - `[yaw]`: optional yaw rotation in degrees (default preserves current yaw)
+  - `[pitch]`: optional pitch angle in degrees (default preserves current pitch)
+- **Examples**:
+  - `/hologram edit floating_banner move_to 100.5 ~ 200.5`: moves to coordinates 100.5, ~, 200.5
+  - `/hologram edit sign_display move_to ~ ~ 50`: adjusts Z coordinate by +50 blocks
+  - `/hologram edit banner move_to 80 64 70 90`: sets position and rotates to face east
+
+### Rotation yaw
+
+Sets the horizontal rotation (yaw) of a display hologram, measured in degrees.
+This controls which direction the item/block faces horizontally around you.
+Range is 0-360 degrees.
+
+- **Permission**: `fancyholograms.commands.hologram.rotation`
+- **Syntax**: `/hologram edit <hologram> rotation yaw <angle>`
+  - `<angle>`: yaw angle in degrees (0 = south, 45 = south-east, etc.)
+- **Examples**:
+  - `/hologram edit rotating_display rotation yaw 90`: faces the hologram westward
+  - `/hologram edit facing_sign rotation yaw 180`: points directly away from you
+
+### Rotation pitch
+
+Sets the vertical angle (pitch) of a display hologram, measured in degrees.
+This controls whether items/blocks appear to look up or down relative to your position.
+Range is typically limited for proper display rendering.
+
+- **Permission**: `fancyholograms.commands.hologram.rotation`
+- **Syntax**: `/hologram edit <hologram> rotation pitch <angle>`
+  - `<angle>`: pitch angle in degrees (0 = level, positive = up)
+- **Examples**:
+  - `/hologram edit looking_item rotation pitch 15`: tilts item slightly upward
+  - `/hologram edit downward_gaze rotation pitch -30`: angles down toward the ground
+
+### Billboard
+
+Sets the billboard orientation of display holograms (items/blocks).
+This controls how the hologram is displayed to players around it.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.billboard`
+- **Syntax**: `/hologram edit <hologram> billboard <billboard>`
+    - `<billboard>`: the billboard mode, can be `LOOK_AT`, `FACING`, `CUSTOM`. Defaults to `LOOK_AT` for items/blocks
+- **Examples**:
+    - `/hologram edit item_display billboard LOOK_AT`: sets item to always face the viewer
+    - `/hologram edit block_display billboard FACING`: makes the block show its default facing direction
+
+### Brightness
+
+Sets the brightness values for display holograms that use ambient occlusion.
+You can adjust either the block light or sky light independently. Only works on display-type holograms.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.brightness`
+- **Syntax**: `/hologram edit <hologram> brightness <type> <brightness>`
+    - `<type>`: either `BLOCK` or `SKY`, determines which light value to set
+    - `<brightness>`: a number from 1 to 15, where higher values mean more bright
+- **Examples**:
+    - `/hologram edit scene_brightness brightness BLOCK 10`: sets block light to 10 (more lit)
+    - `/hologram edit night_scene brightness SKY 5`: dims sky light for a darker scene
+
+### See through
+
+Enables or disables whether text hologram content can be seen through blocks.
+When enabled, text appears behind walls and obstacles; when disabled, it's hidden by any block that obstructs the line of sight.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.see_through`
+- **Syntax**: `/hologram edit <hologram> see_through <enabled>`
+  - `<enabled>`: either `true` (or just the flag) to enable, or `false` to disable
+- **Examples**:
+  - `/hologram edit invisible_wall see_through true`: makes text visible through walls
+  - `/hologram edit hidden_sign see_through false`: prevents viewing through blocks
+
+### Shadow radius
+
+Adjusts how wide the shadow of a display hologram appears.
+Only works on holograms that cast shadows (those with ambient occlusion enabled).
+A larger radius creates wider, softer shadows; smaller values make them narrower and harder.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.shadow_radius`
+- **Syntax**: `/hogradit edit <hologram> shadow_radius <radius>`
+  - `<radius>`: a positive number controlling shadow width (lower = tighter, higher = spread out)
+- **Examples**:
+  - `/hologram edit soft_shadow shadow_radius 0.5`: makes shadows very narrow and focused
+
+### Shadow strength
+
+Controls the opacity or darkness of shadows cast by display holograms.
+Higher values create darker, more pronounced shadows; lower values make fainter, softer shadows that blend better with the environment.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.shadow_strength`
+- **Syntax**: `/hologram edit <hologram> shadow_strength <strength>`
+  - `<strength>`: a number between 0 and 1 (or similar range depending on version) where higher = darker shadow
+- **Examples**:
+  - `/hologram edit dramatic_shadow shadow_strength 0.9`: creates strong, noticeable shadows
+
+### Update text interval
+
+Sets how frequently text in a hologram is updated and refreshed.
+This is essential when using placeholders (e.g., `%%time%%`, `%%player_name%%`) to control refresh rates.
+Lower values mean faster updates; "never" disables automatic refreshing entirely.
+
+- **Permission**: `fancyholograms.commands.hologram.update_text_interval`
+- **Syntax**: `/hologram edit <hologram> update_text_interval <interval>`
+    - `<interval>`: a time duration like `1s`, `5m`, or `never` to disable updates
+- **Examples**:
+    - `/hologram edit countdown update_text_interval 1s`: refreshes every second
+    - `/hologram edit static_sign update_text_interval never`: stops refreshing (static text)
+    - `/hologram edit live_feed update_text_interval 5m`: updates text every 5 minutes
+
+### Visibility mode
+
+Sets how the hologram handles visibility.
+Options typically include `ALL` (visible to everyone), `OWNER_ONLY` (only visible to creator/player owner), or `PERMISSION` (controlled by permissions system).
+Choose based on who should see the hologram.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.visibility`
+- **Syntax**: `/hologram edit <hologram> visibility <visibility>`
+    - `<visibility>`: the visibility mode, such as `ALL`, `OWNER_ONLY`, or `PERMISSION`
+- **Examples**:
+    - `/hologram edit public_display visibility ALL`: visible to all players
+    - `/hologram edit private_sign visibility OWNER_ONLY`: only owner can see it
+
+### Visibility distance
+
+Sets the distance at which a hologram becomes visible or invisible to players.
+Negative values typically hide holograms, while positive values set how far away players can still see it.
+Used for performance optimization or creating distance-fading effects.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.visibility_distance`
+- **Syntax**: `/hologram edit <hologram> visibility_distance <distance>`
+    - `<distance>`: a number in blocks; positive = visible at this distance, negative = hidden
+- **Examples**:
+    - `/hologram edit far_sign visibility_distance 50`: visible up to 50 blocks away
+    - `/hologram edit close_holo visibility_distance 10`: only seeable within 10 blocks
+
+### Scale uniform
+
+Uniformly scales a display hologram in all directions by a single factor.
+All dimensions (width, height, depth) are multiplied by the same value.
+Use this for creating smaller or larger versions of items without calculating individual values.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.scale`
+- **Syntax**: `/hologram edit <hologram> scale <factor>`
+    - `<factor>`: a number that multiplies current size (e.g., `0.5` for half-size, `2` for double-size)
+- **Examples**:
+    - `/hologram edit tiny_gem scale 0.5`: makes the gem appear smaller
+    - `/hologram edit giant_crystal scale 3`: creates a massive crystal display
+
+### Scale axis
+
+Scales a display hologram independently along each axis (X, Y, Z). This allows for stretching or squashing the displayed item in specific directions.
+Useful for creating warped effects or fitting items into constrained spaces.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.scale`
+- **Syntax**: `/hologram edit <hologram> scale <x> <y> <z>`
+    - `<x>`: scale factor along X-axis (width)
+    - `<y>`: scale factor along Y-axis (height)
+    - `<z>`: scale factor along Z-axis (depth)
+- **Examples**:
+    - `/hologram edit wide_display scale 2 1 1`: makes the item twice as wide
+    - `/hologram edit tall_item scale 1 2 1`: makes an item appear taller
+
+### Translate uniform
+
+Uniformly translates (offsets) a display hologram by the same amount in all three dimensions.
+This creates diagonal movement or offset without calculating individual values for each axis.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.translate`
+- **Syntax**: `/hologram edit <hologram> translate <x>`
+    - `<x>`: a number representing the translation distance in all axes
+- **Examples**:
+    - `/hologram edit floating_display translate 2`: moves display up-right by 2 blocks
+
+### Translate axis
+
+Translates (offsets) a display hologram independently along each dimension.
+This allows moving or repositioning holograms with precise control over X (horizontal), Y (vertical/height), and Z (depth) axes separately.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.translate`
+- **Syntax**: `/hologram edit <hologram> translate <x> <y> <z>`
+    - `<x>`: horizontal offset in blocks
+    - `<y>`: vertical offset in blocks
+    - `<z>`: depth offset in blocks
+- **Examples**:
+    - `/hologram edit floating_banner translate 1 2 -1`: moves right, up, and forward by 1 block each
+    - `/hologram edit elevated_display translate 0 3 0`: lifts display 3 blocks higher
+
+### Attach trait
+
+Attaches an enhancement or behavior trait to a hologram.
+Traits can add special functionality like auto-removing after viewing, playing sounds on spawn, or triggering events when looked at.
+Use this to customize advanced behaviors.
+
+- **Permission**: `fancyholograms.commands.hologram.trait.attach`
+- **Syntax**: `/hologram edit <hologram> trait attach <trait>`
+  - `<trait>`: the name of a known trait such as `auto_remove_after_view`, `sound_on_spawn`, etc.
+- **Examples**:
+  - `/hologram edit temporary_sign trait attach auto_remove_after_view`: adds trait to automatically disappear
+  - `/hologram edit sound_effect_trait trait attach play_sound_on_spawn`: plays sounds when hologram appears
+
+### Detach trait
+
+Removes an attached trait from a hologram.
+Use this to disable special behaviors or revert the hologram to standard functionality after previously adding enhancements.
+
+- **Permission**: `fancyholograms.commands.hologram.trait.detach`
+- **Syntax**: `/hologram edit <hologram> trait detach <trait>`
+  - `<trait>`: the name of the trait to remove from the hologram
+- **Examples**:
+  - `/hologram edit permanent_sign trait detach auto_remove_after_view`: keeps the sign permanently
+  - `/hologram edit silent_trait trait detach play_sound_on_spawn`: stops sound playback
+
+### List traits
+
+Lists all currently attached traits to a hologram.
+Shows which enhancements or behaviors are active on that specific hologram, useful for debugging or understanding what special functions it has.
+
+- **Permission**: `fancyholograms.commands.hologram.trait.list`
+- **Syntax**: `/hologram edit <hologram> trait list`
+  - No arguments required after hologram name
+- **Examples**:
+  - `/hologram edit special_holo trait list`: shows what traits this hologram has attached
+
+### Link with NPC
+
+Links a hologram to an FancyNPCs NPC.
+When linked, the hologram will move and follow the corresponding NPC, making it useful for quest systems or animated sequences.
+Requires the FancyNpcs plugin to be installed.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.link_with_npc`
+- **Syntax**: `/hologram edit <hologram> link_with_npc <npc>`
+    - `<npc>`: the name of the NPC to link with (can be tab-completed for suggestions)
+- **Examples**:
+    - `/hologram edit quest_objective link_with_npc npc_01`: links hologram to "npc_01" NPC
+    - `/hologram edit animated_glass link_with_npc guardian_guard`: links to a Guardian NPC
+
+### Unlink NPC
+
+Removes the NPC link from a hologram.
+The hologram will stop following its associated NPC and return to displaying at its last saved position.
+Also restores any NPC name changes that were made through the link feature.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.unlink_with_npc`
+- **Syntax**: `/hologram edit <hologram> unlink_with_npc [or] /hologram edit <hologram> unlink_npc`
+    - No arguments required after hologram name
+- **Examples**:
+    - `/hologram edit quest_objective unlink_with_npc`: stops the hologram from following its NPC
+
+## Text holograms
+
+All commands that work with text holograms are listed below.
+
+### Set line text
+
+Replaces the content of a specific line in a text hologram with new text.
+This overwrites whatever was previously displayed at that position, keeping the same number of lines. Perfect for updating messages or correcting typos.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.set_line`
+- **Syntax**: `/hologram edit <hologram> set_line <line> <text>`
+    - `<line>`: the 1-indexed line number to modify
+    - `<text>`: the new text to display at that position
+- **Examples**:
+    - `/hologram edit welcome set_line 2 Welcome!`: changes line 2 to say "Welcome!"
+    - `/hologram edit message set_line 1 Goodbye`: updates the first line with a goodbye message
+
+### Add line (end)
+
+Adds a new line at the end of a text hologram.
+The line will be appended after all existing lines.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.add_line`
+- **Syntax**: `/hologram edit <hologram> add_line <text>`
+    - `<text>`: the text to add as a new line
+- **Examples**:
+    - `/hologram edit my_text_hologram add_line Hello World`: adds "Hello World" as the last line of the hologram
+    - `/hologram edit footer add_line Footer text here`: appends footer text to the hologram
+
+### Add line after
+
+Inserts a new line at a specific position in a text hologram.
+The line will be added **after** (before) the specified line, pushing that line and all following lines down.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.add_line_after`
+- **Syntax**: `/hologram edit <hologram> add_line_after <line> <text>`
+    - `<line>`: the line number (1-indexed) after which to insert the new text. Valid range is 1 to current number of lines
+    - `<text>`: the text to insert as a new line
+- **Examples**:
+    - `/hologram edit title add_line_after 2 Insert header here`: inserts "Insert header here" after line 2 (lines 3+ are pushed down)
+    - `/hologram edit menu add_line_after 5 New option`: adds new option after the 5th line in menu hologram
+
+### Add line before
+
+Inserts a new line at a specific position in a text hologram.
+The line will be added **before** (after) the specified line, pushing that line and all following lines down.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.add_line_before`
+- **Syntax**: `/hologram edit <hologram> add_line_before <line> <text>`
+    - `<line>`: the line number (1-indexed) before which to insert the new text. Valid range is 1 to current number of lines
+    - `<text>`: the text to insert as a new line
+- **Examples**:
+    - `/hologram edit menu add_line_before 3 Insert warning here`: inserts "Insert warning here" before line 3 (lines 3+ are pushed down)
+    - `/hologram edit info add_line_before 1 Warning: Read this first`: adds a warning message at the top of the hologram
+
+### Move line down
+
+Shifts a specific line in a text hologram down by one position.
+The line at the specified position moves to the next line, pushing all lines below it up.
+This reorganizes content without changing total line count.
+
+- **Permission**: `fancyholograms.hologram.edit.move_line`
+- **Syntax**: `/hologram edit <hologram> move_line_down <line>`
+    - `<line>`: the 1-indexed line number to move down (cannot be the last line)
+- **Examples**:
+    - `/hologram edit poem move_line_down 2`: moves line 2 down to position 3
+    - `/hologram edit menu_move move_line_down 4`: shifts down the line at position 4
+
+### Move line up
+
+Shifts a specific line in a text hologram up by one position.
+The line at the specified position moves to the previous line, pushing all lines above it down.
+Cannot be used on the first line (line 1).
+
+- **Permission**: `fancyholograms.hologram.edit.move_line`
+- **Syntax**: `/hologram edit <hologram> move_line_up <line>`
+    - `<line>`: the 1-indexed line number to move up (cannot be the first line)
+- **Examples**:
+    - `/hologram edit dialogue move_line_up 3`: moves line 3 up to position 2
+    - `/hologram edit intro move_line_up 5`: brings line 5 to position 4
+
+### Swap lines
+
+Exchanges the positions of two lines in a text hologram without changing their content.
+Useful for reordering list items or rearranging paragraphs while keeping the same number of lines.
+
+- **Permission**: `fancyholograms.hologram.edit.move_line`
+- **Syntax**: `/hologram edit <hologram> swap_lines <line1> <line2>`
+    - `<line1>`: first line number to swap (1-indexed)
+    - `<line2>`: second line number to swap (1-indexed, must be different from line1)
+- **Examples**:
+    - `/hologram edit poem_lines swap_lines 3 5`: exchanges lines 3 and 5 in a poem
+
+### Remove line
+
+Removes a specific line from a text hologram.
+If no line number is specified, the last line will be removed.
+Use this when deleting content or cleaning up old entries.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.remove_line`
+- **Syntax**: `/hologram edit <hologram> remove_line [line]`
+    - `<line>`: optional line number to remove (1-indexed), defaults to last line if omitted
+- **Examples**:
+    - `/hologram edit old_content remove_line`: removes the last line from the hologram
+    - `/hologram edit list_remove remove_line 3`: deletes line 3 from the list
+
+### Text alignment
+
+Sets the horizontal alignment of text displayed by a text hologram.
+Options typically include left-aligned (text starts at left edge), center-aligned (text centered), and right-aligned (text ends at right edge).
+
+- **Permission**: `fancyholograms.commands.hologram.edit.text_alignment`
+- **Syntax**: `/hologram edit <hologram> text_alignment <alignment>`
+    - `<alignment>`: the alignment mode, such as `LEFT`, `CENTER`, or `RIGHT`
+- **Examples**:
+    - `/hologram edit centered_title text_alignment CENTER`: centers the hologram's text
+    - `/hologram edit justify_left text_alignment LEFT`: aligns all lines to the left edge
+
+### Text shadow
+
+Enables or disables the text shadow effect on text holograms.
+When enabled, each line displays with a slight offset that creates depth; when disabled, text appears flat against the background without shadows.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.text_shadow`
+- **Syntax**: `/hologram edit <hologram> text_shadow <enabled>`
+    - `<enabled>`: either `true` to enable the shadow effect, or `false` to disable it
+- **Examples**:
+    - `/hologram edit readable_text text_shadow true`: adds shadows for better contrast
+    - `/hologram edit flat_design text_shadow false`: removes shadows for a minimalist look
+
+### Background color
+
+Sets or changes the background color of a text hologram.
+The background can be changed using color names, hex codes, or other color formats supported by the plugin.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.background`
+- **Syntax**: `/hologram edit <hologram> background <color>`
+    - `<color>`: the color to set for the hologram background (e.g., `red`, `#FF0000`, `rainbow`)
+- **Examples**:
+- `/hologram edit dark_bg background red`: sets the background color to red
+- `/hologram edit custom_bg background #1A2B3C`: sets background using hex code
+- `/hologram edit info_bg background rainbow`: enables a rainbow background effect
+
+## Item / block holograms
+
+### Glowing color
+
+Toggles glowing effect on item and block display holograms.
+If currently disabled, enabling it will use white glow; if enabled, toggling will disable it.
+Works with item and block holograms only.
+
+- **Permission**: `fancyholograms.commands.hologram.glowing`
+- **Syntax**: `/hologram edit <hologram> glowing [color]`
+    - Without arguments: toggles glowing on/off (enables with white, disables)
+    - With argument `<color>`: sets the glow color to a specific value (e.g., `red`, `green`)
+- **Examples**:
+    - `/hologram edit netherite_gem glowing`: toggles glowing on/off (white glow if enabling)
+    - `/hologram edit enchantment_item glowing red`: sets the glow effect to red
+    - `/hologram edit gem glowing green disabled`: disables the glow effect
+
+### Set item
+
+Sets an item hologram to display the item currently held in your main hand.
+This is useful for quickly updating displayed items without crafting commands.
+Works with item holograms only.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.item`
+- **Syntax**: `/hologram edit <hologram> item`
+    - No arguments required, reads from main hand
+- **Examples**:
+    - `/hologram edit sword_display item`: updates the hologram to show your current sword
+    - `/hologram edit chestplate_display item`: shows whatever armor you're holding
+
+### Set block
+
+Changes the block type displayed by a block hologram.
+This only works with block-type display holograms.
+When changed, all viewers are respawned to see the new block.
+Works with block holograms only.
+
+- **Permission**: `fancyholograms.commands.hologram.edit.block`
+- **Syntax**: `/hologram edit <hologram> block <material>`
+    - `<material>`: the block material to display (e.g., `DIAMOND_BLOCK`, `obsidian`)
+- **Examples**:
+    - `/hologram edit obsidian_display block DIAMOND_BLOCK`: changes hologram from obsidian to diamond block
+    - `/hologram edit beacon_block block END_PORTAL_FRAME`: sets the hologram to display an end portal frame

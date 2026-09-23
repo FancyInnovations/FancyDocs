@@ -1,0 +1,164 @@
+---
+title: Getting Started
+description: How to get started with the FancyHolograms API
+---
+
+FancyHolograms v3 provides a powerful API for creating, managing, and displaying holograms in your Minecraft plugins. This guide will walk you through the basics of integrating FHv3 into your plugin.
+
+## Include the API in your project
+
+To use FancyHolograms in your plugin, add it as a dependency. For Gradle projects:
+
+```kotlin
+dependencies {
+    compileOnly("com.fancyinnovations:fancyholograms:3.x.x")
+}
+```
+
+For Maven:
+
+```xml
+<dependency>
+    <groupId>com.fancyinnovations.fancyholograms</groupId>
+    <artifactId>fancyholograms</artifactId>
+    <version>3.x.x</version>
+    <scope>compile</scope>
+</dependency>
+```
+
+## Creating a Text Hologram
+
+### Basic Text Hologram
+
+```java
+    public void createTextHologram() {
+        // Build and register a text hologram
+        Hologram hologram = TextHologramBuilder.create("my_hologram", location)
+            .text(List.of(
+                    "<#ff0000>Welcome to the server!",
+                    "<#ffffff>Please follow the rules.",
+                    "<gray>Have fun!"
+            ))
+            .buildAndRegister();
+    }
+```
+
+### Text Hologram Properties
+
+You can configure various properties:
+
+```java
+TextHologram hologram = TextHologramBuilder.create("styled_holo", location)
+                .text(List.of("<gray>Simple text"))
+                .background(Color.fromRGB(0, 0, 255))              // Blue background
+                .seeThrough(true)                                    // Make transparent
+                .textAlign(TextDisplay.TextAlignment.CENTER)         // Center align
+                .textShadow(true)                                    // Add shadow
+                .updateTextInterval(10)                              // Update every 10 ticks for placeholders
+                .visibilityDistance(-1)                              // Use default visibility
+                .persistent(false)                                   // Not saved between restarts
+                .buildAndRegister();
+```
+
+### Using Placeholders
+
+For dynamic text that updates over time:
+
+```java
+TextHologramBuilder.create("dynamic_holo", location)
+    .text(List.of("Your name: %player_name%", "Online players: %online_count%"))
+    .updateTextInterval(5)  // Refresh every 5 ticks
+    .buildAndRegister();
+```
+
+## Creating Block and Item Holograms
+
+### Block Hologram
+
+```java
+BlockHologram hologram = BlockHologramBuilder.create("block_holo", location)
+                .block(Material.DIAMOND_BLOCK)
+                .scale(0.5f, 0.5f, 1f)  // Make smaller
+                .buildAndRegister();
+```
+
+### Item Hologram
+
+```java
+ItemStack diamondSword = new ItemStack(Material.DIAMOND_SWORD);
+ItemHologram hologram = ItemHologramBuilder.create("item_holo", location)
+                .item(diamondSword)
+                .buildAndRegister();
+```
+
+## Hologram CRUD Operations
+
+The registry provides methods for basic CRUD:
+
+```java
+// Register (Create)
+FancyHolograms.get().getRegistry().register(holo);
+    
+// Get by name (Read)
+Optional<Hologram> maybeHolo = FancyHolograms.get().getRegistry().get("my_hologram");
+if (maybeHolo.isPresent()) {
+    Hologram holo = mustGet("my_hologram");  // Throws exception if not found
+}
+
+// Check if exists
+boolean exists = FancyHolograms.get().getRegistry().contains("my_hologram");
+
+// Unregister (Delete)
+FancyHolograms.get().getRegistry().unregister(holo);
+```
+
+## Updating Hologram Data
+
+To update hologram properties after creation:
+
+```java
+TextHologram hologram = (TextHologram) FancyHolograms.get().getRegistry()
+        .mustGet("my_hologram");
+
+// Update text
+holo.getData().setText(List.of("New message!"));
+
+// Update visibility distance
+holo.getData().setVisibilityDistance(32);  // Visible up to 32 blocks away
+```
+
+## Visibility Control
+
+Control which players see holograms:
+
+```java
+// Show to all players (default)
+holo.getData().setVisibility(Visibility.ALL);
+
+// Shows/hides based on permission
+holo.getData().setVisibility(Visibility.PERMISSION_REQUIRED); // Requires "fancyholograms.viewhologram.<hologram>" permission
+
+// Show to specific players only
+holo.getData().setVisibility(Visibility.MANUAL);
+```
+
+## Linked NPC Integration
+
+You can link holograms to NPCs:
+
+```java
+TextHologramBuilder.create("npc_holo", location)
+    .text(List.of("<gray>NPC Display"))
+    .linkedNpcName("my_npc")  // Becomes the NPC's display name
+    .buildAndRegister();
+```
+
+## Hologram Lifecycle Events
+
+FancyHolograms fires events when holograms are loaded/unloaded (see [Events Page](events.mdx)` for details).
+
+## Traits
+
+Traits are a powerful mechanism for adding extensible, modular functionality to holograms.
+
+Learn how to create custom traits in the [Traits Guide](traits.mdx).

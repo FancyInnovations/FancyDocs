@@ -1,0 +1,387 @@
+---
+title: Events
+description: Events fired by the FancyHolograms API for plugin developers
+---
+
+FHv3 uses Bukkit's event system to notify plugins when hologram lifecycle events occur.
+These events allow you to respond to hologram creation, deletion, loading, unloading, and other significant changes.
+
+## Event Registration
+
+Subscribe to events using a plugin listener:
+
+```java
+public class HologramListener implements Listener {
+    
+    @EventHandler
+    public void onHologramCreate(HologramCreateEvent event) {
+        // Called when a player creates a hologram via command
+        Hologram hologram = event.getHologram();
+        Player player = event.getPlayer();
+        
+        logger.info("Player " + player.getName() + 
+            " created hologram: " + hologram.getData().getName());
+    }
+    
+    @EventHandler
+    public void onHologramDelete(HologramDeleteEvent event) {
+        // Called when a hologram is deleted via command
+        Hologram hologram = event.getHologram();
+        CommandSender sender = event.getPlayer();
+        
+        logger.info("Hologram " + hologram.getData().getName() + 
+            " was deleted by: " + sender.getName());
+    }
+}
+```
+
+Register the listener with your plugin:
+
+```java
+public class MyPlugin extends JavaPlugin {
+    
+    @Override
+    public void onEnable() {
+        // Register event listeners
+        getServer().getPluginManager().registerEvents(
+            new HologramListener(), this
+        );
+    }
+}
+```
+
+## Event Reference
+
+### Hologram Creation
+
+#### HologramCreateEvent
+Called when a player creates a hologram (typically via `/fh` command).
+
+**When:** Right after creation, before the hologram is fully registered.  
+**Async:** No (runs on primary thread)  
+**Cancellable:** Yes - prevent further processing
+
+```java
+public class HologramCreateEvent extends HologramEvent {
+    private final Player player;
+    
+    @Override
+    public Player getPlayer() {
+        return player;
+    }
+}
+```
+
+**Use cases:**
+- Add custom initialization logic when a hologram is created
+- Modify hologram properties after creation but before it's visible
+- Log or track which players create holograms
+
+---
+
+### Hologram Deletion
+
+#### HologramDeleteEvent
+Called when a hologram is deleted (typically via `/fh delete` command).
+
+**When:** When deletion is triggered by the delete command.  
+**Async:** No  
+**Cancellable:** Yes
+
+```java
+public final class HologramDeleteEvent extends HologramEvent {
+    private final CommandSender player;
+    
+    @Override
+    public CommandSender getPlayer() {
+        return player;
+    }
+}
+```
+
+**Use cases:**
+- Clean up resources associated with deleted holograms
+- Notify other systems about hologram removal
+- Prevent deletion if certain conditions aren't met
+
+---
+
+### Hologram Despawn
+
+#### HologramDespawnEvent
+Called when a hologram is hidden from a player (e.g., they walk out of view).
+
+**When:** When a player stops seeing the hologram.  
+**Async:** Yes (runs asynchronously for performance)  
+**Cancellable:** No
+
+```java
+public final class HologramDespawnEvent extends HologramEvent {
+    private final Player player;
+    
+    @Override
+    public Player getPlayer() {
+        return player;
+    }
+}
+```
+
+**Use cases:**
+- Trigger cleanup when a player leaves the hologram's vicinity
+- Save temporary data when players leave specific areas
+- Send notifications to other players in the vicinity
+
+---
+
+### Hologram Spawn
+
+#### HologramSpawnEvent
+Called when a hologram becomes visible to a player (e.g., they walk into view).
+
+**When:** When a player starts seeing the hologram.  
+**Async:** Yes (runs asynchronously for performance)  
+**Cancellable:** No
+
+```java
+public final class HologramSpawnEvent extends HologramEvent {
+    private final Player player;
+    
+    @Override
+    public Player getPlayer() {
+        return player;
+    }
+}
+```
+
+**Use cases:**
+- Trigger custom content when players discover holograms
+- Send chat messages to nearby players
+- Initialize player-specific state
+
+---
+
+### Trait Attachment
+
+#### HologramTraitAttachedEvent
+Called when a trait is attached to or detached from a hologram. This occurs during initial setup or dynamic trait management.
+
+**When:** When traits are attached/detached (both initial and dynamic).  
+**Async:** Yes  
+**Cancellable:** Yes - prevents the trait attachment
+
+```java
+public class HologramTraitAttachedEvent extends HologramEvent {
+    private final HologramTrait trait;
+    private final boolean isDefaultTrait;
+    
+    @Override
+    public HologramTrait getTrait() {
+        return trait;
+    }
+    
+    public boolean isDefaultTrait() {
+        return isDefaultTrait;
+    }
+}
+```
+
+**Use cases:**
+- Prevent unwanted traits from being attached
+- Add custom logic when default traits are initialized
+- Monitor which traits are active on holograms
+
+---
+
+### Hologram Update
+
+#### HologramUpdateEvent
+Called when hologram data changes, either directly or through placeholder updates. Contains information about the modification type.
+
+**When:** After data changes but before sending to players.  
+**Async:** No  
+**Cancellable:** Yes - prevents the update from being sent
+
+```java
+public final class HologramUpdateEvent extends HologramEvent {
+    private final CommandSender player;
+    private final HologramData updatedData;
+    private final HologramModification modification;  // Enum indicating change type
+    
+    @Override
+    public CommandSender getPlayer() {
+        return player;
+    }
+    
+    public HologramData getCurrentData() {
+        return getHologram().getData();
+    }
+    
+    public HologramData getUpdatedData() {
+        return updatedData;
+    }
+    
+    public HologramModification getModification() {
+        return modification;  // TEXT, POSITION, ROTATION, SCALE, etc.
+    }
+}
+
+public enum HologramModification {
+    TEXT, POSITION, ROTATION, SCALE, TRANSLATION, BILLBOARD, 
+    BACKGROUND, TEXT_SHADOW, BRIGHTNESS, TEXT_ALIGNMENT, 
+    SEE_THROUGH, SHADOW_RADIUS, SHADOW_STRENGTH, 
+    UPDATE_TEXT_INTERVAL, UPDATE_VISIBILITY_DISTANCE, GLOWING
+}
+```
+
+**Use cases:**
+- Validate hologram data before it's applied
+- Log changes for auditing purposes
+- Trigger additional processing based on modification type
+- Prevent unwanted updates in certain conditions
+
+---
+
+### Bulk Operations
+
+#### HologramsLoadEvent
+Called when all holograms have been loaded after a server restart or plugin reload. Contains the list of all currently loaded holograms.
+
+**When:** After full hologram system initialization.  
+**Async:** No (runs on primary thread to avoid race conditions)  
+**Cancellable:** No
+
+```java
+import com.google.common.collect.ImmutableList;
+
+public final class HologramsLoadEvent extends Event {
+    private final ImmutableList<Hologram> holograms;
+    
+    @Override
+    public ImmutableList<Hologram> getHolograms() {
+        return holograms;
+    }
+}
+```
+
+**Use cases:**
+- Initialize systems after the server has finished loading all holograms
+- Perform post-load validation or optimization
+- Send confirmation to users that the plugin is ready
+
+#### HologramsUnloadEvent
+Called when holograms are being unloaded (typically during server shutdown). Contains the list of holograms being unloaded. This event is not cancellable.
+
+**When:** During server shutdown or forced unload.  
+**Async:** No  
+**Cancellable:** No
+
+```java
+import com.google.common.collect.ImmutableList;
+
+public final class HologramsUnloadEvent extends Event {
+    private final ImmutableList<Hologram> holograms;
+    
+    @Override
+    public ImmutableList<Hologram> getHolograms() {
+        return holograms;
+    }
+}
+```
+
+**Use cases:**
+- Clean up resources during server shutdown
+- Log which holograms were unloaded
+- Prepare for potential data loss scenarios
+
+## Best Practices
+
+1. **Handle async events properly** - Don't perform blocking operations in `onDespawnEvent` or `onSpawnEvent` since they run asynchronously
+2. **Check cancellable events before modifying state** - Only modify state if the event isn't cancelled
+3. **Use specific listeners** - Create separate listener methods for different event types rather than a single catch-all method
+4. **Cache frequently accessed data** - In async handlers, cache hologram references to avoid repeated lookups
+5. **Validate in update events** - Use `HologramUpdateEvent` to validate data before it's applied to players
+
+## Example: Complete Listener
+
+```java
+public class ComprehensiveHologramListener implements Listener {
+    
+    private final FancyHolograms api;
+    
+    public ComprehensiveHologramListener(FancyHolograms api) {
+        this.api = api;
+    }
+    
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onCreate(HologramCreateEvent event) {
+        if (event.isCancelled()) return;
+        
+        Hologram hologram = event.getHologram();
+        Player player = event.getPlayer();
+        
+        // Log creation with player info
+        logger.info("[" + hologram.getData().getName() + "] created by " 
+            + player.getName());
+    }
+    
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onDelete(HologramDeleteEvent event) {
+        if (event.isCancelled()) return;
+        
+        Hologram hologram = event.getHologram();
+        CommandSender sender = event.getPlayer();
+        
+        // Cleanup resources
+        cleanupResources(hologram);
+        
+        logger.info("[" + hologram.getData().getName() + "] deleted by " 
+            + sender.getName());
+    }
+    
+    @EventHandler(ignoreCancelled = true)
+    public void onSpawn(HologramSpawnEvent event) {
+        Hologram hologram = event.getHologram();
+        Player player = event.getPlayer();
+        
+        // Spawn-specific logic
+        if (hologram.getData().getType() == HologramType.TEXT) {
+            TextHologramData data = hologram.getData(TextHologramData.class);
+            // Initialize player-specific text or preferences
+        }
+    }
+    
+    @EventHandler(ignoreCancelled = true)
+    public void onDespawn(HologramDespawnEvent event) {
+        Hologram hologram = event.getHologram();
+        Player player = event.getPlayer();
+        
+        // Despawn-specific cleanup (async-safe)
+        Runnable cleanup = () -> {
+            // Cleanup operations
+        };
+    }
+    
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onModify(HologramUpdateEvent event) {
+        HologramModification mod = event.getModification();
+        
+        switch (mod) {
+            case TEXT:
+                handleTextChange(event);
+                break;
+            case POSITION:
+                handlePositionChange(event);
+                break;
+            // Handle other modification types as needed
+        }
+    }
+    
+    private void handleTextChange(HologramUpdateEvent event) {
+        // Validate text, check for placeholders, etc.
+    }
+    
+    private void handlePositionChange(HologramUpdateEvent event) {
+        // Log or handle position changes
+    }
+}
+```

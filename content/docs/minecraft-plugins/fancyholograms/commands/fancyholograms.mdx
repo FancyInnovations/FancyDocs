@@ -3,26 +3,106 @@ title: /fancyholograms
 description: Usage of the /fancyholograms command
 ---
 
-### Version
+## Version Information
 
-Shows the current version of the plugin. It also shows possible updates.
-- **Permissions**: `fancyholograms.admin`
+### Check version
+
+Displays the current version of the FancyHolograms plugin installed on your server.
+Also checks for newer versions available from the official source and notifies you if an update is available, including a download link.
+
+- **Permission**: `fancyholograms.commands.fancyholograms.version`
 - **Syntax**: `/fancyholograms version`
+- **Examples**:
+    - `/fancyholograms version`: Checks the current plugin version and notifies if an update is available, showing the download URL for manual updates
 
-### Save
+## Configuration Management
 
-Saves all holograms to the file system.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/fancyholograms save`
+### Show config
 
-### Reload
+Displays all configuration options and experimental feature flags along with their current values and default values.
+Useful for checking what settings are currently active or debugging plugin behavior.
 
-Reloads the configuration and also loads all holograms from the file system.
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/fancyholograms reload`
+- **Permission**: `fancyholograms.commands.fancyholograms.config.show`
+- **Syntax**: `/fancyholograms config show`
+- **Examples**:
+  - `/fancyholograms config show`: Shows all current configuration settings, including both standard settings and experimental features
 
-### Convert
+### Reload config
 
-Converts holograms from other hologram-plugins to FancyHolograms' holograms (*note: `--processIcons` - If set, the converter will also convert icons into separate holograms*).
-- **Permissions**: `fancyholograms.admin`
-- **Syntax**: `/fancyholograms convert decentholograms <* | name of hologram> [--processicons]`
+Reloads the plugin's configuration file (config.yml) from disk and applies any changes immediately without restarting the server.
+
+- **Permission**: `fancyholograms.commands.fancyholograms.config.reload`
+- **Syntax**: `/fancyholograms config reload`
+- **Examples**:
+  - `/fancyholograms config reload`: Reloads the configuration after making changes to config.yml without restarting the server
+  - Useful for applying setting changes immediately during development or testing
+
+## Storage Management
+
+### Save holograms
+
+Saves all current holograms to persistent storage.
+This ensures that hologram configurations are stored and will persist across server restarts.
+After saving, hologram data is written to disk in a format that can be loaded back later.
+
+- **Permission**: `fancyholograms.commands.fancyholograms.storage.save`
+- **Syntax**: `/fancyholograms storage save`
+- **Examples**:
+  - `/fancyholograms storage save`: Saves all currently registered holograms to persistent storage
+
+### Load holograms
+
+Reloads all holograms from persistent storage.
+This operation first clears the current hologram registry and despawns all existing holograms, then loads them fresh from storage.
+
+- **Permission**: `fancyholograms.commands.fancyholograms.storage.load`
+- **Syntax**: `/fancyholograms storage load`
+- **Examples**:
+  - `/fancyholograms storage load`: Reloads all holograms from persistent storage
+
+## Backup Management
+
+### Create backup
+
+Creates a complete backup of all holograms and their associated data to the backups folder.
+This ensures your hologram configurations are preserved even after server restarts or plugin updates.
+
+- **Permission**: `fancyholograms.commands.fancyholograms.backup.create`
+- **Syntax**: `/fancyholograms backup create`
+- **Examples**:
+    - `/fancyholograms backup create`: Creates a new backup of all current holograms and stores it in the backups folder
+
+### List backups
+
+Displays a list of all available backup files currently stored in the backups folder.
+Shows the count of available backups and their filenames for easy selection during restore operations.
+
+- **Permission**: `fancyholograms.commands.fancyholograms.backup.list`
+- **Syntax**: `/fancyholograms backup list`
+- **Examples**:
+    - `/fancyholograms backup list`: Lists all backup files available in the backups folder to verify which backups exist
+
+### Restore backup
+
+Restores hologram data from a previously created backup file.
+The specified backup file must exist in the backups folder.
+After restoration, all holograms will be reloaded from this backup, replacing any current holograms.
+
+- **Permission**: `fancyholograms.commands.fancyholograms.backup.restore`
+- **Syntax**: `/fancyholograms backup restore <file>`
+    - `<file>`: The name of the backup file to restore from (located in the backups folder)
+- **Examples**:
+    - `/fancyholograms backup restore backup_20231225`: Restores hologram data from the backup file named "backup_20231225"
+    - `/fancyholograms backup restore backup_july`: Restores all holograms to their state as saved in the "backup_july" backup file
+
+### Delete backup
+
+Removes a specific backup file from the backups folder.
+This is useful for managing disk space by removing old or unwanted backups that are no longer needed.
+
+- **Permission**: `fancyholograms.commands.fancyholograms.backup.delete`
+- **Syntax**: `/fancyholograms backup delete <file>`
+    - `<file>`: The name of the backup file to delete from the backups folder
+- **Examples**:
+    - `/fancyholograms backup delete backup_old`: Deletes the "backup_old" file from the backups folder
+    - `/fancyholograms backup delete backup_january`: Removes the January backup file to free up disk space

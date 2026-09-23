@@ -1,0 +1,189 @@
+---
+title: Trait system
+description: How to create custom traits with the FancyHolograms API
+---
+
+Traits are a powerful mechanism for adding extensible, modular functionality to holograms.
+They allow you to attach custom behaviors and data to holograms without modifying their core structure.
+
+## What Are Traits?
+
+Traits are independent components that can be attached to any hologram.
+
+Each trait:
+
+- Has a unique name that identifies it
+- Can perform actions when the hologram is spawned, despawned, updated, or modified
+- Manages its own state and persistence independently of the hologram's data
+- Is called with specific lifecycle hooks (onAttach, onSpawn, onUpdate, etc.)
+
+## Creating Custom Traits
+
+### Basic Trait Structure
+
+Every custom trait must extend `HologramTrait`:
+
+```java
+package com.example.myplugin;
+
+import com.fancyinnovations.fancyholograms.api.trait.HologramTrait;
+import com.fancyinnovations.fancyholograms.api.trait.HologramTraitClass;
+import org.bukkit.entity.Player;
+
+@HologramTraitClass(traitName = "my_custom_trait")
+public class MyCustomTrait extends HologramTrait {
+    
+    // Override lifecycle methods as needed
+    
+    @Override
+    public void onAttach() {
+        logger.info("Attached custom trait to hologram: " + getHologram().getName());
+        
+        // Initialize trait-specific state here
+    }
+    
+    @Override
+    public void onSpawn(Player player) {
+        logger.debug("Trait spawned for player: " + player.getName());
+        
+        // Perform actions when the player sees the hologram
+    }
+    
+    @Override
+    public void onUpdate(Player player) {
+        // Called when hologram data updates and needs to be sent to player
+    }
+    
+    @Override
+    public void onModify() {
+        // Called whenever hologram data changes
+    }
+    
+    @Override
+    public void onSpawn(Player player) {
+        // Handle despawn logic here
+    }
+}
+```
+
+### Trait Metadata with Annotation
+
+Use the `@HologramTraitClass` annotation to register your trait:
+
+```java
+@HologramTraitClass(traitName = "chat_messages")
+public class ChatMessagesTrait extends HologramTrait {
+    
+    // The annotation automatically registers this trait
+    
+    @Override
+    public void load() {
+        // Load chat messages from config or database
+    }
+}
+```
+
+### Trait State and Storage
+
+Traits can store their own state. FHv3 provides `JDB` for persistent storage:
+
+```java
+public class PersistentTrait extends HologramTrait {
+    
+    private String playerName;
+    private JDB storage = new JDB("plugins/FancyHolograms/data/traits/" + getName());
+    
+    @Override
+    public void load() {
+        // Load player name from storage when trait attaches
+        playerName = storage.getString("player");
+    }
+    
+    @Override
+    public void save() {
+        // Save state before the trait is detached
+        storage.setString("player", playerName);
+    }
+}
+```
+
+### Accessing API Components
+
+Inside your trait, you have access to several FHv3 components:
+
+```java
+public class MyTrait extends HologramTrait {
+    
+    @Override
+    public void onSpawn(Player player) {
+        // Access other holograms via the registry
+        Optional<Hologram> maybeRelated = api.getRegistry().get("related_holo");
+        
+        // Get the controller for spawning/despawning
+        controller.refreshHologram(getHologram(), player);
+        
+        // Access scheduled executor for async tasks
+        hologramThread.schedule(() -> {
+            // Async task running every 10 ticks
+        }, 0, 10, TimeUnit.TICKS);
+    }
+    
+    @Override
+    public void onModify() {
+        // Access logger
+        logger.info("Hologram modified!");
+        
+        // Check if another trait is attached
+        boolean hasCustomTrait = isTraitAttached(MyCustomTrait.class);
+        
+        // Get another trait instance if it exists
+        MyOtherTrait otherTrait = getTrait(MyOtherTrait.class);
+    }
+}
+```
+
+## Trait Lifecycle Methods
+
+### Initialization Hooks
+
+| Method       | When Called                      | Purpose                            |
+|--------------|----------------------------------|------------------------------------|
+| `onAttach()` | When attached to a hologram      | Initialize state, set up listeners |
+| `load()`     | When the hologram loads          | Load persistence data              |
+| `save()`     | Before detachment or on schedule | Save state for persistence         |
+
+### Player Interaction Hooks
+
+| Method              | When Called               | Purpose                        |
+|---------------------|---------------------------|--------------------------------|
+| `onSpawn(Player)`   | When player sees hologram | Spawn-specific initialization  |
+| `onDespawn(Player)` | When player leaves        | Cleanup spawn-specific state   |
+| `onUpdate(Player)`  | When data updates         | Send updated content to player |
+
+### Data Change Hooks
+
+| Method           | When Called                | Purpose                       |
+|------------------|----------------------------|-------------------------------|
+| `onModify()`     | On hologram modification   | Handle data change reactions  |
+| `onRegister()`   | When registered globally   | Prepare for global visibility |
+| `onUnregister()` | When unregistered globally | Clean up global state         |
+
+## Dynamic Trait Management
+
+You can add/remove traits at runtime:
+
+```java
+// Get trait registry
+HologramTraitRegistry registry = FancyHolograms.get().getTraitRegistry();
+
+// Check if trait is registered
+boolean chatRegistered = registry.isRegistered(ChatMessagesTrait.class);
+
+// Register a custom trait class
+registry.register(MyCustomTrait.class);
+
+// Get info about a registered trait
+Optional<TraitInfo> maybeInfo = Optional.ofNullable(
+    registry.getTrait("my_trait")
+);
+```
